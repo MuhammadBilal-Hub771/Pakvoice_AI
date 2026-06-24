@@ -1,0 +1,1230 @@
+[
+  {
+    "content_id": "b04878ef-e9a8-4a0a-b485-6134cdd31f81",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious is excited to introduce our latest product, crafted to delight your taste buds with a burst of flavors!\ud83e\uddc0 Join us on a culinary journey like never before in Lahore!\ud83c\udf1f\n\n\ud83d\udd39 Calling all food enthusiasts in Lahore, especially GenZ foodies! Are you ready to experience the perfect blend of tradition and innovation at Cheezious?\ud83c\udf54\n\ud83d\udd39 Our key message revolves around offering you an exceptional dining experience that goes beyond just a meal. It's an adventure for your palate!\ud83c\udf89\n\nAt Cheezious, we believe in creating dishes that not only satisfy your hunger but also leave you craving for more.\ud83d\udd25 Our commitment to quality and taste sets us apart in the food & beverage industry.\n\n\ud83d\udce2 Visit us today and savor the magic of our delectable offerings! Don't miss out on the chance to treat yourself to something extraordinary.\u2728\n\ud83d\udcde Call now to reserve your table and immerse yourself in a culinary experience like never before!\ud83c\udf7d\ufe0f\n\n#Cheezious #FoodiesOfLahore #FlavorsOfCheese #FoodAdventure #GenZFoodies #LahoreFoodScene #FoodieFaves #TasteTheMagic\n\nIndulge in the taste of Cheezious - where every bite is a celebration of flavors!\ud83c\udf8a",
+    "tokens_used": 2892,
+    "cost_usd": 0.0017270000000000002,
+    "generation_time_ms": 24022,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 05:09:31.559691+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "3e8ccbb9-10d7-4a51-b19e-a0437a9336e5",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious presents the ultimate fusion of flavors with our mouthwatering pizzas and juicy burgers! \ud83c\udf55\ud83c\udf54 Indulge in a culinary experience like no other in Lahore. Perfect for all you Gen Z foodies out there!\n\nOur pizzas are crafted with love and the finest ingredients, ensuring every bite is a burst of deliciousness. Whether you're a cheese lover or a fan of loaded toppings, we have something for everyone. And let's not forget about our scrumptious burgers that are guaranteed to satisfy your cravings.\n\nJoin us at Cheezious and treat your taste buds to a symphony of flavors! Don't miss out on the chance to elevate your dining experience with us. Tag a friend who needs to try our pizzas and burgers! \ud83e\uddc0\ud83c\udf45\n\n#Cheezious #PizzaLover #BurgerFanatic #Foodie #LahoreFoodScene #GenZFoodies #TasteTheFlavors\n\n\ud83d\udc49 Call us now to place your order or visit our restaurant to enjoy a delightful meal with friends and family. Let's make your next meal a Cheezious one! \ud83c\udf7d\ud83c\udf89",
+    "tokens_used": 2849,
+    "cost_usd": 0.0016604999999999999,
+    "generation_time_ms": 148058,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 07:00:18.720647+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "848592e9-c70c-4915-96e1-89d0680076fe",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious presents the ultimate combo of delicious pizza and mouth-watering burgers in Lahore! \ud83c\udf55\ud83c\udf54 Get ready to treat your taste buds to a symphony of flavors that will leave you craving for more. Our food is not just a meal; it's a culinary experience you won't forget. #CheeziousLahore #PizzaBurgerCombo #FoodieHeaven\n\n\ud83c\udf1f Calling all Gen Z foodies! Come and experience the magic of Cheezious, where every bite is a burst of flavor and satisfaction. Whether you're craving a cheesy slice of pizza or a juicy burger, we've got you covered. Don't miss out on the food adventure of a lifetime! #CheeziousExperience #FoodieGenZ\n\n\ud83d\udc49 Visit us today and indulge in the best of both worlds - pizza and burgers that will surpass your expectations. Your taste buds deserve this treat! #CheeziousTreat #PizzaBurgerLove\n\n\ud83d\udcde For orders and inquiries, contact us via WhatsApp Business at +92XXXXXXXXXX. Let Cheezious elevate your dining experience to a whole new level! Shukriya! \ud83d\ude4f #CheeziousOrderNow #WhatsAppFoodie\n\nRemember, at Cheezious, every bite is a step closer to food paradise. Come join us and savor the magic! \ud83c\udf89\ud83c\udf55\ud83c\udf54 #CheeziousMagic #FoodieDelight",
+    "tokens_used": 2908,
+    "cost_usd": 0.001749,
+    "generation_time_ms": 4371,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 07:00:23.255453+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "076377ac-3e11-4281-a194-184b91c98543",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious presents the perfect slice of happiness with our delicious pizzas! \ud83c\udf55 Indulge in the delightful flavors that will leave your taste buds craving for more. From classic Margheritas to loaded Meat Lovers, we have a pizza for every craving. Experience the true essence of cheesy goodness with Cheezious! \n\n\ud83d\udccd Lahore\n\ud83d\udd11 Key Message: Pizza Perfection\n\n#Cheezious #PizzaLovers #DeliciousDelights #PizzaPerfection #LahoreFoodies\n\nOrder now for a taste that will make you say \"Mmm\" with every bite! Call us at [Contact Number] or visit our website to place your order. Let Cheezious be the highlight of your next meal! \ud83c\udf1f",
+    "tokens_used": 2766,
+    "cost_usd": 0.001536,
+    "generation_time_ms": 10479,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 07:26:12.526218+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "89f686d7-30d3-4024-88cb-2b5803a8f469",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Doninos",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Doninos presents the ultimate pizza experience in Lahore! \ud83c\udf55 Indulge in the delacious flavors of our authentic pizzas that will leave you craving for more. From classic Margherita to loaded Meat Lovers, we have a pizza for every craving. Satisfy your taste buds with Doninos today! #Doninos #PizzaLove #LahoreEats\n\n\ud83d\udcde Call now to place your order or visit our outlet for a slice of happiness! Taste the difference at Doninos and experience pizza like never before. Hurry, treat yourself to a slice of heaven! \ud83c\udf1f #Foodie #PizzaTime #CravingSatisfied",
+    "tokens_used": 2745,
+    "cost_usd": 0.0015055000000000001,
+    "generation_time_ms": 4705,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0847480297088623
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0847480297088623
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.07870161533355713
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 07:28:04.786290+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "801231cf-47bc-430b-a16a-606610dc081b",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Pizza Hurt",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "\ud83c\udf55 Craving a delicious slice of happiness? Look no further than Pizza Hurt in Lahore! \ud83c\udf55\n\nIndulge in the cheesy goodness of our mouth-watering pizzas that are sure to delight your taste buds. \ud83e\uddc0\ud83c\udf45 Whether you're a fan of classic Margherita or adventurous with toppings, we've got something for everyone. \ud83c\udf36\ud83c\udf4d\n\n\ud83d\udd52 Order now and experience the true essence of pizza perfection with Pizza Hurt. Don't miss out on our sizzling deals and discounts! \ud83e\udd29\ud83d\udcb8\n\n#PizzaHurt #PizzaLove #LahoreFoodies #CheesyGoodness #PizzaPerfection #OrderNow #FoodDelivery #DeliciousDelights #PizzaCravings\n\n\ud83d\udcde Call us at [Insert Contact Number] or DM to place your order today! \ud83d\udcf2\u2728",
+    "tokens_used": 2667,
+    "cost_usd": 0.0015114999999999998,
+    "generation_time_ms": 2895,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.049222350120544434
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.049222350120544434
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.03165793418884277
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 07:29:04.263596+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "1a06a63b-a50a-4314-ace8-c6d0757c7a3e",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Pizza Hurt",
+    "content_type": "advertisement_copy",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "**Delight Your Taste Buds with Pizza Hurt's Irresistible Flavors**\n\nAre you craving a slice of heaven? Look no further than Pizza Hurt, where every bite is a journey to pizza paradise. In the heart of Lahore, our delacious pizzas are crafted with love and passion, just for you.\n\nExperience the warmth of our oven-fresh pizzas, loaded with the finest ingredients that will leave you craving for more. From classic Margheritas to exotic toppings that tantalize your taste buds, Pizza Hurt ensures a symphony of flavors in every bite.\n\nAt Pizza Hurt, we don't just serve pizza; we serve happiness on a plate. Our commitment to quality and taste reflects in every pizza we bake, promising you a culinary experience like no other.\n\nIndulge in the magic of pizza at Pizza Hurt, where each slice is a celebration of flavor, tradition, and joy. Come, savor the taste of perfection with every bite.\n\n**Visit Pizza Hurt today and let your taste buds dance with joy!**\n",
+    "tokens_used": 2700,
+    "cost_usd": 0.001557,
+    "generation_time_ms": 4251,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.036717355251312256
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.036717355251312256
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": -0.0173417329788208
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 07:30:02.807519+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "63cdd125-eccd-4149-b98e-d63dda89bc53",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Karachi Baryani",
+    "content_type": "advertisement_copy",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Karachi Baryani - The Taste of Tradition\n\nIndulge in the exquisite flavors of Karachi Baryani, where every bite is a journey through the rich culinary heritage of Pakistan. Our aromatic spices and tender meat blend harmoniously to create a symphony of taste that will leave you craving for more.\n\nFor boys and girls seeking a culinary experience that transcends mere food, Karachi Baryani offers more than just a meal \u2013 it offers a cultural immersion. Each serving is a celebration of tradition and authenticity, carefully crafted to bring you the true essence of Baryani.\n\nExperience the warmth of our hospitality and the richness of our flavors as we invite you to savor every moment with Karachi Baryani. Let the blessings of Barakah infuse every morsel you enjoy, making your dining experience truly special.\n\nVisit Karachi Baryani today and treat yourself to a taste that lingers in your memory. Embrace the tradition, savor the flavor, and create unforgettable moments with each plate of our delectable Baryani.\n\nKarachi Baryani - Where Taste Meets Tradition. Taste the difference today!\n\nContact us at Karachi Baryani, Lahore. Call now for reservations and deliveries.\n\nShukriya for choosing Karachi Baryani - Where every bite is a celebration!",
+    "tokens_used": 2887,
+    "cost_usd": 0.0017055,
+    "generation_time_ms": 7901,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.05030602216720581
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.05030602216720581
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.04167062044143677
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 07:51:04.479875+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "735608a7-5854-4c47-9d1d-3e395ca48846",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Karachi Baryani",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Karachi Baryani invites all the Baryani lovers in Lahore to indulge in the exquisite flavors of our beloved dish! \ud83c\udf72\u2728 Experience the perfect blend of aromatic spices and tender meat that will surely tantalize your taste buds. Karachi Baryani - where every bite is a journey to culinary bliss!\n\n\ud83c\udf1f #KarachiBaryani #BaryaniLove #LahoreFoodies #DeliciousDelights\n\nDon't miss out on this opportunity to savor the authentic taste of Baryani at Karachi Baryani. Tag a friend who shares your love for Baryani and plan your visit today! \ud83c\udf7d\ufe0f\ud83d\udc6b\n\n#BaryaniLovers #FoodieParadise #VisitUsNow #TasteOfKarachi #AuthenticFlavors #CallToAction",
+    "tokens_used": 2790,
+    "cost_usd": 0.001564,
+    "generation_time_ms": 5031,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.09841179847717285
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.09841179847717285
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.045418381690979004
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 07:51:17.843075+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "f60e0795-e89c-422f-b5cb-8efbdacbf67d",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious brings you the ultimate pizza experience in Lahore! \ud83c\udf55 Indulge in our delicious pizzas made with the finest ingredients that will tantalize your taste buds. Whether you crave a classic Margherita or a loaded Meat Lover's, we've got you covered! #Cheezious #PizzaLove #LahoreFood\n\n\ud83c\udf1f Calling all Gen Z pizza lovers! Treat yourself to a Cheezious pizza today and elevate your dining experience. Order now for a mouthwatering delight straight to your doorstep. #PizzaPerfection #FoodieFridays\n\nExperience the fusion of flavors at Cheezious and savor every bite of our signature pizzas. Don't miss out on this culinary delight that promises to leave you craving for more! #CheeziousCravings #PizzaParadise\n\n\ud83d\udcde Call us at 0300-1234567 or message us on WhatsApp at +92 300 1234567 to place your order and enjoy a Cheezious pizza today! Your taste buds will thank you! #OrderNow #PizzaTime #CheeziousDelivery\n\nRemember, when it comes to pizza, Cheezious is the name to trust in Lahore! Taste the difference with every slice. Hurry, order now and experience pizza perfection like never before! #CheeziousExperience #PizzaSatisfaction",
+    "tokens_used": 2884,
+    "cost_usd": 0.0017150000000000004,
+    "generation_time_ms": 12348,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-20 08:04:37.918546+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "eb492731-86f8-4a98-82ff-b72fd7cb25d7",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "cheezious invites Lahore's Gen Z pizza lovers to indulge in a slice of happiness! \ud83c\udf55\u2728 Savor the taste of our delicious pizzas that blend traditional flavors with a modern twist. From classic Margherita to spicy Tikka, we have a pizza for every mood! Order now and experience the perfect combination of gooey cheese, flavorful toppings, and crispy crust.\n\n\ud83d\udccd Location: Lahore\n\ud83d\udcde Call us at [Contact Number] to place your order\n\ud83d\udce7 Visit our website [Website URL] for our full menu\n\n#Cheezious #PizzaLove #LahoreFoodie #GenZFoodies #PizzaParty #OrderNow #FoodDelivery\n\nTag your friends and plan a pizza party or treat yourself to a solo pizza night. Don't miss out on the cheesy goodness! Hurry, order now and elevate your taste buds to a whole new level. \ud83c\udf89\ud83c\udf7d\ufe0f",
+    "tokens_used": 2801,
+    "cost_usd": 0.0015905000000000003,
+    "generation_time_ms": 124435,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": true,
+    "is_flagged": false,
+    "created_at": "2026-06-21 04:52:05.460227+00:00",
+    "updated_at": "2026-06-21 05:01:36.647006+00:00"
+  },
+  {
+    "content_id": "e124d7df-4d2a-483f-8d50-409ddc0e9b5b",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "cheezious invites all pizza lovers in Lahore to indulge in a slice of happiness! \ud83c\udf55 Elevate your taste buds with our delicious range of pizzas crafted with love and premium ingredients. Whether you crave a classic Margherita or a loaded Meat Lover's delight, we have something for everyone. Come experience the joy of authentic flavors with every bite at cheezious!\n\n\ud83c\udf1f Don't miss out on our special offer this week! Order now and enjoy a FREE garlic bread with your pizza. \ud83c\udf89\n\n\u2139\ufe0f To place your order, simply send us a message on WhatsApp at +92 123 4567890. We offer convenient cash-on-delivery payment options for your ease. Hurry, tag your friends and family to plan your pizza party today! #cheezious #PizzaLove #LahoreFoodies #PizzaParty #FreeGarlicBread #WhatsAppOrdering \ud83d\udcf2\ud83c\udf7d\ufe0f",
+    "tokens_used": 2805,
+    "cost_usd": 0.0015935,
+    "generation_time_ms": 166767,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-21 06:26:24.027088+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "875363ed-c9e4-405e-86b3-e3a86858657b",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "friendly",
+    "generated_content": "CHEEZIOUS \ud83c\udf55\n\nCraving a slice of happiness? Look no further! Cheezious serves up the cheesiest pizzas in Lahore, where every bite is a taste of pure joy! \ud83e\uddc0\ud83c\udf55\n\n\ud83c\udf1f Indulge in our delicious pizzas made with the finest ingredients and oozing with flavor. From classic Margheritas to spicy Chicken Tikka, we have something for everyone. Your taste buds will thank you! \ud83d\ude0b\n\n\ud83c\udf89 Planning a get-together or a cozy night in? Let Cheezious be the highlight of your gathering! Our pizzas are perfect for sharing laughter and creating unforgettable moments with your loved ones. \ud83c\udf55\u2764\ufe0f\n\n\ud83d\ude97 Order now and experience pizza perfection delivered right to your doorstep. Enjoy the convenience of Cash-on-Delivery and treat yourself to a scrumptious meal without any hassle. #Cheezious #PizzaLove #LahoreEats\n\n\ud83d\udcde Call us at 123-456-7890 or message us on WhatsApp at +92 123 456789 to place your order. Your taste buds deserve a treat! Don't miss out on the ultimate pizza experience with Cheezious. Order now! \ud83c\udf55\u2728\n\n#PizzaLovers #PizzaParty #CheesePull #Foodie #PizzaDelivery #TasteTheMagic #OrderNow #CheeziousPizza #LahoreFoodScene",
+    "tokens_used": 2899,
+    "cost_usd": 0.0017405,
+    "generation_time_ms": 89419,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-21 07:42:15.630442+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "e750b67e-46f7-40cb-bc36-565eb5839279",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "DevDeep",
+    "content_type": "social_media",
+    "industry": "it_software",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "DevDeep is your definitive partner for top-notch IT solutions in Lahore! \ud83d\ude80 Our mission is to engineer resilient digital infrastructure that empowers global enterprises to innovate faster. \ud83d\udca1 With meticulous software design and uncompromising security, we're setting new standards in the industry. #DevDeep #ITServices #LahoreTech\n\n\ud83c\udf10 Explore our Cloud Architecture & Managed Migrations to seamlessly transition to multi-cloud environments like AWS, Azure, and GCP. \ud83d\udee1\ufe0f Our security-first culture ensures zero data loss and minimal disruption. #CloudServices #DataSecurity #TechSolutions\n\n\ud83d\udd27 Automate your DevOps pipelines with us and witness your infrastructure scale globally on demand. \ud83c\udf0d Let us streamline your CI/CD processes for enhanced efficiency. #DevOpsAutomation #CI/CD #GlobalScale\n\n\ud83d\udda5\ufe0f Need custom enterprise software development? We specialize in building high-throughput systems with microsecond latencies. \ud83d\ude80 Trust us for state-of-the-art solutions using cutting-edge technologies like Apache Kafka and RabbitMQ. #CustomSoftware #TechInnovation\n\n\ud83d\udcf2 Contact us today to transform your enterprise's digital landscape with our expert IT services. Let's engineer a brighter future together! #DigitalTransformation #TechExperts #ContactUs\n\n\ud83d\udc54 #DevDeep #ITServices #LahoreTech - Your gateway to innovative IT solutions! \ud83d\udd17 Connect with us now and elevate your business to new heights! \ud83d\ude80",
+    "tokens_used": 2786,
+    "cost_usd": 0.001691,
+    "generation_time_ms": 5326,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.2162313461303711
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.2162313461303711
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.1737459897994995
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-21 07:50:29.395309+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "3a3ad5f4-f583-447f-9491-cb9168bb44a8",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious is bringing the best pizza experience to Lahore's Gen Z foodies! \ud83c\udf55 Indulge in our delicious pizzas that are sure to satisfy your cravings. Whether you're a cheese lover or a fan of loaded toppings, we have something for everyone at Cheezious. Don't miss out on the ultimate pizza delight in Lahore!\n\n\ud83c\udf1f #CheeziousPizza #PizzaLovers #PizzaInLahore #GenZFoodies #PizzaCravings \ud83c\udf1f\n\nExperience the perfect blend of flavors and freshness with every bite. Order now and treat yourself to a mouthwatering pizza from Cheezious. Your taste buds will thank you! \ud83d\ude0b\n\nCall us at [Contact Number] or message us to place your order. Let Cheezious take your pizza experience to the next level! \ud83d\udcde\u2728 #OrderNow #PizzaDelivery #CheeziousExperience",
+    "tokens_used": 2794,
+    "cost_usd": 0.0015800000000000002,
+    "generation_time_ms": 157490,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-22 07:02:32.081073+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "43e7dbb7-7df3-4845-8931-ea6a1f12775e",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezoius",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezoius presents the ultimate pizza experience straight from Lahore! \ud83c\udf55\u2728 Indulge in our mouthwatering creations that blend tradition with a modern twist. Whether you crave a classic Margherita or a spicy Tikka Masala pizza, we have something for every pizza lover out there! #Cheezoius #PizzaPerfection #LahoreEats\n\n\ud83c\udf1f Call to Action \ud83c\udf1f\nOrder now and treat your taste buds to a slice of heaven! Dial our number or message us on WhatsApp to place your order. Experience the delight of Cheezoius pizzas today! \ud83d\udcde\ud83d\udcf2\n\nLet Cheezoius be your go-to for delicious pizzas that will leave you craving for more. Don't miss out on the cheesy goodness - order now! \ud83c\udf7d\ufe0f\ud83d\udd25 #PizzaLove #FoodieFavourite #CheeseLovers",
+    "tokens_used": 2796,
+    "cost_usd": 0.001582,
+    "generation_time_ms": 11117,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.024563491344451904
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.024563491344451904
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.012001514434814453
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-22 08:09:18.747189+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "6020a448-3546-41b7-8c84-285210f7119c",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezoius",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezoius presents the perfect slice of heaven with our delicious pizzas! \ud83c\udf55 Indulge in the cheesy goodness that Lahore loves! #Cheezoius #PizzaLove #LahoreFoodies\n\n\ud83c\udf1f Calling all Gen Z food enthusiasts in Lahore! Satisfy your pizza cravings with Cheezoius and experience a taste like no other. Order now and elevate your mealtime! \ud83c\udf74\u2728 #PizzaPerfection #FoodieFaves\n\n\ud83d\udd25 Our pizzas are crafted with care and quality ingredients to bring you the ultimate dining experience. From classic flavors to innovative toppings, we have something for every pizza lover out there! #QualityPizza #CheezoiusCravings\n\n\ud83d\udcf2 Order through WhatsApp for a seamless experience or visit our store in Lahore to enjoy our scrumptious pizzas. Taste the difference with Cheezoius today! #EasyOrdering #LahoreEats\n\n\ud83c\udf89 Treat yourself and your loved ones to a Cheezoius pizza feast and add a sprinkle of joy to your day! Order now and let the flavors of Lahore delight your taste buds! #PizzaParty #ShareTheJoy\n\nDon't miss out on the pizza craze in Lahore! Order from Cheezoius now and discover why we are the talk of the town! Taste the magic of authentic flavors with every bite. \ud83c\udf55\u2728 #PizzaMania #MustTry\n\nExperience the true essence of Lahore's love for pizza with Cheezoius. Place your order today and let the flavors of tradition and innovation blend perfectly on your plate! #PizzaBliss #AuthenticTaste\n\n\ud83d\udc49 Call to action: Order your favorite Cheezoius pizza now and elevate your dining experience! Taste the difference, taste the tradition! \ud83c\udf55\u2728 #OrderNow #PizzaPerfection",
+    "tokens_used": 2990,
+    "cost_usd": 0.001873,
+    "generation_time_ms": 6315,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.024563491344451904
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.024563491344451904
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.012001514434814453
+      }
+    ],
+    "is_saved": true,
+    "is_flagged": false,
+    "created_at": "2026-06-22 08:09:43.940515+00:00",
+    "updated_at": "2026-06-22 08:09:52.763729+00:00"
+  },
+  {
+    "content_id": "1faf1ade-7a40-4494-b3fa-4a4583123792",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "cheezious presents the ultimate pizza experience in Lahore! \ud83c\udf55 Indulge in our delicious, freshly baked pizzas that will leave your taste buds craving for more. Whether you're a cheese lover or a fan of meaty toppings, we have the perfect pizza for you! #PizzaPerfection #CheeziousLahore\n\n\ud83d\udc49 Order now for a slice of happiness delivered right to your doorstep! Enjoy the convenience of ordering your favorite pizza through WhatsApp Business. Simply drop us a message with your selection, and we'll take care of the rest! \ud83d\ude97\ud83d\udca8 #PizzaDelivery #OrderNow\n\nExperience the authentic flavors of Lahore with every bite of our pizza. Made with love and the finest ingredients, our pizzas are a true celebration of taste and tradition. Trust cheezious for a pizza experience like no other! \ud83c\udf89\ud83c\udf7d\ufe0f #TasteOfLahore #PizzaLove\n\nDon't miss out on the opportunity to elevate your dining experience with cheezious. Join us in savoring the goodness of pizza, where every bite is a journey to culinary delight! \ud83c\udf1f\u2728 #PizzaTime #FoodieHeaven\n\nLet cheezious be your go-to destination for all things pizza in Lahore. Embrace the joy of good food and great company with our delectable pizzas that are bound to bring smiles to your faces! \ud83d\ude0a\ud83c\udf55 #PizzaParadise #CheeziousExperience",
+    "tokens_used": 2908,
+    "cost_usd": 0.0017510000000000002,
+    "generation_time_ms": 5909,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.0035794973373413086
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": -0.004238724708557129
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-22 08:12:24.540097+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "0b2e3434-8d8c-4de1-8a33-098430cd1c6e",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "dgg",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "# Exciting News from dgg in Lahore! \ud83c\udf89\n\nAt dgg, we are dedicated to bringing you the best in food and beverage experiences in Lahore! \ud83c\udf7d\ufe0f\u2728 \n\n\ud83c\udf1f **Key Message:** Indulge in the richness of our flavors and the warmth of our hospitality! Your satisfaction is our top priority. \n\n\ud83d\udccd **Location:** Lahore, Pakistan\n\n\ud83c\udf3f **Industry:** Food & Beverage\n\n\ud83c\udfaf **Target Audience:** Food enthusiasts in Lahore\n\n\ud83d\udce2 **Call-to-Action:** Visit us today to experience a culinary journey like no other! #DggLahore #FoodieHeaven\n\n\u2139\ufe0f At dgg, we blend tradition with innovation to offer you a dining experience filled with barakah and culinary delights. Our menu is carefully crafted to tantalize your taste buds and leave you craving for more. \n\n\ud83c\udf19 Join us during this festive season and savor the flavors of Lahore with your loved ones. Don't miss out on the opportunity to create unforgettable memories over a delicious meal at dgg. \n\n\ud83d\udcde For reservations or inquiries, call us at [Insert Contact Number] or visit our website. Let's make your dining experience truly special! \n\n\ud83c\udf1f Your satisfaction is our success at dgg! Come hungry, leave happy! \ud83e\udd73\ud83c\udf72 #FoodLove #LahoriFlavors",
+    "tokens_used": 2898,
+    "cost_usd": 0.001735,
+    "generation_time_ms": 5224,
+    "sources_used": [
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.10638070106506348
+      },
+      {
+        "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.10638070106506348
+      },
+      {
+        "doc_id": "6be60275-ffff-4897-b8cf-d11bb6d9bdda",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.0807340145111084
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-22 08:21:19.035582+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "50ed406d-0cd3-4357-a73d-d987eeabeb8d",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious welcomes all Pizza lovers in Lahore! \ud83c\udf55 Indulge in our mouthwatering pizzas crafted with love and tradition. Let's savor the cheesy goodness together at Cheezious. Order now for a delightful meal experience! #Cheezious #PizzaLove #LahoreEats #GenZFavorite \ud83e\uddc0\ud83c\udf74\ud83d\udd25",
+    "tokens_used": 721,
+    "cost_usd": 0.0004355,
+    "generation_time_ms": 17484,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-22 11:23:45.668334+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "3263fdc3-1df1-4f97-8504-a28cea29fbe5",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious invites all the Lahoris to experience pizza paradise! \ud83c\udf55 Indulge in our delicious, cheesy pizzas that will leave you craving for more. From classic margheritas to exotic toppings, we have it all! #Cheezious #PizzaLover #LahoreFoodScene\n\n\ud83c\udf1f Tag a friend you'd love to share a Cheezious pizza with! \ud83c\udf1f\n\n\ud83d\udccd Visit us in Lahore to taste the best pizzas in town! Don't miss out on the ultimate pizza experience at Cheezious. Order now and treat yourself to a slice of happiness. \ud83e\udd24\ud83c\udf55 #PizzaGoals #PizzaParty #CheeseLovers #FoodieFavourites",
+    "tokens_used": 791,
+    "cost_usd": 0.0005405,
+    "generation_time_ms": 5253,
+    "sources_used": [],
+    "is_saved": true,
+    "is_flagged": false,
+    "created_at": "2026-06-22 11:26:05.046682+00:00",
+    "updated_at": "2026-06-22 11:26:31.555975+00:00"
+  },
+  {
+    "content_id": "a505933b-4cf7-4e6b-b5e9-ad1c25d8ae5c",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Dominos",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Dominos Lahore brings you the perfect slice of happiness with our delicious pizzas! \ud83c\udf55\u2728 Indulge in the ultimate cheesy goodness that will leave you craving for more. #DominosPizza #PizzaLove #LahoreEats\n\n\ud83d\udccd Visit us in Lahore to experience a taste like no other or order online for a cozy night in. Satisfy your pizza cravings with Dominos Lahore! \ud83d\udef5\ud83d\udca8 #OrderNow #PizzaNight #DominosDelivery\n\n#Dominos #Pizza #Foodies #LahoreFood #CheesyDelight #PizzaLovers #GenZ #FoodDelivery #Yummy #Cravings #FoodLove #DominosPakistan",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-22 12:37:22.934669+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "24d8a6cc-dbdf-40d9-8ec0-ff0486b81395",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious brings you the ultimate pizza experience in Lahore! \ud83c\udf55 Indulge in our delicious pizzas crafted with love and premium ingredients. From classic margherita to loaded meat lovers, we have something for every pizza enthusiast. #CheeziousLahore #PizzaLovers #PizzaInLahore\n\n\ud83d\udc49 Order now and treat yourself to a Cheezious delight! Call us at 03XX-XXXXXXX or message us on WhatsApp at wa.link/cheezious. Taste the difference with Cheezious! #OrderNow #PizzaCravings #CheeziousExperience",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-22 12:57:35.099879+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "28617df3-8c1a-41c6-966b-861bb6a749be",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious brings Lahore's favorite pizza straight to your doorstep! \ud83c\udf55 Indulge in our delicious, cheesy pizzas that are sure to satisfy your cravings. Whether you prefer classic flavors or want to try something new, Cheezious has it all! Order now for a taste of perfection. #Cheezious #PizzaLove #LahoreEats\n\n\ud83d\udcde Call us at 0300-1234567 or WhatsApp us to place your order today. Don't miss out on the ultimate pizza experience with Cheezious! #OrderNow #PizzaCravings #CheeziousDelivery",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 04:15:48.726499+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "327c81de-932b-49e6-88aa-094c42d661af",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious welcomes you to indulge in the cheesiest pizzas in Lahore! \ud83c\udf55\u2728 Savor our delicious range of pizzas that are sure to leave you craving for more. Treat your taste buds to a burst of flavors that will keep you coming back for another slice. Order now and experience the perfect blend of gooey cheese and mouth-watering toppings. Don't miss out on the ultimate pizza experience at Cheezious! #Cheezious #PizzaLovers #LahoreFoodScene \ud83e\uddc0\ud83c\udf55\n\n\ud83d\udcde Call us at 0300-1234567 or WhatsApp your order to enjoy a cheesy delight today! \ud83c\udf74\u2728",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 04:53:02.420758+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "966e81b7-5b67-4b5e-84aa-10378461a01a",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "multan",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious brings you the most delightful pizzas in Multan! \ud83c\udf55\u2728 Indulge in our deliciously cheesy pizzas that will leave you craving for more. Whether it's a quick bite with friends or a cozy family dinner, Cheezious has got you covered! #CheeziousMultan #PizzaLove #DeliciouslyCheesy\n\n\ud83d\udcde Call now to place your order and experience the true taste of pizza perfection! \ud83e\udd24\ud83d\udcf2 Let's make your day Cheezious-licious! #OrderNow #PizzaCravings #MultanFoodie\n\nRemember, at Cheezious, every bite is a burst of flavor and satisfaction! Hurry, treat yourself to a slice of happiness today! \ud83e\uddc0\ud83c\udf55 #CheeziousDelights #PizzaPerfection #CraveCheezious",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 05:16:27.555418+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "976a0be3-ab3a-42e1-8f8f-f261777d40fb",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "faisalabad",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "CHEEZIOUS - Where Every Bite is a Delight! \ud83c\udf55\n\nIndulge in the cheesiest pizzas in Faisalabad at Cheezious! Our delectable pizzas are crafted with love and topped with the finest ingredients to satisfy your cravings. \ud83e\uddc0\ud83c\udf45\n\n\ud83d\udc49 Call us now at 0300-1234567 to order your favorite pizza and experience a taste like no other! Don't miss out on the ultimate pizza experience with Cheezious. #Cheezious #PizzaLove #FaisalabadFoodies #PizzaPerfection\n\n#Cheezious #PizzaLove #FaisalabadFoodies #PizzaPerfection",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 05:38:13.639030+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "0a9b3185-45be-464c-a71d-8521e7006a9c",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "faisalabad",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious - Your go-to destination for delicious pizza in Faisalabad! \ud83c\udf55\ud83e\uddc0\n\nIndulge in our mouthwatering pizzas made with the finest ingredients. Experience the perfect blend of cheese, sauce, and toppings that will leave you craving for more! \ud83d\ude0b\n\n\ud83c\udf1f #Cheezious #PizzaLovers #FaisalabadFoodie #DeliciousCravings \ud83c\udf1f\n\nOrder now and treat yourself to a Cheezious delight! Call us at 0300-1234567 or message us on WhatsApp at +92-300-1234567. Don't miss out on a slice of happiness! \ud83d\udcde\u2728\n\n#PizzaLove #FoodieFavourites #CheeseLovers #TreatYourself #PizzaPerfection \ud83c\udf55\ud83e\uddc0",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 05:39:24.979033+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "826b25d1-17d7-4d6a-8c65-53d431bed126",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Netsol",
+    "content_type": "social_media",
+    "industry": "it_software",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Netsol presents cutting-edge services for SMEs in Lahore! \ud83d\ude80 Elevate your business with top-notch website development and AI bots. Our AI agents are here to revolutionize your operations. Embrace innovation with Netsol today! #Netsol #ITServices #AI #LahoreBusiness #SMEs #Innovation\n\n\ud83d\udcde Contact us now to boost your business presence online! \ud83c\udf10 #DigitalTransformation #GrowWithNetsol",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 05:46:04.291081+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "f5d8d2bd-effb-4a61-ae81-b08039988d9d",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious - Your Ultimate Pizza Destination in Lahore! \ud83c\udf55\ud83e\uddc0\n\nIndulge in the cheesiest and most delicious pizzas in Lahore at Cheezious! Whether you're craving a classic Margherita or feeling adventurous with a loaded Meat Lover's, we have a pizza for every taste bud. Our authentic flavors and quality ingredients will leave you craving for more!\n\n\ud83d\udccd Location: Visit us at [insert address] in Lahore or order online for a cheesy delight delivered to your doorstep.\n\n\ud83c\udf1f Why Cheezious?\n1. Freshly Baked: Our pizzas are made fresh to order, ensuring every bite is a delight.\n2. Diverse Menu: From traditional favorites to innovative creations, we have something for everyone.\n3. Quality Ingredients: We source the finest ingredients to guarantee a top-notch pizza experience.\n4. Exceptional Service: Our team is dedicated to providing you with a delightful dining or delivery experience.\n\n\ud83d\udcde Call us at [insert contact number] to place your order or visit our website [insert website] for online orders. Don't miss out on the chance to savor the best pizzas in Lahore!\n\n#Cheezious #PizzaLove #LahoreFoodies #CheesyDelight #PizzaLovers #FoodDelivery #OrderNow #LahoreEats #QualityPizza #HalalFood #SupportLocalBusinesses \ud83c\uddf5\ud83c\uddf0\n\nExperience the perfect blend of flavors at Cheezious and treat yourself to a slice of happiness today! \ud83c\udf1f",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 06:20:53.564723+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "fbcbb50d-0b9f-45c6-919a-c252c19abe59",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious invites Lahore's GenZ foodies to indulge in our mouth-watering pizza creations! \ud83c\udf55\u2728 Experience the perfect blend of cheesy goodness and flavorful toppings that will leave you craving for more. Order now for a taste of pizza perfection! #Cheezious #PizzaLovers #LahoreFoodies #FoodieHeaven \ud83e\uddc0\ud83c\udf45\n\nCall now to place your order and treat yourself to a slice of happiness! \ud83d\udcde\ud83c\udf55 #OrderNow #CheeziousDelights #PizzaCravings",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 06:27:58.820543+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "1fc1888d-b60b-45c1-a6cc-baffc47f1ce5",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Cheezious",
+    "content_type": "social_media",
+    "industry": "food_beverage",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Cheezious - Your Go-To Destination for Delicious Pizza in Lahore!\ud83c\udf55\n\nIndulge in the cheesy goodness of our signature pizzas at Cheezious, where every bite is a burst of flavor!\ud83e\uddc0 Whether you crave a classic Margherita or a loaded Pepperoni feast, we've got you covered with our mouthwatering pizza selections.\ud83c\udf7d\ufe0f\n\n\ud83d\udccdLocation: Lahore\n\ud83c\udfafTarget Audience: Gen Z Foodies\n\nAt Cheezious, we believe in serving not just food but delightful experiences. Our pizzas are made with the finest ingredients, baked to perfection, and served with a touch of love and warmth. Because at Cheezious, it's not just about pizza; it's about creating moments of joy and satisfaction for our customers.\ud83c\udf1f\n\n\ud83d\udd25Hot Offer Alert!\ud83d\udd25 Enjoy a 10% discount on your next order when you mention this post! Hurry, grab your friends and family, and head over to Cheezious for a pizza experience like no other.\ud83c\udf89\n\n#Cheezious #PizzaLovers #LahoreFoodies #PizzaTime #FoodieHeaven #CheesePlease #DeliciousEats #GenZFavorite #PizzaParty #DiscountAlert #VisitUsToday\n\nSatisfy your pizza cravings with Cheezious - Where every slice tells a delicious story!\ud83c\udf55\u2728 Call us now to place your order or visit our outlet for a memorable dining experience.\ud83d\udcde\ud83c\udfe0\n\n\ud83c\udf10 Follow us on Facebook and Instagram for more updates and mouthwatering pizza pics!\ud83d\udcf8 #Cheezious #PizzaPerfection #FoodieDelight #FollowUs #StayTuned",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 06:29:16.051630+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "d5d95353-afe1-413c-a498-4d5c2b9010ee",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Pakvoice Ai",
+    "content_type": "website_content",
+    "industry": "ecommerce",
+    "city": "faisalabad",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Pakvoice AI\n\nEmpowering SMEs with Exceptional Content Creation\n\nWelcome to Pakvoice AI, your trusted partner in crafting compelling content tailored for your SME business. Based in the vibrant city of Faisalabad, known as the Manchester of Pakistan, we understand the pulse of the industry and the needs of local businesses.\n\nAbout Us:\nAt Pakvoice AI, we specialize in providing top-notch content creation services for ecommerce businesses. Our team of skilled professionals is dedicated to helping SMEs enhance their online presence and connect effectively with their target audience.\n\nOur Services:\n1. SEO-Optimized Content Writing\n2. Social Media Copywriting\n3. Product Descriptions\n4. Blog Posts and Articles\n\nCall-to-Action:\nReady to elevate your online brand presence? Contact Pakvoice AI today for expert content solutions that resonate with your audience and drive results for your business.\n\nMeta Description Ideas:\n1. Elevate your SME's online presence with Pakvoice AI's expert content creation services in Faisalabad.\n2. Drive engagement and boost conversions with Pakvoice AI's tailored content solutions for ecommerce businesses.\n\nLet Pakvoice AI be your partner in success. Contact us now to unlock the power of impactful content for your SME business.",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 06:37:17.822608+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "85b14e4d-4fd3-4625-b77f-7a57252ac31f",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Pakvoice Ai",
+    "content_type": "social_media",
+    "industry": "it_software",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Pakvoice Ai is here to elevate your content game! \ud83d\ude80 Specializing in content creation for SMEs, we blend creativity with tech savvy to help your business shine. \ud83c\udf1f Based in Lahore, the heart of cultural innovation, we cater to the young generation with modern solutions. Let's craft compelling stories together! \ud83d\udcac Contact us today for a consultation. #PakvoiceAi #ContentCreation #LahoreTech #SMEs #DigitalSolutions #PakistaniBusiness #TechInnovation \ud83d\udcdd\ud83d\udcf2",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 06:43:18.311946+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "efd0858a-6d2b-43fd-a9e4-a88f22b0572a",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Engro",
+    "content_type": "social_media",
+    "industry": "agriculture",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "\ud83c\udf3e Calling all retailers in Lahore! \ud83c\udf3e Engro, a leading name in agriculture services, is here to elevate your business with top-notch solutions tailored just for you! \ud83c\udf31\u2728\n\nFrom cutting-edge cloud architecture to seamless DevOps pipelines, we've got you covered every step of the way. Our services are designed to boost efficiency and scale your operations with ease. \ud83d\udcbc\ud83d\udca1\n\nJoin hands with Engro today and witness the power of modern technology transforming your agricultural ventures. \ud83d\ude9c\ud83d\udcbb #Engro #AgricultureServices #LahoreRetailers #TechSolutions\n\nContact us now to explore how we can take your business to new heights! \ud83d\udcde\ud83c\udf1f #InnovateWithEngro #GrowWithUs #AgricultureTech \ud83c\udf3e\ud83d\ude80",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.19336366653442383
+      },
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.1886870265007019
+      },
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "microservice system design and integration. Principal Architect: Governs global cross-system design; maps out multi-year technological roadmaps across business units. 7.2 Continuous Training Reimburse",
+        "score": 0.13572657108306885
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 13:51:39.426551+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "d00e5f52-c57f-4088-b987-f42b6487bd7f",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Engro",
+    "content_type": "social_media",
+    "industry": "agriculture",
+    "city": "lahore",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Engro, based in Lahore, pioneers in agricultural services, presents a cutting-edge product for retailers! \ud83c\udf3e Embrace innovation with Engro's premium offering for enhanced agricultural productivity. \ud83d\ude9c #EngroAgriculture #LahoreBusiness #Retailers #AgriculturalTech\n\nExperience the power of modern agri-tech tailored for your success. Contact us today to elevate your business to new heights! \ud83c\udf1f #EmpoweringRetailers #BoostingAgriProductivity #ContactUsNow",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.19336366653442383
+      },
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.1886870265007019
+      },
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "microservice system design and integration. Principal Architect: Governs global cross-system design; maps out multi-year technological roadmaps across business units. 7.2 Continuous Training Reimburse",
+        "score": 0.13572657108306885
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 14:00:52.053660+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "1e6fde6d-2e87-4d26-9d65-e911a0d8105c",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Engro",
+    "content_type": "email_marketing",
+    "industry": "agriculture",
+    "city": "lahore",
+    "language": "urdu",
+    "tone": "professional",
+    "generated_content": "Subject Line:\n\u0622\u062e\u0631\u06cc \u0645\u0648\u0642\u0639\u06c1! \u0627\u0646\u06af\u0631\u0648 \u06a9\u0627 \u0646\u06cc\u0627 \u0632\u0631\u0639\u06cc \u067e\u0631\u0648\u0688\u06a9\u0679 \u0622\u067e \u06a9\u06d2 \u0644\u06cc\u06d2\n\nPreview Text:\n\u0641\u0648\u0631\u06cc \u0637\u0648\u0631 \u067e\u0631 \u062f\u06cc\u06a9\u06be\u06cc\u06ba! \u0632\u0631\u0639\u06cc \u0641\u0635\u0644\u0648\u06ba \u06a9\u06d2 \u0644\u06cc\u06d2 \u0646\u0626\u06cc \u0679\u06cc\u06a9\u0646\u0627\u0644\u0648\u062c\u06cc\n\nBody:\n\u0639\u0632\u06cc\u0632 \u0635\u0627\u062d\u0628/\u0635\u0627\u062d\u0628\u06c1\u060c\n\n\u0627\u0645\u06cc\u062f \u06c1\u06d2 \u0622\u067e \u062e\u06cc\u0631\u06cc\u062a \u0633\u06d2 \u06c1\u0648\u06ba\u06d4 \u06c1\u0645 \u062e\u0648\u0634\u06cc \u0633\u06d2 \u0622\u067e \u06a9\u0648 \u0645\u0637\u0644\u0639 \u06a9\u0631\u0646\u0627 \u0686\u0627\u06c1\u062a\u06d2 \u06c1\u06cc\u06ba \u06a9\u06c1 \u0627\u0646\u06af\u0631\u0648\u060c \u062c\u0648 \u0632\u0631\u0627\u0639\u062a \u06a9\u06cc \u062f\u0646\u06cc\u0627 \u0645\u06cc\u06ba \u0627\u06cc\u06a9 \u0646\u0627\u0645 \u06c1\u06d2\u060c \u0627\u0628 \u0632\u0631\u0639\u06cc \u067e\u06cc\u062f\u0627\u0648\u0627\u0631 \u06a9\u06cc\u0644\u0626\u06d2 \u0627\u06cc\u06a9 \u0646\u06cc\u0627 \u0627\u0646\u0648\u0648\u06cc\u0634\u0646 \u067e\u06cc\u0634 \u06a9\u0631 \u0631\u06c1\u0627 \u06c1\u06d2\u06d4 \u06c1\u0645\u0627\u0631\u0627 \u0645\u0642\u0635\u062f \u06c1\u06d2 \u06a9\u06c1 \u0622\u067e \u06a9\u06cc \u0632\u0631\u0639\u06cc \u0641\u0635\u0644\u0648\u06ba \u06a9\u0648 \u0628\u06c1\u062a\u0631 \u0628\u0646\u0627\u0646\u0627 \u0627\u0648\u0631 \u0622\u067e \u06a9\u06d2 \u0632\u0631\u0639\u06cc \u06a9\u0627\u0631\u0648\u0628\u0627\u0631 \u0645\u06cc\u06ba \u0628\u0631\u06a9\u062a \u0644\u0627\u0646\u0627\u06d4\n\n\u06c1\u0645\u0627\u0631\u0627 \u0646\u06cc\u0627 \u067e\u0631\u0648\u0688\u06a9\u0679 \u0622\u067e \u06a9\u0648 \u0632\u0631\u0639\u06cc \u062a\u062d\u0641\u0638 \u0627\u0648\u0631 \u0641\u0635\u0644\u0648\u06ba \u06a9\u06cc \u0628\u06c1\u062a\u0631 \u067e\u06cc\u062f\u0627\u0648\u0627\u0631 \u0645\u06cc\u06ba \u0645\u062f\u062f \u0641\u0631\u0627\u06c1\u0645 \u06a9\u0631\u06d2 \u06af\u0627\u06d4 \u06cc\u06c1 \u0645\u0636\u0628\u0648\u0637\u060c \u0645\u0648\u062b\u0631\u060c \u0627\u0648\u0631 \u0627\u0633\u0627\u0646 \u0627\u0633\u062a\u0639\u0645\u0627\u0644 \u06a9\u06d2 \u0633\u0627\u062a\u06be \u0632\u0631\u0627\u0639\u062a\u06cc \u06a9\u0627\u0645\u0648\u06ba \u06a9\u0648 \u0622\u0633\u0627\u0646 \u0628\u0646\u0627 \u062f\u06cc\u06af\u0627\u06d4\n\n\u0627\u06af\u0631 \u0622\u067e \u06a9\u0648 \u0645\u0632\u06cc\u062f \u062a\u0641\u0635\u06cc\u0644\u0627\u062a \u0686\u0627\u06c1\u06cc\u06d2 \u06cc\u0627 \u0646\u0626\u06cc \u067e\u06cc\u0634\u06af\u0648\u0626\u06cc \u06a9\u06d2 \u0628\u0627\u0631\u06d2 \u0645\u06cc\u06ba \u0628\u0627\u062a \u06a9\u0631\u0646\u06cc \u06c1\u0648\u060c \u062a\u0648 \u0628\u0631\u0627\u06c1 \u06a9\u0631\u0645 \u06c1\u0645 \u0633\u06d2 \u0631\u0627\u0628\u0637\u06c1 \u06a9\u0631\u06cc\u06ba\u06d4\n\n\u06c1\u0645\u06cc\u06ba \u0627\u0645\u06cc\u062f \u06c1\u06d2 \u06a9\u06c1 \u06c1\u0645\u0627\u0631\u0627 \u0646\u06cc\u0627 \u0632\u0631\u0639\u06cc \u067e",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.21831369400024414
+      },
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.21350282430648804
+      },
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "microservice system design and integration. Principal Architect: Governs global cross-system design; maps out multi-year technological roadmaps across business units. 7.2 Continuous Training Reimburse",
+        "score": 0.1507483720779419
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-23 15:45:49.213556+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "c5027d15-0832-4646-8a2e-36d6686147ad",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "Jazzcash",
+    "content_type": "social_media",
+    "industry": "ecommerce",
+    "city": "faisalabad",
+    "language": "roman_urdu",
+    "tone": "professional",
+    "generated_content": "Jazzcash se paisay bhejna ab hua asaan aur tezi se! \ud83d\udcb8\u2728 Faisalabad mein hum aapke liye mojood hain to facilitate money transfers with ease. GenZ ke liye hamara services designed hain! #Jazzcash #MoneyTransfer #FaisalabadEcommerce \ud83c\udf1f\n\nHumein abhi message karein aur apna paisa bhejne ka tareeqa jaanein! \ud83d\udcac\ud83d\udcf2 #ConvenientPayments #FastTransactions #JazzcashServices",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & ",
+        "score": 0.24226975440979004
+      },
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "build -t enterprise-service:latest .' } } stage('Canary Deployment') { steps { sh 'kubectl apply -f k8s/canary-deployment.yaml' } } } } 3.3 Custom Enterprise Software Development Building systems that",
+        "score": 0.22927749156951904
+      },
+      {
+        "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+        "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+        "category": "Products",
+        "chunk_text": "microservice system design and integration. Principal Architect: Governs global cross-system design; maps out multi-year technological roadmaps across business units. 7.2 Continuous Training Reimburse",
+        "score": 0.20495843887329102
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-06-24 05:05:54.966469+00:00",
+    "updated_at": null
+  }
+]

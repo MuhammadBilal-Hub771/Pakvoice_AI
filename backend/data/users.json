@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Admin User",
+    "email": "admin@contentpk.ai",
+    "city": "Islamabad",
+    "role": "admin",
+    "id": "17878577-9f6f-4a66-9daf-97e3d1db9648",
+    "hashed_password": "$2b$12$MTNRmBjFXX4sUAOURT68ouOAlnCUEHWQ..Suwtiovsim4qHaUDPmi",
+    "is_active": true,
+    "created_at": "2026-06-19 13:26:05.226351+00:00",
+    "updated_at": null
+  },
+  {
+    "name": "Client User",
+    "email": "client@contentpk.ai",
+    "city": "Karachi",
+    "role": "client",
+    "id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "hashed_password": "$2b$12$B2MAnX6dbuF9LLaienpLReueqZQLgx2lSbzB4OosMuzK2RIOx9QrW",
+    "is_active": true,
+    "created_at": "2026-06-19 13:26:05.697767+00:00",
+    "updated_at": null
+  },
+  {
+    "name": "Muhammad Bilal",
+    "email": "mbm8496@gmail.com",
+    "city": "Lahore",
+    "role": "client",
+    "id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "hashed_password": "$2b$12$ys6WEtjBZ8ymrNHpYss8kugkaUTFmsBLr/B5TKFqXPKmTpORZBtnW",
+    "is_active": true,
+    "created_at": "2026-06-21 04:47:58.362915+00:00",
+    "updated_at": null
+  },
+  {
+    "name": "Bilal",
+    "email": "mb09bilal@gmail.com",
+    "city": "Lahore",
+    "role": "client",
+    "id": "2fbe301a-b3e0-453a-ae46-6f58ae79eb6c",
+    "hashed_password": "$2b$12$QYrXDs8alV9xrzz5Tj4w0eAtsFkfvFo6Ipwcsn5XoanC3.EU8o8hG",
+    "is_active": true,
+    "created_at": "2026-06-23 14:58:03.280090+00:00",
+    "updated_at": null
+  },
+  {
+    "id": "8d19fbbc-4c9c-4724-926b-157e1a6a9d12",
+    "name": "Dev Google User",
+    "email": "google_dev@example.com",
+    "city": "Lahore",
+    "role": "client",
+    "hashed_password": "",
+    "is_active": true,
+    "created_at": "2026-06-24T05:50:31.619095+00:00",
+    "updated_at": "2026-06-24T05:50:31.619095+00:00"
+  }
+]

@@ -1,0 +1,82 @@
+# ============================
+# Python (Backend)
+# ============================
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+*.whl
+venv/
+.venv/
+env/
+
+# Backend data
+backend/chroma_db/
+backend/uploads/
+backend/logs/
+backend/generated_images/
+backend/.env
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# ============================
+# Node / Next.js (Frontend)
+# ============================
+node_modules/
+.next/
+out/
+build
+*.tsbuildinfo
+next-env.d.ts
+.env.local
+
+# ============================
+# IDE / Editor
+# ============================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ============================
+# OS
+# ============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================
+# Logs
+# ============================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================
+# Misc
+# ============================
+*.pem
+.pnp
+.pnp.js
+/coverage
+.vercel
+
+# ============================
+# Playwright (browser binaries — large)
+# ============================
+playwright-report/
+test-results/
+
+# ============================
+# Cursor IDE
+# ============================
+.cursor/
+agent-transcripts/

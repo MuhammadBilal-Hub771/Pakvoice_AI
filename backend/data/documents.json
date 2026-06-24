@@ -1,0 +1,104 @@
+[
+  {
+    "doc_id": "865f59ad-9064-4946-b7ab-6b97a36e9dab",
+    "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+    "category": "Products",
+    "tags": [
+      "services"
+    ],
+    "filename": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint.docx",
+    "file_path": "./uploads\\865f59ad-9064-4946-b7ab-6b97a36e9dab.docx",
+    "file_size_bytes": 15526,
+    "word_count": 1019,
+    "chunks_created": 3,
+    "status": "processed",
+    "uploaded_by": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "created_at": "2026-06-20 04:57:10.153766+00:00",
+    "updated_at": null
+  },
+  {
+    "doc_id": "fb019e71-e965-4c7c-9b66-f034749671f8",
+    "title": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint",
+    "category": "Products",
+    "tags": [
+      "Services"
+    ],
+    "filename": "Enterprise IT Corp - Comprehensive Corporate Playbook & Operations Blueprint.docx",
+    "file_path": "./uploads\\fb019e71-e965-4c7c-9b66-f034749671f8.docx",
+    "file_size_bytes": 15526,
+    "word_count": 1019,
+    "chunks_created": 3,
+    "status": "processed",
+    "uploaded_by": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "created_at": "2026-06-23 13:45:14.887383+00:00",
+    "updated_at": null
+  },
+  {
+    "doc_id": "e0accce8-47ef-4612-ad28-b1e263ccb8c8",
+    "title": "Session 1. Building Claude Artifacts",
+    "category": "Products",
+    "tags": [
+      "services"
+    ],
+    "filename": "Session 1. Building Claude Artifacts.pdf",
+    "file_path": "./uploads\\e0accce8-47ef-4612-ad28-b1e263ccb8c8.pdf",
+    "file_size_bytes": 295332,
+    "word_count": 1177,
+    "chunks_created": 3,
+    "status": "processed",
+    "uploaded_by": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "created_at": "2026-06-24 05:12:04.283434+00:00",
+    "updated_at": null
+  },
+  {
+    "doc_id": "565296e0-4f71-43f1-aa20-4d8dc00bb3e4",
+    "title": "Session 2. Building Custom GPTs & AI Assistants",
+    "category": "Products",
+    "tags": [
+      "information"
+    ],
+    "filename": "Session 2. Building Custom GPTs & AI Assistants.pdf",
+    "file_path": "./uploads\\565296e0-4f71-43f1-aa20-4d8dc00bb3e4.pdf",
+    "file_size_bytes": 603283,
+    "word_count": 2055,
+    "chunks_created": 5,
+    "status": "processed",
+    "uploaded_by": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "created_at": "2026-06-24 05:13:55.229018+00:00",
+    "updated_at": null
+  },
+  {
+    "doc_id": "05879cbf-bc13-4cf9-ae90-30b67417caa2",
+    "title": "Session 3. Vibe Coding Workbook",
+    "category": "Services",
+    "tags": [
+      "--"
+    ],
+    "filename": "Session 3. Vibe Coding Workbook.pdf",
+    "file_path": "./uploads\\05879cbf-bc13-4cf9-ae90-30b67417caa2.pdf",
+    "file_size_bytes": 47104,
+    "word_count": 4518,
+    "chunks_created": 14,
+    "status": "processed",
+    "uploaded_by": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "created_at": "2026-06-24 05:18:21.109163+00:00",
+    "updated_at": null
+  },
+  {
+    "doc_id": "b4d156ca-99d2-4647-97fc-ec63936e6453",
+    "title": "Session 3. Building Websites",
+    "category": "Market Research",
+    "tags": [
+      "--"
+    ],
+    "filename": "Session 3. Building Websites.pdf",
+    "file_path": "./uploads\\b4d156ca-99d2-4647-97fc-ec63936e6453.pdf",
+    "file_size_bytes": 20190,
+    "word_count": 1297,
+    "chunks_created": 4,
+    "status": "processed",
+    "uploaded_by": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "created_at": "2026-06-24 05:19:02.934531+00:00",
+    "updated_at": null
+  }
+]
