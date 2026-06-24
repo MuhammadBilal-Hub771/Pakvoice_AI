@@ -1,0 +1,279 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 42 65% 52%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142 71% 45%;
+    --radius: 0.75rem;
+
+    --pk-white: #ffffff;
+    --pk-gold: #d4af37;
+    --pk-saffron: #f97316;
+  }
+
+  /* Green theme (default) */
+  :root,
+  [data-theme='green'] {
+    --primary: 142 71% 45%;
+    --primary-foreground: 210 40% 98%;
+    --ring: 142 71% 45%;
+    --primary-color: #16a34a;
+    --primary-dark: #0c4d2f;
+    --primary-light: #86efac;
+    --primary-bg: #f0fdf4;
+    --primary-text: #14532d;
+    --login-panel-bg: #0c4d2f;
+    --btn-bg: #16a34a;
+    --btn-hover: #15803d;
+    --pk-green-900: #0c4d2f;
+    --pk-green-800: #14532d;
+    --pk-green-700: #166534;
+    --pk-green-600: #16a34a;
+    --pk-green-500: #16a34a;
+    --pk-green-300: #86efac;
+    --pk-green-100: #dcfce7;
+    --pk-green-50: #f0fdf4;
+    --primary-faded: #a7d6b8;
+  }
+
+  /* Red theme (Pakistan Tehreek style) */
+  [data-theme='red'] {
+    --primary: 0 72% 51%;
+    --primary-foreground: 210 40% 98%;
+    --ring: 0 72% 51%;
+    --primary-color: #dc2626;
+    --primary-dark: #991b1b;
+    --primary-light: #fca5a5;
+    --primary-bg: #fef2f2;
+    --primary-text: #7f1d1d;
+    --login-panel-bg: #7f1d1d;
+    --btn-bg: #dc2626;
+    --btn-hover: #b91c1c;
+    --pk-green-900: #991b1b;
+    --pk-green-800: #7f1d1d;
+    --pk-green-700: #b91c1c;
+    --pk-green-600: #dc2626;
+    --pk-green-500: #dc2626;
+    --pk-green-300: #fca5a5;
+    --pk-green-100: #fee2e2;
+    --pk-green-50: #fef2f2;
+    --primary-faded: #f3a8a8;
+  }
+
+  /* Blue theme (Corporate style) */
+  [data-theme='blue'] {
+    --primary: 212 52% 25%;
+    --primary-foreground: 210 40% 98%;
+    --ring: 212 52% 25%;
+    --primary-color: #1e3a5f;
+    --primary-dark: #0f2340;
+    --primary-light: #3b6ea5;
+    --primary-bg: #ebf4ff;
+    --primary-text: #0f2340;
+    --login-panel-bg: #0f2340;
+    --btn-bg: #1e3a5f;
+    --btn-hover: #0f2340;
+    --pk-green-900: #0f2340;
+    --pk-green-800: #0f2340;
+    --pk-green-700: #1e3a5f;
+    --pk-green-600: #1e3a5f;
+    --pk-green-500: #1e3a5f;
+    --pk-green-300: #3b6ea5;
+    --pk-green-100: #dbeafe;
+    --pk-green-50: #ebf4ff;
+    --primary-faded: #93b3d1;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+/* GPU acceleration for key elements */
+.top-nav,
+.admin-sidebar,
+.hero-banner {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Contain layout recalculations */
+.stats-card,
+.history-card,
+.document-card {
+  contain: layout style;
+}
+
+/* RTL content */
+.rtl-content {
+  direction: rtl;
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 1.2rem;
+  line-height: 2.2;
+  text-align: right;
+}
+
+.ltr-content {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Autofill override */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+  box-shadow: 0 0 0px 1000px #ffffff inset;
+  -webkit-text-fill-color: #111827;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* === ANIMATIONS (pure CSS, no JS overhead) === */
+
+/* Page enter */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-page-enter {
+  animation: page-enter 0.3s ease forwards;
+}
+
+/* Fade in */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.15s ease-out;
+}
+
+/* Fade up */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.25s ease-out;
+}
+
+/* Slide in left */
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+.animate-slide-in-left {
+  animation: slide-in-left 0.2s ease-out;
+}
+
+/* Scale in */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out;
+}
+
+/* Slide right (for modals) */
+@keyframes slide-right {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+.animate-slide-right {
+  animation: slide-right 0.25s ease-out;
+}
+
+/* Spin */
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+/* Pulse opacity */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Shimmer skeleton */
+.animate-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Skeleton */
+.skeleton {
+  @apply bg-muted animate-pulse rounded-md;
+}
+
+/* Toast styles */
+.toast-success { background: var(--pk-green-500); color: white; }
+.toast-error { background: #ef4444; color: white; }
+.toast-info { background: #3b82f6; color: white; }
+.toast-loading { background: var(--pk-green-700); color: white; }
