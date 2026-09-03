@@ -7,7 +7,7 @@ A full-stack application for generating culturally-relevant business content for
 ```
 pakistani-business-generator/
 ├── backend/          # FastAPI Python backend
-└── pakvoice-ai/      # Next.js 14 frontend
+└── frontend/      # Next.js 14 frontend
 ```
 
 ## Tech Stack

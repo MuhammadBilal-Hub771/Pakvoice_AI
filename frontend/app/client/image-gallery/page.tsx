@@ -18,6 +18,7 @@ import { Toast } from '@/components/shared/Toast'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { formatDate } from '@/lib/utils'
+import { getAuthToken } from '@/lib/api'
 
 const imageTypes = ['All', 'Social Media Post', 'Thumbnail']
 
@@ -27,22 +28,11 @@ function typeToBackend(type: string): string | undefined {
   return undefined
 }
 
-const getToken = () => {
-  try {
-    const raw = localStorage.getItem('pakvoice-auth')
-    if (!raw) return null
-    const parsed = JSON.parse(raw)
-    return parsed?.state?.token || parsed?.token || null
-  } catch {
-    return null
-  }
-}
-
 async function fetchGallery({ type, search }: { type: string; search: string }) {
-  const token = getToken()
+  const token = getAuthToken()
   if (!token) return { items: [], total: 0 }
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'
   const res = await fetch(`${baseUrl}/api/images/gallery`, {
     headers: { Authorization: `Bearer ${token}` },
   })
@@ -71,9 +61,9 @@ async function fetchGallery({ type, search }: { type: string; search: string }) 
 }
 
 async function deleteImage(imageId: string): Promise<boolean> {
-  const token = getToken()
+  const token = getAuthToken()
   if (!token) return false
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'
   const res = await fetch(`${baseUrl}/api/images/${imageId}`, {
     method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` },
@@ -81,12 +71,13 @@ async function deleteImage(imageId: string): Promise<boolean> {
   return res.ok
 }
 
-async function downloadImage(imageUrl: string, imageType: string) {
+async function downloadImage(imageUrl: string, imageType: string): Promise<boolean> {
   try {
     const fullUrl = imageUrl.startsWith('http')
       ? imageUrl
-      : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${imageUrl}`
+      : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'}${imageUrl}`
     const response = await fetch(fullUrl)
+    if (!response.ok) throw new Error('Network error')
     const blob = await response.blob()
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -96,8 +87,9 @@ async function downloadImage(imageUrl: string, imageType: string) {
     a.click()
     document.body.removeChild(a)
     window.URL.revokeObjectURL(url)
+    return true
   } catch {
-    // silent fail
+    return false
   }
 }
 
@@ -190,13 +182,13 @@ function ImageCard({
               border: 'none',
               background: 'transparent',
               cursor: isDeleting ? 'not-allowed' : 'pointer',
-              color: '#6b7280',
+              color: '#ef4444',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               opacity: isDeleting ? 0.5 : 1,
             }}
-            className="hover:bg-red-50 hover:text-red-500"
+            className="hover:bg-red-50"
             title="Delete"
           >
             {isDeleting ? <RefreshCw size={15} className="animate-spin" /> : <Trash2 size={15} />}
@@ -315,13 +307,14 @@ export default function ImageGalleryPage() {
     }
   }
 
-  const handleDownload = (imageUrl: string, imageType: string) => {
-    downloadImage(imageUrl, imageType)
+  const handleDownload = async (imageUrl: string, imageType: string) => {
+    const ok = await downloadImage(imageUrl, imageType)
+    if (!ok) showToast('Download failed. Please try again.', 'error')
   }
 
   return (
     <div className="px-4 md:px-6 lg:px-8 py-6 pb-24 md:pb-6 max-w-7xl mx-auto">
-      <Toast type={toast.type} message={toast.message} visible={toast.visible} />
+      <Toast type={toast.type} message={toast.message} visible={toast.visible} onClose={() => setToast((prev) => ({ ...prev, visible: false }))} />
 
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
@@ -375,14 +368,7 @@ export default function ImageGalleryPage() {
 
       {/* Image Grid */}
       {isLoading ? (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '16px',
-          }}
-          className="max-lg:grid-cols-2 max-sm:grid-cols-1"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
             <SkeletonCard key={i} />
           ))}
@@ -404,14 +390,7 @@ export default function ImageGalleryPage() {
           </Link>
         </div>
       ) : (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '16px',
-          }}
-          className="max-lg:grid-cols-2 max-sm:grid-cols-1"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {images.map((item: any) => (
             <ImageCard
               key={item.id}

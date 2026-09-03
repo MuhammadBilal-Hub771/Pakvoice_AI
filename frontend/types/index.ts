@@ -177,3 +177,53 @@ export interface HistoryFilters {
   dateTo?: string
   sortBy?: 'newest' | 'oldest' | 'most-copied'
 }
+
+export interface WhatsAppDocumentSourceRef {
+  doc_id: string
+  title: string
+  category: string
+  chunk_text: string
+  score: number
+}
+
+export interface WhatsAppMessage {
+  id: string
+  phone_number: string
+  sender: 'user' | 'agent' | 'system'
+  text: string
+  timestamp: string
+  rag_sources?: WhatsAppDocumentSourceRef[]
+  status?: 'sent' | 'delivered' | 'read' | 'received' | 'failed'
+  raw_payload?: any
+  contact_name?: string
+}
+
+export interface WhatsAppConversation {
+  phone_number: string
+  contact_name?: string
+  last_message: string
+  last_timestamp: string
+  unread_count: number
+  message_count: number
+  last_sender: 'user' | 'agent' | 'system'
+}
+
+export interface WhatsAppSettings {
+  verify_token: string
+  api_token?: string
+  phone_number_id?: string
+  business_account_id?: string
+  ai_enabled: boolean
+  system_prompt: string
+  use_rag: boolean
+  rag_top_k: number
+}
+
+export interface WhatsAppSimulateResponse {
+  user_message: WhatsAppMessage
+  agent_message?: WhatsAppMessage
+  sources_used: WhatsAppDocumentSourceRef[]
+  detected_language?: string
+  execution_time_seconds: number
+}
+

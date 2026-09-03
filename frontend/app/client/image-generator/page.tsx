@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/stores/authStore'
 import { useImageStore, type ImageType } from '@/stores/imageStore'
 import { Toast } from '@/components/shared/Toast'
+import { getAuthToken } from '@/lib/api'
 
 const MAX_CHARS = 2000
 
@@ -34,6 +35,13 @@ export default function ImageGeneratorPage() {
   const setGeneratedImage = useImageStore((s) => s.setGeneratedImage)
   const setIsSaved = useImageStore((s) => s.setIsSaved)
 
+  // Sync isSaved with generatedImage on mount (prevents stale persisted state)
+  React.useEffect(() => {
+    if (!generatedImage && isSaved) {
+      setIsSaved(false)
+    }
+  }, [generatedImage, isSaved, setIsSaved])
+
   // Local ephemeral state (not persisted)
   const [isGenerating, setIsGenerating] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -48,17 +56,6 @@ export default function ImageGeneratorPage() {
     setTimeout(() => setToast((prev) => ({ ...prev, visible: false })), 3000)
   }
 
-  const getToken = () => {
-    try {
-      const raw = localStorage.getItem('pakvoice-auth')
-      if (!raw) return null
-      const parsed = JSON.parse(raw)
-      return parsed?.state?.token || parsed?.token || null
-    } catch {
-      return null
-    }
-  }
-
   const handleGenerate = async () => {
     if (!pastedContent.trim()) return
 
@@ -68,9 +65,9 @@ export default function ImageGeneratorPage() {
     setErrorMessage(null)
 
     try {
-      const token = getToken()
+      const token = getAuthToken()
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/images/generate`,
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'}/api/images/generate`,
         {
           method: 'POST',
           headers: {
@@ -131,9 +128,9 @@ export default function ImageGeneratorPage() {
 
     setIsSaving(true)
     try {
-      const token = getToken()
+      const token = getAuthToken()
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/images/save`,
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'}/api/images/save`,
         {
           method: 'POST',
           headers: {
@@ -173,7 +170,7 @@ export default function ImageGeneratorPage() {
 
   return (
     <div className="px-4 md:px-6 lg:px-8 py-6 pb-24 md:pb-6">
-      <Toast type={toast.type} message={toast.message} visible={toast.visible} />
+      <Toast type={toast.type} message={toast.message} visible={toast.visible} onClose={() => setToast((prev) => ({ ...prev, visible: false }))} />
 
       {/* Two-column grid — equal height */}
       <div

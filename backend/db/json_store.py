@@ -17,6 +17,8 @@ USERS_FILE = os.path.join(DATA_DIR, "users.json")
 HISTORY_FILE = os.path.join(DATA_DIR, "history.json")
 DOCUMENTS_FILE = os.path.join(DATA_DIR, "documents.json")
 IMAGES_FILE = os.path.join(DATA_DIR, "images.json")
+WHATSAPP_MESSAGES_FILE = os.path.join(DATA_DIR, "whatsapp_messages.json")
+WHATSAPP_SETTINGS_FILE = os.path.join(DATA_DIR, "whatsapp_settings.json")
 
 
 def _ensure_data_dir():
@@ -330,8 +332,7 @@ def get_user_document_categories(user_id: str) -> List[dict]:
     ]
 
 
-# Initialize on import
-_seed_users()
+# === Image Gallery Operations ===
 
 
 # === Image Gallery Operations ===
@@ -380,3 +381,88 @@ def delete_image_record(image_id: str, user_id: str) -> bool:
         return False
     _write_json(IMAGES_FILE, images)
     return True
+
+
+# === WhatsApp Operations ===
+
+
+def save_whatsapp_message(message: dict, contact_name: Optional[str] = None):
+    """Save a WhatsApp message record."""
+    messages = _read_json(WHATSAPP_MESSAGES_FILE)
+    if contact_name:
+        message["contact_name"] = contact_name
+    messages.append(message)
+    _write_json(WHATSAPP_MESSAGES_FILE, messages)
+
+
+def get_whatsapp_messages_by_phone(phone_number: str) -> List[Dict[str, Any]]:
+    """Retrieve full chat message thread for a specific phone number."""
+    messages = _read_json(WHATSAPP_MESSAGES_FILE)
+    thread = [m for m in messages if m.get("phone_number") == phone_number]
+    thread.sort(key=lambda m: m.get("timestamp", ""))
+    return thread
+
+
+def get_whatsapp_conversations() -> List[Dict[str, Any]]:
+    """Get aggregated conversation threads grouped by phone number."""
+    messages = _read_json(WHATSAPP_MESSAGES_FILE)
+    conversations_map: Dict[str, Dict[str, Any]] = {}
+
+    for m in messages:
+        phone = m.get("phone_number")
+        if not phone:
+            continue
+
+        if phone not in conversations_map:
+            conversations_map[phone] = {
+                "phone_number": phone,
+                "contact_name": m.get("contact_name") or f"Customer {phone[-4:]}",
+                "last_message": m.get("text", ""),
+                "last_timestamp": m.get("timestamp", ""),
+                "unread_count": 0,
+                "message_count": 0,
+                "last_sender": m.get("sender", "user"),
+            }
+
+        conv = conversations_map[phone]
+        conv["message_count"] += 1
+        if m.get("timestamp", "") >= conv["last_timestamp"]:
+            conv["last_message"] = m.get("text", "")
+            conv["last_timestamp"] = m.get("timestamp", "")
+            conv["last_sender"] = m.get("sender", "user")
+            if m.get("contact_name"):
+                conv["contact_name"] = m["contact_name"]
+
+    conv_list = list(conversations_map.values())
+    conv_list.sort(key=lambda c: c.get("last_timestamp", ""), reverse=True)
+    return conv_list
+
+
+def get_whatsapp_settings() -> Dict[str, Any]:
+    """Retrieve WhatsApp bot & webhook configuration."""
+    data = _read_json(WHATSAPP_SETTINGS_FILE)
+    if data and isinstance(data, list) and len(data) > 0:
+        return data[0]
+
+    # Defaults
+    default_settings = {
+        "verify_token": settings.WHATSAPP_VERIFY_TOKEN,
+        "api_token": settings.WHATSAPP_API_TOKEN or "",
+        "phone_number_id": settings.WHATSAPP_PHONE_NUMBER_ID or "",
+        "business_account_id": settings.WHATSAPP_BUSINESS_ACCOUNT_ID or "",
+        "ai_enabled": settings.WHATSAPP_AI_ENABLED,
+        "system_prompt": settings.WHATSAPP_SYSTEM_PROMPT,
+        "use_rag": True,
+        "rag_top_k": settings.RAG_TOP_K,
+    }
+    _write_json(WHATSAPP_SETTINGS_FILE, [default_settings])
+    return default_settings
+
+
+def update_whatsapp_settings(new_settings: Dict[str, Any]) -> Dict[str, Any]:
+    """Update WhatsApp bot & webhook configuration."""
+    current = get_whatsapp_settings()
+    current.update(new_settings)
+    _write_json(WHATSAPP_SETTINGS_FILE, [current])
+    return current
+

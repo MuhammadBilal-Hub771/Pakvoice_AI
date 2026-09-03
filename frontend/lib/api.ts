@@ -5,9 +5,13 @@ import type {
   AdminStats,
   User,
   HistoryFilters,
+  WhatsAppMessage,
+  WhatsAppConversation,
+  WhatsAppSettings,
+  WhatsAppSimulateResponse,
 } from '@/types'
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'
 
 class ApiError extends Error {
   status: number
@@ -18,7 +22,7 @@ class ApiError extends Error {
   }
 }
 
-function getAuthToken(): string | null {
+export function getAuthToken(): string | null {
   if (typeof window === 'undefined') return null
   try {
     const raw = localStorage.getItem('pakvoice-auth')
@@ -311,15 +315,13 @@ export const generateApi = {
   },
 
   refine: (contentId: string, prompt: string) => {
-    // Get the current generated content from localStorage store
+    // Get the current generated content from Zustand store
     let originalContent = ''
     if (typeof window !== 'undefined') {
       try {
-        const raw = localStorage.getItem('pakvoice-generate')
-        if (raw) {
-          const parsed = JSON.parse(raw)
-          originalContent = parsed?.state?.generatedContent?.content || ''
-        }
+        // Use the generateStore directly (imported lazily to avoid circular deps)
+        const stores = require('@/stores/generateStore')
+        originalContent = stores.useGenerateStore.getState().generatedContent?.content || ''
       } catch {}
     }
     return fetchApi<any>('/api/generate/refine', {
@@ -503,3 +505,38 @@ export const adminApi = {
       }))
     }),
 }
+
+export const whatsappApi = {
+  getConversations: () =>
+    fetchApi<WhatsAppConversation[]>('/api/whatsapp/conversations'),
+
+  getMessages: (phoneNumber: string) =>
+    fetchApi<WhatsAppMessage[]>(`/api/whatsapp/conversations/${encodeURIComponent(phoneNumber)}`),
+
+  sendMessage: (phoneNumber: string, text: string) =>
+    fetchApi<WhatsAppMessage>(`/api/whatsapp/conversations/${encodeURIComponent(phoneNumber)}/send`, {
+      method: 'POST',
+      body: JSON.stringify({ phone_number: phoneNumber, text }),
+    }),
+
+  simulateMessage: (payload: {
+    phone_number: string
+    contact_name?: string
+    text: string
+    use_rag?: boolean
+  }) =>
+    fetchApi<WhatsAppSimulateResponse>('/api/whatsapp/simulate', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  getSettings: () =>
+    fetchApi<WhatsAppSettings>('/api/whatsapp/settings'),
+
+  updateSettings: (settings: WhatsAppSettings) =>
+    fetchApi<WhatsAppSettings>('/api/whatsapp/settings', {
+      method: 'PUT',
+      body: JSON.stringify(settings),
+    }),
+}
+

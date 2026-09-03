@@ -1226,5 +1226,84 @@
     "is_flagged": false,
     "created_at": "2026-06-24 05:05:54.966469+00:00",
     "updated_at": null
+  },
+  {
+    "content_id": "60986ad5-c3dd-4a5b-b38a-55acd625aa7c",
+    "user_id": "34dd045c-77b8-40b4-90f5-0926cb7f9732",
+    "business_name": "khaadi",
+    "content_type": "social_media",
+    "industry": "textile",
+    "city": "faisalabad",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "khaadi - Your Ultimate Fashion Destination \ud83c\udf1f\n\nWelcome to khaadi, where style meets elegance in every thread! \ud83e\uddf5 Discover the essence of Pakistani fashion with our exquisite clothing brand based in the heart of Faisalabad, the Manchester of Pakistan. \ud83c\uddf5\ud83c\uddf0\n\n\ud83d\udc57 **Explore Our Collection**: From trendy casual wear to traditional ethnic outfits, khaadi offers a diverse range of clothing options that resonate with the vibrant spirit of Gen Z fashionistas. Whether you're looking for chic everyday attire or glamorous party ensembles, we've got you covered!\n\n\ud83c\udf38 **Quality Textiles**: As a prominent player in the textile industry, we take pride in our high-quality fabrics, intricate designs, and attention to detail. Each garment is a masterpiece crafted with precision and care to ensure you stand out with grace and style.\n\n\ud83d\udecd\ufe0f **Shop with Ease**: Embrace the convenience of shopping with khaadi. With our user-friendly online platform, you can browse through our latest collections, place orders effortlessly, and enjoy the convenience of cash-on-delivery payment options.\n\n\ud83d\udcf1 **Connect with Us**: Stay updated on the latest fashion trends, exclusive offers, and behind-the-scenes glimpses by following us on Facebook and Instagram. Don't miss out on our exciting contests and giveaways that add a touch of fun to your shopping experience!\n\n\u2728 **Join the khaadi Family**: Experience the warmth of Pakistani hospitality and the richness of our culture infused into every garment. Discover the joy of shopping with barakah (blessings) and the satisfaction of owning pieces that reflect your unique style.\n\n\ud83c\udf19 **Special Occasions Await**: With Ramadan, Eids, and wedding seasons around the corner, gear up for a stylish celebration with khaadi's festive collections that blend tradition with modern flair.\n\n\ud83d\uded2 **Call to Action**: Ready to elevate your wardrobe with khaadi's signature styles? Visit our website or nearest store",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [
+      {
+        "doc_id": "05879cbf-bc13-4cf9-ae90-30b67417caa2",
+        "title": "Session 3. Vibe Coding Workbook",
+        "category": "Services",
+        "chunk_text": "button 2. Hero section with a bold headline: \"[Your Headline]\", a subheadline that explains the value proposition, a primary CTA button \"[Your CTA Text]\", and a secondary CTA. Add a hero image placeho",
+        "score": 0.2388772964477539
+      },
+      {
+        "doc_id": "b4d156ca-99d2-4647-97fc-ec63936e6453",
+        "title": "Session 3. Building Websites",
+        "category": "Market Research",
+        "chunk_text": "Format the output clearly with section headers. Copy the generated website copy \u2014 you will paste it into Emergent next. 5 Build Your Website in Emergent Once logged into Emergent, start a new project.",
+        "score": 0.22651660442352295
+      },
+      {
+        "doc_id": "05879cbf-bc13-4cf9-ae90-30b67417caa2",
+        "title": "Session 3. Vibe Coding Workbook",
+        "category": "Services",
+        "chunk_text": "a horizontal slider/carousel if there are more than 3 testimonials OUTSKILL \u00b7 VIBE CODING WORKBOOK Page 7 Outskill Generative AI Mastermind 2026 outskill.com - Add a subtle background pattern or gradi",
+        "score": 0.22509121894836426
+      }
+    ],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-08-11 09:37:40.144518+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "e7b5c341-3710-4132-a7f6-33cb47a325d7",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Khaadi Style",
+    "content_type": "social_media",
+    "industry": "textile",
+    "city": "lahore",
+    "language": "roman_urdu",
+    "tone": "professional",
+    "generated_content": "Khaadi Style\n\nSalam dosto! Aap sab kaise hain? Aaj hum aapko Khaadi Style ke baare mein batane aaye hain, jo ke Lahore ka mashhoor fashion brand hai. Hum aapko modern aur traditional kapron ka behtareen mix offer karte hain, jisse aap har mauqe par chamak uthenge. Chahe aapko casual wear chahiye ho ya phir kisi khaas event ke liye formal attire, Khaadi Style mein aapko sab kuch milega!\n\nHamari collection mein aapko 100% pure cotton aur hand-embroidered outfits milenge, jo sirf dekhne mein nahi, balki pehnne mein bhi bohot aaramdayak hain. Hamare kapre na sirf fashionable hain, balki unmein Pakistani culture ki khushboo bhi hai. Aapko hamara har piece mehsoos karne par yeh pata chalega ke humne isay kitne pyaar se design kiya hai. \n\nKhaadi Style ka ek aur khaas pehlu yeh hai ke hum sustainable fashion par focus karte hain. Aaj kal ke daur mein, hamara farz banta hai ke hum environment ka khayal rakhein. Hamari fabrics eco-friendly hain, aur hum aapko yeh promise karte hain ke jab aap Khaadi Style se kuch kharidte hain, to aap sirf apne liye nahi, balki apne mahol ke liye bhi acha karte hain.\n\nAgar aap fashion ki duniya mein ek unique touch chahte hain, to Khaadi Style ko zaroor visit karein. Hamara showroom Lahore mein hai, lekin agar aap door hain to koi baat nahi! Aap hamen WhatsApp par message kar sakte hain, ya phir humari Facebook ya Instagram",
+    "tokens_used": 1064,
+    "cost_usd": 0.00033959999999999996,
+    "generation_time_ms": 8200,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-08-12 12:04:04.673115+00:00",
+    "updated_at": null
+  },
+  {
+    "content_id": "bec15c82-787e-4df8-9882-a9612ddb7d76",
+    "user_id": "931ddf88-66f4-41a6-afa2-66d534303615",
+    "business_name": "Khaadi",
+    "content_type": "social_media",
+    "industry": "textile",
+    "city": "islamabad",
+    "language": "english",
+    "tone": "professional",
+    "generated_content": "Khaadi \n\n\ud83c\udf1f Discover the Essence of Tradition and Modernity \ud83c\udf1f\n\nAt Khaadi, we celebrate the vibrant fusion of traditional craftsmanship and contemporary fashion. Based in the heart of Islamabad, our online clothing brand is dedicated to offering you a unique selection of textiles that resonate with the spirit of our rich heritage while embracing the modern trends that GenZ loves.\n\nOur collections are thoughtfully designed to cater to the diverse tastes and preferences of our young, dynamic audience. Whether you are looking for elegant casual wear, chic formal attire, or stunning festive pieces, Khaadi has something special for every occasion. Each outfit reflects the artistry of our skilled artisans, ensuring that you not only look good but feel good too.\n\nWhy choose Khaadi?\n\n1. **Quality Fabrics**: We use high-quality materials that are comfortable and long-lasting. Our cotton fabrics are sourced sustainably, making them perfect for Pakistan's climate.\n\n2. **Unique Designs**: Our designs are inspired by traditional motifs and modern aesthetics, allowing you to express your individuality. Stand out in a crowd with our exclusive pieces.\n\n3. **Convenient Shopping**: With just a click, explore our extensive collection online. We offer cash-on-delivery as a preferred payment method, ensuring a hassle-free shopping experience for you.\n\n4. **Community Engagement**: At Khaadi, we value our community. We encourage feedback and aim to create a relationship-first approach to our business. Your suggestions help us grow and improve.\n\n5. **Seasonal Specials**: Keep an eye out for our special collections during Eids, Ramadan, and wedding seasons, tailored to meet the festive spirit of our beloved customers.\n\nJoin us on this exciting journey and elevate your wardrobe with Khaadi's unique offerings. Explore our latest collection by visiting our website or following us on social media. \n\n\ud83d\udc49 **Call to Action**: Tag a friend who needs a fashion upgrade and let them know about Khaadi! Don't forget to share your",
+    "tokens_used": 0,
+    "cost_usd": 0.0,
+    "generation_time_ms": 0,
+    "sources_used": [],
+    "is_saved": false,
+    "is_flagged": false,
+    "created_at": "2026-08-12 12:10:54.527716+00:00",
+    "updated_at": null
   }
 ]

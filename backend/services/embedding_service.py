@@ -1,5 +1,5 @@
 from typing import List, Optional
-
+import httpx
 from openai import OpenAI
 from loguru import logger
 
@@ -17,7 +17,8 @@ class EmbeddingService:
 
     def _get_client(self) -> OpenAI:
         if self._client is None:
-            self._client = OpenAI(api_key=settings.OPENAI_API_KEY)
+            http_client = httpx.Client(trust_env=False, timeout=30.0)
+            self._client = OpenAI(api_key=settings.OPENAI_API_KEY, http_client=http_client)
         return self._client
 
     def embed_text(self, text: str) -> Optional[List[float]]:

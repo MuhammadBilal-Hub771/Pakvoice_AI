@@ -84,7 +84,7 @@ export default function AdminLayout({
 
   return (
     <div className="min-h-screen bg-background">
-      <Toast type={toastType} message={toastMessage} visible={showToast} />
+      <Toast type={toastType} message={toastMessage} visible={showToast} onClose={() => setShowToast(false)} />
 
       {/* Mobile sidebar backdrop — CSS transition */}
       {mobileSidebar && (

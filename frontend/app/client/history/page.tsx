@@ -36,10 +36,8 @@ export default function HistoryPage() {
   const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (search.length >= 3 || search.length === 0) {
-      const t = setTimeout(() => setDebouncedSearch(search), 300)
-      return () => clearTimeout(t)
-    }
+    const t = setTimeout(() => setDebouncedSearch(search), 300)
+    return () => clearTimeout(t)
   }, [search])
 
   useEffect(() => {

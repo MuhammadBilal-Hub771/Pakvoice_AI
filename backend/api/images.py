@@ -58,12 +58,25 @@ async def download_and_store_image(url: str, image_id: str, request: Request) ->
 
 
 def _to_absolute_url(path: str, request: Request) -> str:
-    """Convert a relative path to an absolute URL using the request context."""
+    """Convert a relative path to an absolute URL using the request context.
+    Also normalizes legacy '/generated_images/' paths to '/static/images/'."""
+    # Normalize legacy /generated_images/ → /static/images/
+    path = path.replace("/generated_images/", "/static/images/")
     if path.startswith("http://") or path.startswith("https://"):
-        return path
+        return _normalize_legacy_url(path, request)
     base = _image_server_url(request)
     path = path.lstrip("/")
     return f"{base}/{path}"
+
+
+def _normalize_legacy_url(url: str, request: Request) -> str:
+    """Fix legacy absolute URLs that point to /generated_images/ instead of /static/images/."""
+    base = _image_server_url(request)
+    old_prefix = f"{base}/generated_images/"
+    new_prefix = f"{base}/static/images/"
+    if url.startswith(old_prefix):
+        return url.replace(old_prefix, new_prefix)
+    return url
 
 
 @router.post(

@@ -10,6 +10,7 @@ import {
   Images,
   History,
   BookOpen,
+  MessageSquare,
   User,
   LogOut,
 } from 'lucide-react'
@@ -21,6 +22,7 @@ import { useAuthStore } from '@/stores/authStore'
 const navLinks = [
   { href: '/client/home', label: 'Home', icon: Home },
   { href: '/client/generate', label: 'Generate', icon: Sparkles },
+  { href: '/client/whatsapp', label: 'WhatsApp Agent', icon: MessageSquare },
   { href: '/client/image-generator', label: 'Image Generator', icon: Image },
   { href: '/client/image-gallery', label: 'Image Gallery', icon: Images },
   { href: '/client/history', label: 'History', icon: History },
@@ -47,12 +49,18 @@ export default function ClientLayout({
   useEffect(() => {
     router.prefetch('/client/home')
     router.prefetch('/client/generate')
+    router.prefetch('/client/whatsapp')
     router.prefetch('/client/image-generator')
     router.prefetch('/client/image-gallery')
     router.prefetch('/client/history')
     router.prefetch('/client/knowledge-base')
     router.prefetch('/client/profile')
   }, [router])
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -77,7 +85,7 @@ export default function ClientLayout({
 
   return (
     <div className="min-h-screen bg-background">
-      <Toast type={toastType} message={toastMessage} visible={showToast} />
+      <Toast type={toastType} message={toastMessage} visible={showToast} onClose={() => setShowToast(false)} />
 
       {/* Top Navigation */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

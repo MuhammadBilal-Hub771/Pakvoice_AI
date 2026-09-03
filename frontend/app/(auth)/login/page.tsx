@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Eye, EyeOff, ArrowRight, X } from 'lucide-react'
+import { Eye, EyeOff, ArrowRight, X, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CrescentStarLogo } from '@/components/illustrations/logos'
@@ -11,16 +11,6 @@ import { ThemeSwitcher } from '@/components/shared/ThemeSwitcher'
 import { ParticlesBackground } from '@/components/shared/ParticlesBackground'
 import { useAuthStore } from '@/stores/authStore'
 import { authApi } from '@/lib/api'
-
-// #region agent log
-const LOG = (msg: string, data: Record<string, unknown>, hypothesisId: string) => {
-  fetch('http://127.0.0.1:7312/ingest/1cf36e37-3935-4a84-8ca6-a207321a7330', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '47bf90' },
-    body: JSON.stringify({ sessionId: '47bf90', runId: 'run1', hypothesisId, location: 'login/page.tsx:LOG', message: msg, data, timestamp: Date.now() }),
-  }).catch(() => {})
-}
-// #endregion
 
 interface ToastState {
   show: boolean
@@ -38,6 +28,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [toast, setToast] = useState<ToastState>({ show: false, message: '', type: 'error' })
+  const [rememberMe, setRememberMe] = useState(false)
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   const user = useAuthStore((s) => s.user)
   const storeToken = useAuthStore((s) => s.token)
@@ -46,6 +37,11 @@ export default function LoginPage() {
   const closeToast = () => {
     setToast(prev => ({ ...prev, show: false }))
   }
+
+  // Hydrate remember-me from localStorage (client-only)
+  useEffect(() => {
+    setRememberMe(!!localStorage.getItem('remember-me'))
+  }, [])
 
   // Auto-dismiss toast after 4 seconds
   useEffect(() => {
@@ -60,53 +56,17 @@ export default function LoginPage() {
     setError('')
   }, [role])
 
-  // #region agent log — mount snapshot
+  // Redirect if already authenticated
   useEffect(() => {
-    const rawLs = typeof localStorage !== 'undefined' ? localStorage.getItem('pakvoice-auth') : null
-    let parsedAuth: Record<string, unknown> = {}
-    try { parsedAuth = rawLs ? JSON.parse(rawLs) : {} } catch {}
-    const cookiesRaw = typeof document !== 'undefined' ? document.cookie : ''
-    const hasCookie = cookiesRaw.split(';').some(c => c.trim().startsWith('auth-token='))
-    LOG('login-mount', {
-      isAuthenticated, userRole: user?.role, storeRole: role,
-      hasCookie, localStorageKeys: Object.keys(parsedAuth),
-      localStorageState: parsedAuth?.state ? (parsedAuth.state as Record<string, unknown>)?.isAuthenticated : undefined,
-      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent.substring(0, 60) : 'ssr',
-    }, 'A')
-  }, [])
-  // #endregion
-
-  // Only redirect if BOTH zustand state AND cookie are valid
-  // If cookie is missing (expired/cleared), clear stale localStorage state
-  useEffect(() => {
-    // #region agent log — redirect check
-    LOG('redirect-check', {
-      isAuthenticated,
-      userRole: user?.role,
-      componentRole: role,
-      storeUserEmail: user?.email,
-      storeTokenPresent: !!storeToken,
-    }, 'A')
-    // #endregion
     if (isAuthenticated) {
       const hasCookie = typeof document !== 'undefined' &&
         document.cookie.split(';').some(c => c.trim().startsWith('auth-token='))
 
-      // #region agent log — cookie check result
-      LOG('cookie-check', { isAuthenticated, hasCookie, componentRole: role, userRole: user?.role }, 'A')
-      // #endregion
-
       if (hasCookie) {
         const targetPath = role === 'admin' ? '/admin/dashboard' : '/client/home'
-        // #region agent log — redirect path
-        LOG('redirect-trigger', { isAuthenticated, hasCookie, targetPath, componentRole: role, userRole: user?.role, redirectMismatch: user?.role !== role }, 'B')
-        // #endregion
         router.push(targetPath)
       } else {
         // Stale localStorage — clear it and stay on login
-        // #region agent log — stale state clear
-        LOG('stale-state-clear', { isAuthenticated, hasCookie, componentRole: role, userRole: user?.role }, 'E')
-        // #endregion
         useAuthStore.getState().clearAuth()
       }
     }
@@ -185,24 +145,32 @@ export default function LoginPage() {
           zIndex: 9999,
           background: toast.type === 'success' ? '#16a34a' : '#dc2626',
           color: 'white',
-          padding: '14px 20px',
+          padding: '14px 16px',
           borderRadius: '12px',
           boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
-          fontSize: '14px',
-          fontWeight: '500',
+          justifyContent: 'space-between',
+          gap: '12px',
+          minWidth: 280,
+          maxWidth: 420,
           transform: toast.show ? 'translateX(0)' : 'translateX(120%)',
           opacity: toast.show ? 1 : 0,
           transition: 'all 0.3s ease',
           pointerEvents: toast.show ? 'auto' : 'none',
         }}
       >
-        <span style={{ fontSize: '16px', fontWeight: 'bold', flexShrink: 0 }}>
-          {toast.type === 'success' ? '✓' : '✕'}
-        </span>
-        <span style={{ flex: 1 }}>{toast.message}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+          {toast.type === 'success' ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+              <circle cx="12" cy="12" r="10" />
+              <path d="M8 12l3 3 5-5" />
+            </svg>
+          ) : (
+            <AlertCircle size={18} style={{ flexShrink: 0 }} />
+          )}
+          <span style={{ fontSize: 14, fontWeight: 500, wordBreak: 'break-word' }}>{toast.message}</span>
+        </div>
         <button
           onClick={closeToast}
           type="button"
@@ -397,11 +365,25 @@ export default function LoginPage() {
                   <label className="flex items-center gap-2 text-sm cursor-pointer">
                     <input
                       type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => {
+                        const checked = e.target.checked
+                        setRememberMe(checked)
+                        if (checked) {
+                          localStorage.setItem('remember-me', 'true')
+                        } else {
+                          localStorage.removeItem('remember-me')
+                        }
+                      }}
                       className="rounded border-gray-300 text-pk-green-500 focus:ring-pk-green-500"
                     />
                     Remember me
                   </label>
-                  <button type="button" className="text-sm text-pk-green-600 hover:underline">
+                  <button
+                    type="button"
+                    className="text-sm text-pk-green-600 hover:underline"
+                    onClick={() => showToast('Please contact support to reset your password.', 'success')}
+                  >
                     Forgot password?
                   </button>
                 </div>
@@ -446,7 +428,7 @@ export default function LoginPage() {
                 variant="outline"
                 className="w-full h-12 border-gray-200 hover:bg-white/80"
                 onClick={() => {
-                  window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/auth/google`
+                  window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'}/api/auth/google`
                 }}
               >
                 <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none">
