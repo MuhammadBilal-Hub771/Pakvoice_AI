@@ -13,8 +13,15 @@ async def get_current_user(
 ) -> TokenPayload:
     token = credentials.credentials
     payload = decode_access_token(token)
+    sub = payload.get("sub")
+    if not sub:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token payload: missing subject",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     user = TokenPayload(
-        sub=payload.get("sub"),
+        sub=sub,
         exp=payload.get("exp"),
         role=payload.get("role"),
         email=payload.get("email"),
@@ -42,8 +49,11 @@ async def optional_auth(
         return None
     try:
         payload = decode_access_token(credentials.credentials)
+        sub = payload.get("sub")
+        if not sub:
+            return None
         return TokenPayload(
-            sub=payload.get("sub"),
+            sub=sub,
             exp=payload.get("exp"),
             role=payload.get("role"),
             email=payload.get("email"),

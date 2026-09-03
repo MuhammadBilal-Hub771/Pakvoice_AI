@@ -11,15 +11,16 @@
     "updated_at": null
   },
   {
-    "name": "Client User",
+    "name": "Hasnain",
     "email": "client@contentpk.ai",
-    "city": "Karachi",
+    "city": "Lahore",
+    "industry": null,
     "role": "client",
     "id": "931ddf88-66f4-41a6-afa2-66d534303615",
     "hashed_password": "$2b$12$B2MAnX6dbuF9LLaienpLReueqZQLgx2lSbzB4OosMuzK2RIOx9QrW",
     "is_active": true,
     "created_at": "2026-06-19 13:26:05.697767+00:00",
-    "updated_at": null
+    "updated_at": "2026-08-12 12:11:47.815599+00:00"
   },
   {
     "name": "Muhammad Bilal",

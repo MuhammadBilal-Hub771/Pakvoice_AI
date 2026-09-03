@@ -13,6 +13,7 @@ from models.user import (
     UserResponse,
     TokenResponse,
     TokenRefreshRequest,
+    ProfileUpdate,
     UserRole,
 )
 from core.security import (
@@ -175,9 +176,56 @@ async def get_me(current_user=Depends(get_current_user)):
         name=user.name,
         email=user.email,
         city=user.city,
+        industry=user.industry,
         role=user.role,
         is_active=user.is_active,
         created_at=user.created_at,
+    )
+
+
+@router.patch(
+    "/me",
+    response_model=UserResponse,
+    summary="Update current user profile",
+)
+async def update_me(
+    request: ProfileUpdate,
+    current_user=Depends(get_current_user),
+):
+    from db.json_store import get_user_by_id, update_user
+
+    user = get_user_by_id(current_user.sub)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+
+    updates = request.model_dump(exclude_unset=True)
+    if not updates:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No fields to update",
+        )
+
+    updated = update_user(current_user.sub, updates)
+    if not updated:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to update profile",
+        )
+
+    logger.info(f"User {current_user.email} updated profile: {updates}")
+
+    return UserResponse(
+        id=updated.id,
+        name=updated.name,
+        email=updated.email,
+        city=updated.city,
+        industry=updated.industry,
+        role=updated.role,
+        is_active=updated.is_active,
+        created_at=updated.created_at,
     )
 
 

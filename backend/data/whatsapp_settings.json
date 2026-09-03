@@ -1,0 +1,12 @@
+[
+  {
+    "verify_token": "pakvoice_whatsapp_verify_secret",
+    "api_token": "EAAaN5igwGK8BSYWlyriyUaktqHN0gecwNH5LrwpKKzlb1zX35wivcRf17FFlhLqu8y8UCHGbqZCUQYQaZBQIgqruv3Ms1moofiZCXOZBmOsTOhH9OyjSgRbPtZAawkZBZChuZAZCZAmEvcyuvGMVdbn2YUzYftMqOc64NKVl8JL2q5QH56APTeH8dZCTha6GrDqDj1oYnZC87YtespNUEAZAvXyactDKu5p8hVZBkT2a6heZBEy6OzfPgG4tYQlCmHPvzMeOEgyfqQl03OaqCczMvaYYjcl",
+    "phone_number_id": "1259502673919458",
+    "business_account_id": "28375638108719253",
+    "ai_enabled": true,
+    "system_prompt": "You are the intelligent WhatsApp AI customer support and sales assistant for our business in Pakistan. Your tone is polite, professional, and helpful. You understand and respond naturally in the user's preferred language (English, Urdu اردو, or Roman Urdu). When business documents are provided as context, ground your answers strictly in the knowledge base facts. If you do not know the answer, politely ask them to leave their query so a team member can assist them.",
+    "use_rag": true,
+    "rag_top_k": 3
+  }
+]

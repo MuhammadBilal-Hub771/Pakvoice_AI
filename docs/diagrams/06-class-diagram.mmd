@@ -1,0 +1,119 @@
+%% PakVoice AI — Class Diagram (logical / API models + services)
+classDiagram
+  class User {
+    +str id
+    +str name
+    +str email
+    +str city
+    +str industry
+    +UserRole role
+    +str hashed_password
+    +bool is_active
+    +datetime created_at
+  }
+
+  class UserRole {
+    <<enumeration>>
+    admin
+    client
+  }
+
+  class GenerateRequest {
+    +str business_name
+    +str business_description
+    +ContentType content_type
+    +Industry industry
+    +City city
+    +Language language
+    +Tone tone
+    +bool use_knowledge_base
+    +List selected_doc_ids
+  }
+
+  class GenerationHistoryItem {
+    +str content_id
+    +str user_id
+    +str generated_content
+    +int tokens_used
+    +List sources_used
+    +bool is_saved
+    +bool is_flagged
+  }
+
+  class Document {
+    +str doc_id
+    +str title
+    +str category
+    +List tags
+    +str filename
+    +int chunks_created
+    +DocumentStatus status
+    +str uploaded_by
+  }
+
+  class DocumentStatus {
+    <<enumeration>>
+    processing
+    processed
+    failed
+  }
+
+  class SavedImage {
+    +str id
+    +str user_id
+    +str image_url
+    +str image_type
+    +str source_content
+    +datetime created_at
+  }
+
+  class ChromaChunk {
+    +str chunk_id
+    +str doc_id
+    +str text
+    +List embedding
+    +dict metadata
+  }
+
+  class AIService {
+    +generate_content()
+    +generate_content_stream()
+    +refine_content()
+    -_retrieve_context()
+  }
+
+  class RAGService {
+    +search()
+    +index_document_chunks()
+    +get_document_count()
+  }
+
+  class DocumentService {
+    +process_upload()
+    +list_documents()
+    +delete_document()
+  }
+
+  class ImageService {
+    +generate_image()
+    +save_image()
+    +list_gallery()
+  }
+
+  class HistoryService {
+    +save()
+    +list()
+    +export()
+  }
+
+  User --> UserRole
+  User "1" --> "*" GenerationHistoryItem : owns
+  User "1" --> "*" Document : uploads
+  User "1" --> "*" SavedImage : owns
+  Document "1" --> "*" ChromaChunk : indexed_as
+  GenerateRequest ..> AIService : input
+  AIService --> RAGService : uses
+  AIService --> HistoryService : saves
+  DocumentService --> RAGService : indexes
+  AIService ..> GenerationHistoryItem : creates
+  ImageService ..> SavedImage : creates

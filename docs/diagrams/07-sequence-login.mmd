@@ -1,0 +1,25 @@
+%% PakVoice AI — Sequence: Login
+sequenceDiagram
+  actor Client
+  participant UI as Next.js Login Page
+  participant API as FastAPI /api/auth
+  participant Store as JSON Store users.json
+  participant JWT as Security JWT
+
+  Client->>UI: Enter email, password, role
+  UI->>API: POST /api/auth/login
+  API->>Store: authenticate_user(email, password, role)
+  alt Invalid credentials
+    Store-->>API: null
+    API-->>UI: 401 Unauthorized
+    UI-->>Client: Show error
+  else Valid user
+    Store-->>API: User record
+    API->>JWT: create_access_token(sub, email, role)
+    JWT-->>API: access_token
+    API-->>UI: TokenResponse + user
+    UI->>UI: Persist token in authStore
+    UI-->>Client: Redirect to Client or Admin portal
+  end
+
+  Note over Client,JWT: Optional path: GET /api/auth/google → Google OAuth → callback → JWT

@@ -45,6 +45,20 @@ class Settings(BaseSettings):
     def allowed_extensions_list(self) -> List[str]:
         return [ext.strip() for ext in self.ALLOWED_EXTENSIONS.split(",") if ext.strip()]
 
+    # WhatsApp Integration
+    WHATSAPP_VERIFY_TOKEN: str = "pakvoice_whatsapp_verify_secret"
+    WHATSAPP_API_TOKEN: Optional[str] = None
+    WHATSAPP_PHONE_NUMBER_ID: Optional[str] = None
+    WHATSAPP_BUSINESS_ACCOUNT_ID: Optional[str] = None
+    WHATSAPP_AI_ENABLED: bool = True
+    WHATSAPP_SYSTEM_PROMPT: str = (
+        "You are the intelligent WhatsApp AI customer support and sales assistant for our business in Pakistan. "
+        "Your tone is polite, professional, and helpful. "
+        "You understand and respond naturally in the user's preferred language (English, Urdu اردو, or Roman Urdu). "
+        "When business documents are provided as context, ground your answers strictly in the knowledge base facts. "
+        "If you do not know the answer, politely ask them to leave their query so a team member can assist them."
+    )
+
     # Rate Limiting
     RATE_LIMIT: str = "30/minute"
 

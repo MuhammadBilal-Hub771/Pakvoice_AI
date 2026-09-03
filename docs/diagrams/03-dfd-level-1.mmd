@@ -1,0 +1,38 @@
+%% PakVoice AI — DFD Level 1
+flowchart TB
+  Client([Client])
+  Admin([Admin])
+  OpenAI([OpenAI])
+
+  P1[["1.0 Authenticate"]]
+  P2[["2.0 Generate Content"]]
+  P3[["3.0 Manage Documents"]]
+  P4[["4.0 Manage History"]]
+  P5[["5.0 Generate Images"]]
+  P6[["6.0 Admin Operations"]]
+
+  D1[("D1 Users<br/>JSON")]
+  D2[("D2 History<br/>JSON")]
+  D3[("D3 Documents<br/>JSON")]
+  D4[("D4 Images<br/>JSON")]
+  D5[("D5 Chroma<br/>Chunks")]
+
+  Client --> P1
+  Client --> P2
+  Client --> P3
+  Client --> P4
+  Client --> P5
+  Admin --> P1
+  Admin --> P6
+
+  P1 <--> D1
+  P2 --> OpenAI
+  P2 <--> D5
+  P2 --> D2
+  P3 --> D3
+  P3 --> D5
+  P4 <--> D2
+  P5 --> OpenAI
+  P5 --> D4
+  P6 <--> D1
+  P6 --> D2

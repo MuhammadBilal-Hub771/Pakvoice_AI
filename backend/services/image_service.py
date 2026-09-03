@@ -203,7 +203,7 @@ Return ONLY valid JSON, nothing else.
                 with open(filepath, "wb") as f:
                     f.write(img_data)
 
-                image_url_final = f"/generated_images/{filename}"
+                image_url_final = f"/static/images/{filename}"
                 logger.info(f"Image saved from base64: {filename} ({len(img_data)} bytes)")
             else:
                 logger.warning("No image data returned from API")
@@ -312,7 +312,7 @@ Return ONLY valid JSON, nothing else.
 
         return {
             "image_id": image_id,
-            "image_url": f"/generated_images/{filename}",
+            "image_url": f"/static/images/{filename}",
             "image_type": image_type,
             "prompt_used": self.build_image_prompt(
                 {"mood_tone": "professional", "color_scheme": "green, gold"},

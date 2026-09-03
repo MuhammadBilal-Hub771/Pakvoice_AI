@@ -23,6 +23,7 @@ from api.history import router as history_router
 from api.admin import router as admin_router
 from api.health import router as health_router
 from api.images import router as images_router
+from api.whatsapp import router as whatsapp_router, alias_router as whatsapp_alias_router
 
 
 @asynccontextmanager
@@ -48,6 +49,11 @@ async def lifespan(app: FastAPI):
     # Upload directory
     os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
     logger.info(f"Upload directory: {settings.UPLOAD_DIR}")
+
+    # Seed default users if none exist
+    from db.json_store import _seed_users
+    _seed_users()
+    logger.info("Seeded default users")
 
     yield
 
@@ -90,12 +96,12 @@ app.include_router(history_router)
 app.include_router(admin_router)
 app.include_router(health_router)
 app.include_router(images_router)
+app.include_router(whatsapp_router)
+app.include_router(whatsapp_alias_router)
 
 # Mount static files for generated images
 os.makedirs(settings.IMAGE_STORAGE_DIR, exist_ok=True)
 app.mount("/static/images", StaticFiles(directory=settings.IMAGE_STORAGE_DIR), name="images")
-# Legacy mount for backward compatibility
-app.mount("/generated_images", StaticFiles(directory=settings.IMAGE_STORAGE_DIR), name="generated_images")
 
 
 # === Exception Handlers ===
@@ -120,7 +126,6 @@ async def validation_handler(request: Request, exc: RequestValidationError):
         content={
             "detail": "Validation error",
             "errors": exc.errors(),
-            "body": exc.body,
         },
     )
 
@@ -173,10 +178,11 @@ async def root():
 if __name__ == "__main__":
     import uvicorn
 
+    port = int(os.getenv("PORT", "8001"))
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
-        port=8000,
+        port=port,
         reload=settings.DEBUG,
         log_level="info",
     )

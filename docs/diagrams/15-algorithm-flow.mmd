@@ -1,0 +1,31 @@
+%% PakVoice AI — High-level algorithm flow (generation / RAG / images)
+flowchart TD
+  Start([User Action]) --> Choice{Feature}
+
+  Choice -->|Generate Content| G1[Collect form inputs]
+  G1 --> G2{RAG enabled?}
+  G2 -->|Yes| G3[Embed query]
+  G3 --> G4[Chroma top-k retrieve]
+  G4 --> G5[Augment prompt with chunks]
+  G2 -->|No| G5b[Build prompt without KB]
+  G5 --> G6[Call OpenAI chat model]
+  G5b --> G6
+  G6 --> G7[Stream / return text]
+  G7 --> G8[Persist history.json]
+  G8 --> Done([Done])
+
+  Choice -->|Upload Document| U1[Validate file type/size]
+  U1 --> U2[Parse PDF/DOCX/TXT/MD]
+  U2 --> U3[Clean + chunk text]
+  U3 --> U4[Embed chunks]
+  U4 --> U5[Store vectors in Chroma]
+  U5 --> U6[Save metadata documents.json]
+  U6 --> Done
+
+  Choice -->|Generate Image| I1[Receive content + image_type]
+  I1 --> I2[Extract brand details via LLM]
+  I2 --> I3[Build image / poster prompt]
+  I3 --> I4[Call OpenAI image model<br/>and/or Jinja+Playwright render]
+  I4 --> I5[Store file under generated_images/]
+  I5 --> I6[Optional save to images.json gallery]
+  I6 --> Done

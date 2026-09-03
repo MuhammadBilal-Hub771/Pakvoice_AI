@@ -10,7 +10,7 @@ import { HeroIllustration } from '@/components/illustrations/illustrations'
 import { ContentTypeIcon } from '@/components/illustrations/logos'
 import { useAuthStore } from '@/stores/authStore'
 import { useGenerateStore } from '@/stores/generateStore'
-import { formatDate } from '@/lib/utils'
+import { formatDate, copyToClipboard } from '@/lib/utils'
 import { StatsCard, StatsCardSkeleton } from '@/components/shared/StatsCard'
 import { useClientStats } from '@/hooks/useClientStats'
 
@@ -46,6 +46,13 @@ function ClientHomePage() {
   const history = useGenerateStore((s) => s.history)
   const { data: stats, isLoading } = useClientStats()
   const [activeCard, setActiveCard] = useState<string | null>(null)
+  const [copiedId, setCopiedId] = useState<string | null>(null)
+
+  const handleCopy = async (id: string, content: string) => {
+    await copyToClipboard(content)
+    setCopiedId(id)
+    setTimeout(() => setCopiedId(null), 2000)
+  }
 
   // Show max 5 most recent, sorted newest first
   const recentGenerations = useMemo(() => {
@@ -83,17 +90,8 @@ function ClientHomePage() {
         </div>
       </div>
 
-      {/* Quick Stats — 4 equal height cards with inline styles */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '16px',
-          width: '100%',
-          marginBottom: '32px',
-        }}
-        className="max-sm:grid-cols-1 max-md:grid-cols-2"
-      >
+      {/* Quick Stats — 4 equal height cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full mb-8">
         {isLoading ? (
           <>
             <StatsCardSkeleton />
@@ -197,7 +195,17 @@ function ClientHomePage() {
                       )}
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" className="text-xs">Copy</Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-xs"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleCopy(item.id, item.content)
+                    }}
+                  >
+                    {copiedId === item.id ? 'Copied!' : 'Copy'}
+                  </Button>
                 </CardContent>
               </Card>
             ))}

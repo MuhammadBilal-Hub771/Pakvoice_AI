@@ -1,0 +1,493 @@
+[
+  {
+    "id": "c86a3f58-1aeb-4a18-b701-fa97302b3ca3",
+    "phone_number": "+923009998877",
+    "sender": "user",
+    "text": "Assalam-o-Alaikum, what services does your company offer in Pakistan?",
+    "timestamp": "2026-09-02T16:48:17.273798+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": null,
+    "contact_name": "Bilal Test"
+  },
+  {
+    "id": "232f6751-147b-4e27-ac25-b7bbfdf5a9f5",
+    "phone_number": "+923009998877",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum! Shukriya aap ke message ka. Hamaari team thori der mein aap se rabta karegi.",
+    "timestamp": "2026-09-02T16:48:19.882146+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "Bilal Test"
+  },
+  {
+    "id": "03654d44-9d21-4328-8177-4551b4e6a8e3",
+    "phone_number": "+923009998877",
+    "sender": "user",
+    "text": "hi",
+    "timestamp": "2026-09-02T17:16:29.611494+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": null,
+    "contact_name": "Ahmed Khan (Customer)"
+  },
+  {
+    "id": "fc3f67a7-2462-400e-80a1-eeef54d392ff",
+    "phone_number": "+923009998877",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum! Shukriya aap ke message ka. Hamaari team thori der mein aap se rabta karegi.",
+    "timestamp": "2026-09-02T17:16:33.021550+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "Ahmed Khan (Customer)"
+  },
+  {
+    "id": "30180db0-1ae8-447b-9ed1-5ebbb7b13853",
+    "phone_number": "+923009998877",
+    "sender": "user",
+    "text": "i want to make a ad",
+    "timestamp": "2026-09-02T17:16:48.664286+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": null,
+    "contact_name": "Ahmed Khan (Customer)"
+  },
+  {
+    "id": "025b0f59-f8b5-4cec-8b00-308d65d6f213",
+    "phone_number": "+923009998877",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum! Shukriya aap ke message ka. Hamaari team thori der mein aap se rabta karegi.",
+    "timestamp": "2026-09-02T17:16:49.829373+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "Ahmed Khan (Customer)"
+  },
+  {
+    "id": "bd2141fe-44b7-4748-94e2-018ae4696a93",
+    "phone_number": "923339271667",
+    "sender": "user",
+    "text": "Assalam-o-Alaikum, I need complete information about your company services and playbook.",
+    "timestamp": "2026-09-02T17:57:36.788738+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": null,
+    "contact_name": "Bilal"
+  },
+  {
+    "id": "8317063e-bec5-40b1-bf3d-753a6541ac7c",
+    "phone_number": "923339271667",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum! Shukriya aap ke message ka. Hamaari team thori der mein aap se rabta karegi.",
+    "timestamp": "2026-09-02T17:57:39.219554+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "Bilal"
+  },
+  {
+    "id": "38173096-f585-4153-99dc-b1ef0bf05f3a",
+    "phone_number": "923001234567",
+    "sender": "user",
+    "text": "Assalam-o-Alaikum! Tell me about Enterprise IT Corp mission and vision.",
+    "timestamp": "2026-09-03T03:58:03.396194+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": null,
+    "contact_name": "Test Client"
+  },
+  {
+    "id": "06d2747a-c08d-4466-81fc-c7bd218d88aa",
+    "phone_number": "923001234567",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum! Shukriya aap ke message ka. Hamaari team thori der mein aap se rabta karegi.",
+    "timestamp": "2026-09-03T03:58:13.716388+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "Test Client"
+  },
+  {
+    "id": "3e80932b-0562-48bf-8162-38f23f1b178c",
+    "phone_number": "923339271667",
+    "sender": "user",
+    "text": "Assalam-o-Alaikum! Tell me about your business mission and services.",
+    "timestamp": "2026-09-03T03:58:20.611463+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": null,
+    "contact_name": "Bilal"
+  },
+  {
+    "id": "fd09abbf-ddab-4a6e-bb1f-2b1081aece9b",
+    "phone_number": "923339271667",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum! Shukriya aap ke message ka. Hamaari team thori der mein aap se rabta karegi.",
+    "timestamp": "2026-09-03T03:58:32.823156+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "Bilal"
+  },
+  {
+    "id": "fa8f2c7d-0cf9-47b5-aa02-4201fb86e374",
+    "phone_number": "923001234567",
+    "sender": "user",
+    "text": "Assalam-o-Alaikum! Tell me about Enterprise IT Corp mission and vision.",
+    "timestamp": "2026-09-03T03:59:51.328253+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": null,
+    "contact_name": "Bilal"
+  },
+  {
+    "id": "34ccb3a0-3025-4946-ad5c-d1887dcefc8e",
+    "phone_number": "923001234567",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum! \n\nMujhe maazrat chahiye, magar mujhe Enterprise IT Corp ki mission aur vision ke bare mein specific maloomat nahi hai. Aap apna sawal chhod dijiye, takay meri team aap ki madad kar sake. Shukriya!",
+    "timestamp": "2026-09-03T03:59:54.476187+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "Bilal"
+  },
+  {
+    "id": "fd61180d-1afb-48e6-b8b6-53d987176c36",
+    "phone_number": "923001234567",
+    "sender": "user",
+    "text": "Assalam-o-Alaikum! Tell me about Enterprise IT Corp mission statement and vision statement.",
+    "timestamp": "2026-09-03T04:00:40.098448+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": null,
+    "contact_name": "Bilal"
+  },
+  {
+    "id": "b94735c4-d920-4840-bf5e-b7b3a1cd38e9",
+    "phone_number": "923001234567",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum!\n\n*Mission Statement:*\nEnterprise IT Corp is dedicated to engineering resilient, scalable, and secure digital infrastructure that empowers global enterprises to accelerate innovation. We bridge the gap between legacy operational constraints and modern cloud-native efficiencies through meticulous software design, data-driven intelligence, and uncompromising security frameworks.\n\n*Vision Statement:*\nTo be the definitive global architectural partner for enterprise digital transformation, recognized for setting the industry standard in high-availability systems, automated DevOps pipelines, and ethical artificial intelligence integration.\n\nAgar aap ko aur kisi cheez ki zaroorat hai, toh bejhijhak poochiye!",
+    "timestamp": "2026-09-03T04:00:43.162339+00:00",
+    "rag_sources": [
+      {
+        "doc_id": "0b4004fc-8802-40a5-bdd2-3e28d21ecf8c",
+        "title": "Enterprise IT Corp Playbook & Operations Blueprint",
+        "category": "corporate",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & Corporate Identity\n1",
+        "score": 0.596
+      },
+      {
+        "doc_id": "0b4004fc-8802-40a5-bdd2-3e28d21ecf8c",
+        "title": "Enterprise IT Corp Playbook & Operations Blueprint",
+        "category": "corporate",
+        "chunk_text": "3.3 Custom Enterprise Software Development Building systems that process high-throughput transaction loads with microsecond latencies. We design stateless microservices that communicate over asynchronous event-driven bus",
+        "score": 0.471
+      },
+      {
+        "doc_id": "0b4004fc-8802-40a5-bdd2-3e28d21ecf8c",
+        "title": "Enterprise IT Corp Playbook & Operations Blueprint",
+        "category": "corporate",
+        "chunk_text": "Certified Kubernetes Administrator (CKA), and CISSP credentials. 8. Financial Performance Models & Multi-Year Projections The organization ensures long-term viability by balancing recurring managed service retainers with",
+        "score": 0.421
+      }
+    ],
+    "status": "sent",
+    "contact_name": "Bilal"
+  },
+  {
+    "id": "50ab599f-25fe-4cbe-979d-21a70bd61193",
+    "phone_number": "923339271667",
+    "sender": "user",
+    "text": "Assalam-o-Alaikum, what is Enterprise IT Corp mission?",
+    "timestamp": "2026-09-03T04:02:07.445791+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": {
+      "from": "923339271667",
+      "id": "wamid.test12345",
+      "type": "text",
+      "text": {
+        "body": "Assalam-o-Alaikum, what is Enterprise IT Corp mission?"
+      }
+    },
+    "contact_name": "Hasnain"
+  },
+  {
+    "id": "c21735a1-7aa7-491f-b6c7-0b073af203f9",
+    "phone_number": "923339271667",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum! \n\nThe mission of **Enterprise IT Corp** is to engineer resilient, scalable, and secure digital infrastructure that empowers global enterprises to accelerate innovation. We aim to bridge the gap between legacy operational constraints and modern cloud-native efficiencies through meticulous software design, data-driven intelligence, and uncompromising security frameworks.\n\nIf you have any more questions or need further information, feel free to ask!",
+    "timestamp": "2026-09-03T04:02:11.134267+00:00",
+    "rag_sources": [
+      {
+        "doc_id": "0b4004fc-8802-40a5-bdd2-3e28d21ecf8c",
+        "title": "Enterprise IT Corp Playbook & Operations Blueprint",
+        "category": "corporate",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & Corporate Identity\n1",
+        "score": 0.573
+      },
+      {
+        "doc_id": "0b4004fc-8802-40a5-bdd2-3e28d21ecf8c",
+        "title": "Enterprise IT Corp Playbook & Operations Blueprint",
+        "category": "corporate",
+        "chunk_text": "3.3 Custom Enterprise Software Development Building systems that process high-throughput transaction loads with microsecond latencies. We design stateless microservices that communicate over asynchronous event-driven bus",
+        "score": 0.455
+      },
+      {
+        "doc_id": "0b4004fc-8802-40a5-bdd2-3e28d21ecf8c",
+        "title": "Enterprise IT Corp Playbook & Operations Blueprint",
+        "category": "corporate",
+        "chunk_text": "Certified Kubernetes Administrator (CKA), and CISSP credentials. 8. Financial Performance Models & Multi-Year Projections The organization ensures long-term viability by balancing recurring managed service retainers with",
+        "score": 0.397
+      }
+    ],
+    "status": "sent",
+    "contact_name": "Hasnain"
+  },
+  {
+    "id": "75c9de6e-9527-40ef-9d25-976c5af2fadb",
+    "phone_number": "923339271667",
+    "sender": "user",
+    "text": "Assalam-o-Alaikum, what services does Enterprise IT Corp provide?",
+    "timestamp": "2026-09-03T05:05:59.601416+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": {
+      "from": "923339271667",
+      "id": "wamid.test_live_123",
+      "type": "text",
+      "text": {
+        "body": "Assalam-o-Alaikum, what services does Enterprise IT Corp provide?"
+      }
+    },
+    "contact_name": "Hasnain"
+  },
+  {
+    "id": "714e385a-b4cf-46ae-b087-ac3112ff101a",
+    "phone_number": "923339271667",
+    "sender": "agent",
+    "text": "Assalam-o-Alaikum! \n\n**Enterprise IT Corp** offers a range of services, including:\n\n* **Cloud Solutions**: Cloud migration, management, and optimization.\n* **Cybersecurity**: Comprehensive security assessments and solutions.\n* **Software Development**: Custom software solutions tailored to business needs.\n* **Data Analytics**: Data management and analytics services to drive insights.\n* **IT Consulting**: Strategic IT consulting to enhance operational efficiency.\n\nIf you need more details about any specific service, please let me know!",
+    "timestamp": "2026-09-03T05:06:06.206469+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "Hasnain"
+  },
+  {
+    "id": "05409fef-bfef-454a-80c5-970fb920b1e7",
+    "phone_number": "923086640216",
+    "sender": "user",
+    "text": "Assalam-o-Alaikum, what services does Enterprise IT Corp provide?",
+    "timestamp": "2026-09-03T05:31:13.532442+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": null,
+    "contact_name": "User"
+  },
+  {
+    "id": "5ae0c85d-ec4c-497f-8b39-15ed6d8575d7",
+    "phone_number": "923086640216",
+    "sender": "agent",
+    "text": "Wa Alaikum Assalam! \n\nEnterprise IT Corp offers a range of services, including:\n\n1. **Cloud Architecture & Managed Migrations**:\n   - Migrating legacy systems to multi-cloud environments (AWS, Azure, GCP).\n   - Assessment & TCO analysis for existing assets.\n   - Establishing secure landing zones with IAM controls.\n\n2. **DevOps Pipeline Automation**:\n   - Engineering CI/CD pipelines that treat infrastructure as code.\n   - Standardized automation scripts for global scalability.\n\n3. **Custom Enterprise Software Development**:\n   - Building systems for high-throughput transactions with microsecond latencies.\n   - Designing stateless microservices using event-driven architectures.\n\nIf you have any specific questions about these services, feel free to ask!",
+    "timestamp": "2026-09-03T05:31:18.165533+00:00",
+    "rag_sources": [
+      {
+        "doc_id": "0b4004fc-8802-40a5-bdd2-3e28d21ecf8c",
+        "title": "Enterprise IT Corp Playbook & Operations Blueprint",
+        "category": "corporate",
+        "chunk_text": "Enterprise IT Corp: Comprehensive Corporate Playbook & Operations Blueprint\nDocument Version: 1.0\nClassification: Confidential - Internal Use Only\nEffective Date: June 11, 2026\n1. Executive Summary & Corporate Identity\n1",
+        "score": 0.545
+      },
+      {
+        "doc_id": "0b4004fc-8802-40a5-bdd2-3e28d21ecf8c",
+        "title": "Enterprise IT Corp Playbook & Operations Blueprint",
+        "category": "corporate",
+        "chunk_text": "3.3 Custom Enterprise Software Development Building systems that process high-throughput transaction loads with microsecond latencies. We design stateless microservices that communicate over asynchronous event-driven bus",
+        "score": 0.483
+      },
+      {
+        "doc_id": "0b4004fc-8802-40a5-bdd2-3e28d21ecf8c",
+        "title": "Enterprise IT Corp Playbook & Operations Blueprint",
+        "category": "corporate",
+        "chunk_text": "Certified Kubernetes Administrator (CKA), and CISSP credentials. 8. Financial Performance Models & Multi-Year Projections The organization ensures long-term viability by balancing recurring managed service retainers with",
+        "score": 0.391
+      }
+    ],
+    "status": "sent",
+    "contact_name": "User"
+  },
+  {
+    "id": "6dab50ba-6b87-424d-b6dd-0a98e97c0349",
+    "phone_number": "923086640216",
+    "sender": "user",
+    "text": "\"Assalam-o-Alaikum, what services does Enterprise IT Corp provide?",
+    "timestamp": "2026-09-03T05:37:58.672656+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": {
+      "from": "923086640216",
+      "from_user_id": "PK.1763831524757876",
+      "id": "wamid.HBgMOTIzMDg2NjQwMjE2FQIAEhgUM0JDRjNEODFDOEVCOUEzMTUxOTcA",
+      "timestamp": "1788413877",
+      "text": {
+        "body": "\"Assalam-o-Alaikum, what services does Enterprise IT Corp provide?"
+      },
+      "type": "text"
+    },
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "3dbf29c7-4d44-444b-9f56-c4c6b95ca88b",
+    "phone_number": "923086640216",
+    "sender": "agent",
+    "text": "Wa Alaikum Assalam!\n\nEnterprise IT Corp ki kuch khaas services yeh hain:\n\n1. **Cloud Architecture & Managed Migrations**:\n   - Purani systems ko multi-cloud environments (AWS, Azure, GCP) par migrate karna.\n   - Maujooda assets ka assessment aur TCO analysis.\n   - Secure landing zones tayar karna with IAM controls.\n\n2. **DevOps Pipeline Automation**:\n   - CI/CD pipelines ka engineering jo infrastructure ko code ki tarah treat karta hai.\n   - Global scalability ke liye standardized automation scripts.\n\n3. **Custom Enterprise Software Development**:\n   - High-throughput transactions ke liye systems banana jo microsecond latencies par kaam karte hain.\n   - Event-driven architectures ka istemal karte hue stateless microservices design karna.\n\nAgar aapko in services ke baare mein aur koi sawal hai, toh zaroor poochiye!",
+    "timestamp": "2026-09-03T05:38:02.907944+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "4fff169a-2d4b-4a1a-9472-7fbace883478",
+    "phone_number": "923086640216",
+    "sender": "user",
+    "text": "hi",
+    "timestamp": "2026-09-03T05:39:32.345881+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": {
+      "from": "923086640216",
+      "from_user_id": "PK.1763831524757876",
+      "id": "wamid.HBgMOTIzMDg2NjQwMjE2FQIAEhgUM0JFOEExMDAwM0M3N0JBQjEwQjcA",
+      "timestamp": "1788413971",
+      "text": {
+        "body": "hi"
+      },
+      "type": "text"
+    },
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "53b2c16b-7eec-4ca6-a502-f977b8a0a702",
+    "phone_number": "923086640216",
+    "sender": "agent",
+    "text": "Hello! How can I assist you today? If you have any questions or need information, feel free to ask!",
+    "timestamp": "2026-09-03T05:39:35.391357+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "aeb7725e-94ba-4a0b-94a2-73dca284eb47",
+    "phone_number": "923086640216",
+    "sender": "user",
+    "text": "kadi wich pwaya ee?",
+    "timestamp": "2026-09-03T05:39:48.159864+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": {
+      "from": "923086640216",
+      "from_user_id": "PK.1763831524757876",
+      "id": "wamid.HBgMOTIzMDg2NjQwMjE2FQIAEhgUM0JGM0I3MDQ3NTc1MTI0ODcwRTIA",
+      "timestamp": "1788413987",
+      "text": {
+        "body": "kadi wich pwaya ee?"
+      },
+      "type": "text"
+    },
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "adcc0c1b-7372-4478-8744-716ebc0f1dd0",
+    "phone_number": "923086640216",
+    "sender": "agent",
+    "text": "Maf karna, mujhe aapka sawal samajh nahi aaya. Kya aap thoda tafseel se bata sakte hain? Shukriya!",
+    "timestamp": "2026-09-03T05:39:50.233652+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "dd18e81b-a6aa-4a67-9b51-a081ea524ed6",
+    "phone_number": "923086640216",
+    "sender": "user",
+    "text": "main puch rha hu kabhi apne apny andar dawlaya hai penis?",
+    "timestamp": "2026-09-03T05:40:14.781247+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": {
+      "from": "923086640216",
+      "from_user_id": "PK.1763831524757876",
+      "id": "wamid.HBgMOTIzMDg2NjQwMjE2FQIAEhgUM0IwNTBDMTVFRDQ2NkIyNjQwRTYA",
+      "timestamp": "1788414013",
+      "text": {
+        "body": "main puch rha hu kabhi apne apny andar dawlaya hai penis?"
+      },
+      "type": "text"
+    },
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "3548fe2a-35de-4980-bc78-bd6a44336fd9",
+    "phone_number": "923086640216",
+    "sender": "agent",
+    "text": "Mujhe aapka sawal samajh nahi aaya. Main yahan aapki business-related queries ya kisi aur madad ke liye hoon. Agar aapko kisi aur cheez ki zarurat hai, toh please bataiye. Shukriya!",
+    "timestamp": "2026-09-03T05:40:17.615799+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "d3181486-f621-4dc3-8d35-3a7d8285d6f2",
+    "phone_number": "923086640216",
+    "sender": "user",
+    "text": "can you make me the post for khadi?",
+    "timestamp": "2026-09-03T05:41:42.837372+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": {
+      "from": "923086640216",
+      "from_user_id": "PK.1763831524757876",
+      "id": "wamid.HBgMOTIzMDg2NjQwMjE2FQIAEhgUM0JEQTNGMERGN0E3REFBQUNGODkA",
+      "timestamp": "1788414102",
+      "text": {
+        "body": "can you make me the post for khadi?"
+      },
+      "type": "text"
+    },
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "26a99d43-6368-4f75-87c1-8715f5a57713",
+    "phone_number": "923086640216",
+    "sender": "agent",
+    "text": "Sure! Could you please provide me with more details about the post you would like to create for Khadi? For example:\n\n- What specific information or message do you want to convey?\n- Any particular promotions or products you want to highlight?\n- Preferred style or tone for the post?\n\nOnce I have more details, I can help you craft the perfect post!",
+    "timestamp": "2026-09-03T05:41:45.310398+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "de322552-e617-4ae6-9399-a2e04dd8e94b",
+    "phone_number": "923086640216",
+    "sender": "user",
+    "text": "can you make me the image?",
+    "timestamp": "2026-09-03T05:42:01.849083+00:00",
+    "rag_sources": [],
+    "status": "received",
+    "raw_payload": {
+      "from": "923086640216",
+      "from_user_id": "PK.1763831524757876",
+      "id": "wamid.HBgMOTIzMDg2NjQwMjE2FQIAEhgUM0I4M0YzMzk0NEI1NjBDMzg2N0UA",
+      "timestamp": "1788414120",
+      "text": {
+        "body": "can you make me the image?"
+      },
+      "type": "text"
+    },
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  },
+  {
+    "id": "0ce2ae19-ed6d-4b7e-8c01-fb44426b9d42",
+    "phone_number": "923086640216",
+    "sender": "agent",
+    "text": "I'm sorry, but I can't create images directly. However, I can help you with ideas or text for your image. If you let me know what you want to include in the image, I can suggest some content or design elements!",
+    "timestamp": "2026-09-03T05:42:04.051448+00:00",
+    "rag_sources": [],
+    "status": "sent",
+    "contact_name": "\u0686\u0648\u06c1\u062f\u0631\u06cc"
+  }
+]

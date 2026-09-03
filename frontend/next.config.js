@@ -1,5 +1,5 @@
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
   output: 'standalone',
@@ -12,6 +12,10 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
+
+
+
+  
   experimental: {
     optimizePackageImports: [
       'lucide-react',

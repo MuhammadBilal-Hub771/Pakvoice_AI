@@ -65,7 +65,7 @@ export const useAuthStore = create<AuthStore>()(
         // Best-effort: call backend to blacklist token
         const token = useAuthStore.getState().token
         if (token && typeof window !== 'undefined') {
-          const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+          const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'
           fetch(`${baseUrl}/api/auth/logout`, {
             method: 'POST',
             headers: { Authorization: `Bearer ${token}` },
@@ -94,7 +94,7 @@ export const useAuthStore = create<AuthStore>()(
         // Best-effort: call backend to blacklist token
         const token = useAuthStore.getState().token
         if (token && typeof window !== 'undefined') {
-          const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+          const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'
           fetch(`${baseUrl}/api/auth/logout`, {
             method: 'POST',
             headers: { Authorization: `Bearer ${token}` },

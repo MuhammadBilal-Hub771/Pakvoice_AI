@@ -11,8 +11,9 @@ class UserRole(str, Enum):
 
 class UserBase(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
-    email: str = Field(..., pattern=r"^[\w\.-]+@[\w\.-]+\.\w+$")
+    email: EmailStr
     city: str = Field(..., min_length=2, max_length=100)
+    industry: Optional[str] = Field(None, max_length=100)
     role: UserRole = UserRole.CLIENT
 
 
@@ -49,6 +50,12 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
     user: UserResponse
     expires_in: int
+
+
+class ProfileUpdate(BaseModel):
+    name: Optional[str] = Field(None, min_length=2, max_length=100)
+    city: Optional[str] = Field(None, min_length=2, max_length=100)
+    industry: Optional[str] = Field(None, max_length=100)
 
 
 class TokenRefreshRequest(BaseModel):

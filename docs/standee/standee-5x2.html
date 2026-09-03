@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PakVoice AI — 5×2 Standee (2ft × 5ft)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --iac-navy: #1d3c78;
+      --navy-deep: #0f2448;
+      --navy-mid: #1a3568;
+      --teal: #5ec4b0;
+      --gold: #d4a84b;
+      --gold-soft: #e8c97a;
+      --cream: #f4f7fb;
+      --muted: rgba(244, 247, 251, 0.72);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: #0a1628;
+      color: var(--cream);
+      font-family: "Source Sans 3", "Segoe UI", sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.1rem;
+      padding: 1.5rem 1rem 2.5rem;
+    }
+
+    .toolbar {
+      width: min(100%, 440px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: center;
+    }
+
+    .toolbar button,
+    .toolbar a {
+      appearance: none;
+      border: 1px solid rgba(232, 201, 122, 0.45);
+      background: rgba(29, 60, 120, 0.85);
+      color: var(--cream);
+      font: 500 0.82rem/1 "Source Sans 3", sans-serif;
+      letter-spacing: 0.04em;
+      padding: 0.55rem 0.9rem;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .toolbar button:hover,
+    .toolbar a:hover,
+    .toolbar button.is-active {
+      background: var(--iac-navy);
+      border-color: var(--gold-soft);
+    }
+
+    .hint {
+      width: min(100%, 440px);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .hint strong { color: var(--gold-soft); font-weight: 600; }
+    .hint code {
+      font-size: 0.78em;
+      color: var(--teal);
+    }
+
+    /* 2ft × 5ft → aspect-ratio 2 / 5 */
+    .frame {
+      --w: min(92vw, 432px);
+      width: var(--w);
+      aspect-ratio: 2 / 5;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .view { display: none; width: 100%; height: 100%; }
+    body[data-view="artwork"] .view--artwork,
+    body[data-view="layout"] .view--layout {
+      display: block;
+    }
+
+    .view--artwork img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* Pure CSS / HTML layout (editable alternate) */
+    .standee {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      isolation: isolate;
+      container-type: inline-size;
+    }
+
+    .standee__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 90% 55% at 70% 18%, rgba(94, 196, 176, 0.14), transparent 55%),
+        radial-gradient(ellipse 80% 50% at 20% 55%, rgba(212, 168, 75, 0.12), transparent 50%),
+        linear-gradient(165deg, var(--navy-deep) 0%, var(--navy-mid) 42%, #16325f 68%, #0c1c36 100%);
+    }
+
+    .standee__bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.16;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 27px,
+          rgba(255, 255, 255, 0.04) 27px,
+          rgba(255, 255, 255, 0.04) 28px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 27px,
+          rgba(255, 255, 255, 0.04) 27px,
+          rgba(255, 255, 255, 0.04) 28px
+        );
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 70%);
+    }
+
+    .standee__bg::after {
+      content: "";
+      position: absolute;
+      left: -20%;
+      right: -20%;
+      top: 38%;
+      height: 28%;
+      background:
+        linear-gradient(
+          105deg,
+          transparent 0%,
+          rgba(94, 196, 176, 0.22) 28%,
+          rgba(212, 168, 75, 0.28) 48%,
+          rgba(94, 196, 176, 0.18) 68%,
+          transparent 100%
+        );
+      filter: blur(18px);
+      transform: skewY(-8deg);
+      pointer-events: none;
+    }
+
+    .standee__horizon {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 22%;
+      z-index: 1;
+      background:
+        linear-gradient(180deg, transparent, rgba(6, 14, 28, 0.95)),
+        linear-gradient(90deg, #0c1a32 0%, #152a4a 40%, #1a3558 55%, #0e1e38 100%);
+      pointer-events: none;
+    }
+
+    .standee__horizon::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: 18%;
+      height: 55%;
+      background:
+        radial-gradient(ellipse 12% 90% at 18% 100%, rgba(212, 168, 75, 0.35), transparent 70%),
+        radial-gradient(ellipse 10% 100% at 42% 100%, rgba(94, 196, 176, 0.25), transparent 70%),
+        radial-gradient(ellipse 14% 80% at 68% 100%, rgba(212, 168, 75, 0.3), transparent 70%),
+        radial-gradient(ellipse 9% 95% at 88% 100%, rgba(94, 196, 176, 0.2), transparent 70%);
+      opacity: 0.85;
+    }
+
+    .standee__inner {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5.5% 8% 6%;
+      text-align: center;
+    }
+
+    .institute {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35em;
+      margin-bottom: 6%;
+    }
+
+    .institute img {
+      width: 16%;
+      min-width: 48px;
+      max-width: 72px;
+      height: auto;
+      display: block;
+    }
+
+    .institute span {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(0.55rem, 2.1cqi, 0.75rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(2.1rem, 11cqi, 3.6rem);
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      color: #fff;
+      text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+      margin-bottom: 3.5%;
+    }
+
+    .tagline {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 500;
+      font-size: clamp(0.72rem, 3.4cqi, 1.05rem);
+      color: var(--gold-soft);
+      line-height: 1.25;
+      max-width: 18em;
+      margin-bottom: 1.5%;
+    }
+
+    .urdu {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: clamp(0.62rem, 2.8cqi, 0.9rem);
+      color: var(--teal);
+      margin-bottom: 8%;
+    }
+
+    .features {
+      list-style: none;
+      align-self: stretch;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85em;
+      margin: 0 2% 10%;
+      flex: 1 1 auto;
+    }
+
+    .features li {
+      padding-left: 0.85em;
+      font-size: clamp(0.62rem, 2.9cqi, 0.92rem);
+      font-weight: 500;
+      line-height: 1.35;
+      color: rgba(244, 247, 251, 0.92);
+      border-left: 2px solid var(--gold);
+    }
+
+    .footer-block {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.55em;
+      padding-bottom: 2%;
+    }
+
+    .fyp {
+      font-size: clamp(0.5rem, 2.2cqi, 0.7rem);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(244, 247, 251, 0.65);
+      font-weight: 600;
+    }
+
+    .cta {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(0.7rem, 3.2cqi, 1rem);
+      color: var(--gold-soft);
+      font-weight: 500;
+    }
+
+    @media print {
+      @page {
+        size: 24in 60in;
+        margin: 0;
+      }
+
+      html, body {
+        background: #fff;
+        padding: 0;
+        margin: 0;
+        width: 24in;
+        height: 60in;
+      }
+
+      .toolbar,
+      .hint {
+        display: none !important;
+      }
+
+      .frame {
+        width: 24in;
+        height: 60in;
+        aspect-ratio: auto;
+        box-shadow: none;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body data-view="artwork">
+  <div class="toolbar">
+    <button type="button" class="is-active" data-set-view="artwork">Artwork PNG</button>
+    <button type="button" data-set-view="layout">HTML layout</button>
+    <button type="button" onclick="window.print()">Print / Save PDF</button>
+    <a href="assets/pakvoice-ai-standee-5x2.png" download="pakvoice-ai-standee-5x2.png">Download PNG</a>
+  </div>
+  <p class="hint">
+    Print size: <strong>2 ft × 5 ft</strong> (W × H). Prefer <code>assets/pakvoice-ai-standee-5x2.png</code>
+    for the print shop. HTML uses CSS <code>aspect-ratio: 2 / 5</code>.
+  </p>
+
+  <div class="frame" aria-label="PakVoice AI roll-up standee 2 by 5 feet">
+    <div class="view view--artwork">
+      <img
+        src="assets/pakvoice-ai-standee-5x2.png"
+        alt="PakVoice AI standee artwork — Institute for Art and Culture Final Year Project"
+        width="1080"
+        height="1920"
+      />
+    </div>
+
+    <div class="view view--layout">
+      <article class="standee">
+        <div class="standee__bg" aria-hidden="true"></div>
+        <div class="standee__horizon" aria-hidden="true"></div>
+        <div class="standee__inner">
+          <header class="institute">
+            <img
+              src="assets/iac-logo.png"
+              alt="Institute for Art &amp; Culture logo"
+              width="120"
+              height="120"
+            />
+            <span>Institute for Art &amp; Culture · est. 2018</span>
+          </header>
+
+          <h1 class="brand">PakVoice AI</h1>
+          <p class="tagline">Pakistani Business Content, Generated with AI</p>
+          <p class="urdu">Pakistan ke liye smart business content</p>
+
+          <ul class="features">
+            <li>Bilingual Content — Urdu, English &amp; Roman Urdu</li>
+            <li>RAG Knowledge Base for local industries</li>
+            <li>AI Image Generation for campaigns</li>
+            <li>Client &amp; Admin Portals</li>
+          </ul>
+
+          <footer class="footer-block">
+            <p class="fyp">Final Year Project</p>
+            <p class="cta">Ask for a live demo</p>
+          </footer>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll("[data-set-view]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var view = btn.getAttribute("data-set-view");
+        document.body.setAttribute("data-view", view);
+        document.querySelectorAll("[data-set-view]").forEach(function (b) {
+          b.classList.toggle("is-active", b === btn);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

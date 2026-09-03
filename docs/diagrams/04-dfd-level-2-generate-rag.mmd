@@ -1,0 +1,27 @@
+%% PakVoice AI — DFD Level 2: Generate Content + RAG
+flowchart TB
+  Client([Client])
+  OpenAI([OpenAI API])
+
+  P21[["2.1 Validate Request<br/>+ JWT"]]
+  P22[["2.2 Build Search Query"]]
+  P23[["2.3 Embed Query"]]
+  P24[["2.4 Retrieve Chunks"]]
+  P25[["2.5 Build Prompt"]]
+  P26[["2.6 Call LLM"]]
+  P27[["2.7 Save History"]]
+
+  D2[("D2 History JSON")]
+  D5[("D5 Chroma Chunks")]
+
+  Client -->|"GenerateRequest<br/>+ Bearer token"| P21
+  P21 --> P22
+  P22 -->|"business + industry<br/>+ city + content_type"| P23
+  P23 -->|"query embedding"| P24
+  P24 <-->|"similarity search<br/>optional doc_ids filter"| D5
+  P24 -->|"top-k chunks"| P25
+  P25 -->|"system + user prompt<br/>+ RAG context"| P26
+  P26 <-->|"chat completion"| OpenAI
+  P26 -->|"generated content"| P27
+  P27 --> D2
+  P27 -->|"GenerateResponse / stream"| Client

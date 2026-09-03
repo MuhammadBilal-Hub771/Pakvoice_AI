@@ -1,0 +1,28 @@
+%% PakVoice AI — Collaboration: Generate + RAG
+%% Object collaboration shown as communication-style flowchart
+flowchart LR
+  Client([Client])
+  UI[GeneratePage]
+  API[GenerateRouter]
+  AI[AIService]
+  RAG[RAGService]
+  Emb[EmbeddingService]
+  Chroma[(ChromaDB)]
+  OpenAI[OpenAI]
+  Hist[(History JSON)]
+
+  Client -->|"1: submit form"| UI
+  UI -->|"2: POST stream"| API
+  API -->|"3: generate_content_stream"| AI
+  AI -->|"4: search"| RAG
+  RAG -->|"5: embed_query"| Emb
+  Emb -->|"6: embeddings API"| OpenAI
+  RAG -->|"7: similarity search"| Chroma
+  Chroma -->|"8: chunks"| RAG
+  RAG -->|"9: context"| AI
+  AI -->|"10: chat stream"| OpenAI
+  OpenAI -->|"11: tokens"| AI
+  AI -->|"12: stream text"| API
+  API -->|"13: stream"| UI
+  AI -->|"14: save history"| Hist
+  UI -->|"15: display"| Client
