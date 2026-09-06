@@ -81,7 +81,7 @@ export default function AdminKnowledgeBasePage() {
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-heading font-bold">Knowledge Base</h1>
+          <h1 className="text-[1.65rem] font-bold tracking-tight text-gray-900">Knowledge Base</h1>
           <p className="text-sm text-muted-foreground mt-1">Manage all uploaded documents across the platform</p>
         </div>
         <Button onClick={handleUploadClick} className="bg-pk-green-500 hover:bg-pk-green-700 gap-2">

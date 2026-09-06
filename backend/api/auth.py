@@ -13,7 +13,10 @@ from models.user import (
     UserResponse,
     TokenResponse,
     TokenRefreshRequest,
+    ProfileUpdate,
     UserRole,
+    WhatsAppLinkCodeResponse,
+    WhatsAppLinkStatus,
 )
 from core.security import (
     create_access_token,
@@ -22,7 +25,15 @@ from core.security import (
     get_token_expiry_minutes,
 )
 from core.dependencies import get_current_user
-from db.json_store import authenticate_user, create_user, get_user_by_email, _read_json, _write_json
+from db.json_store import (
+    authenticate_user,
+    create_oauth_user,
+    create_user,
+    create_whatsapp_link_code,
+    get_user_by_email,
+    get_user_by_id,
+    set_user_whatsapp_phone,
+)
 from config import settings
 
 router = APIRouter(prefix="/api/auth", tags=["Authentication"])
@@ -32,9 +43,37 @@ _oauth_states: dict = {}
 
 
 def _get_frontend_url() -> str:
-    """Derive frontend URL from allowed origins config."""
+    if settings.FRONTEND_URL and settings.FRONTEND_URL.strip():
+        return settings.FRONTEND_URL.strip().rstrip("/")
     origin = settings.ALLOWED_ORIGINS.split(",")[0].strip()
     return origin or "http://localhost:3000"
+
+
+def _user_response(user) -> UserResponse:
+    return UserResponse(
+        id=user.id,
+        name=user.name,
+        email=user.email,
+        city=user.city,
+        industry=user.industry,
+        role=user.role,
+        is_active=user.is_active,
+        created_at=user.created_at,
+        updated_at=user.updated_at,
+        whatsapp_phone=user.whatsapp_phone,
+    )
+
+
+def _issue_token(user) -> str:
+    return create_access_token(
+        data={
+            "sub": user.id,
+            "email": user.email,
+            "role": user.role.value if hasattr(user.role, "value") else user.role,
+            "name": user.name,
+            "city": user.city,
+        }
+    )
 
 
 @router.post(
@@ -54,30 +93,14 @@ async def login(request: UserLogin):
             detail="Invalid email, password, or role",
         )
 
-    access_token = create_access_token(
-        data={
-            "sub": user.id,
-            "email": user.email,
-            "role": user.role.value,
-            "name": user.name,
-            "city": user.city,
-        }
-    )
+    access_token = _issue_token(user)
 
     logger.info(f"User {user.email} logged in as {user.role.value}")
 
     return TokenResponse(
         access_token=access_token,
         token_type="bearer",
-        user=UserResponse(
-            id=user.id,
-            name=user.name,
-            email=user.email,
-            city=user.city,
-            role=user.role,
-            is_active=user.is_active,
-            created_at=user.created_at,
-        ),
+        user=_user_response(user),
         expires_in=get_token_expiry_minutes() * 60,
     )
 
@@ -95,32 +118,18 @@ async def register(request: UserCreate):
             detail="Email already registered",
         )
 
-    user = create_user(request)
+    # Role is fixed server-side. Admins are promoted through the admin panel,
+    # never by anything the registration payload can say.
+    user = create_user(request, role=UserRole.CLIENT)
 
-    access_token = create_access_token(
-        data={
-            "sub": user.id,
-            "email": user.email,
-            "role": user.role.value,
-            "name": user.name,
-            "city": user.city,
-        }
-    )
+    access_token = _issue_token(user)
 
     logger.info(f"New user registered: {user.email}")
 
     return TokenResponse(
         access_token=access_token,
         token_type="bearer",
-        user=UserResponse(
-            id=user.id,
-            name=user.name,
-            email=user.email,
-            city=user.city,
-            role=user.role,
-            is_active=user.is_active,
-            created_at=user.created_at,
-        ),
+        user=_user_response(user),
         expires_in=get_token_expiry_minutes() * 60,
     )
 
@@ -162,7 +171,25 @@ async def refresh_token(request: TokenRefreshRequest):
     summary="Get current user from JWT",
 )
 async def get_me(current_user=Depends(get_current_user)):
-    from db.json_store import get_user_by_id
+    user = get_user_by_id(current_user.sub)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+    return _user_response(user)
+
+
+@router.patch(
+    "/me",
+    response_model=UserResponse,
+    summary="Update current user profile",
+)
+async def update_me(
+    request: ProfileUpdate,
+    current_user=Depends(get_current_user),
+):
+    from db.json_store import update_user
 
     user = get_user_by_id(current_user.sub)
     if not user:
@@ -170,15 +197,24 @@ async def get_me(current_user=Depends(get_current_user)):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="User not found",
         )
-    return UserResponse(
-        id=user.id,
-        name=user.name,
-        email=user.email,
-        city=user.city,
-        role=user.role,
-        is_active=user.is_active,
-        created_at=user.created_at,
-    )
+
+    updates = request.model_dump(exclude_unset=True)
+    if not updates:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No fields to update",
+        )
+
+    updated = update_user(current_user.sub, updates)
+    if not updated:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to update profile",
+        )
+
+    logger.info(f"User {current_user.email} updated profile: {updates}")
+
+    return _user_response(updated)
 
 
 _bearer = HTTPBearer()
@@ -197,55 +233,34 @@ async def google_login():
 
     # --- Dev mode: auto-login fallback ---
     if not settings.GOOGLE_CLIENT_ID:
+        # This hands out a valid session to anyone who hits the endpoint, so it
+        # must never be reachable outside development.
+        if not settings.DEBUG:
+            logger.error(
+                "Google OAuth is not configured and DEBUG is off — refusing "
+                "to auto-login"
+            )
+            return RedirectResponse(
+                url=f"{frontend_url}/login?error=oauth_not_configured"
+            )
+
         logger.info("Google OAuth not configured — dev auto-login")
 
-        # Find or create a dev Google user
-        users = _read_json("./data/users.json")
         email = "google_dev@example.com"
-        user = next((u for u in users if u.get("email") == email), None)
-
+        user = get_user_by_email(email)
         if not user:
-            from uuid import uuid4
-            from datetime import datetime, timezone
-
-            now = datetime.now(timezone.utc)
-            user = {
-                "id": str(uuid4()),
-                "name": "Dev Google User",
-                "email": email,
-                "city": "Lahore",
-                "role": "client",
-                "hashed_password": "",
-                "is_active": True,
-                "created_at": now.isoformat(),
-                "updated_at": now.isoformat(),
-            }
-            users.append(user)
-            _write_json("./data/users.json", users)
+            user = create_oauth_user(email=email, name="Dev Google User", city="Lahore")
             logger.info(f"Created dev Google user: {email}")
 
-        # Issue JWT
-        access_token = create_access_token(
-            data={
-                "sub": user["id"],
-                "email": user["email"],
-                "role": user["role"],
-                "name": user["name"],
-                "city": user.get("city", "Lahore"),
-            }
-        )
-
         params = urlencode({
-            "token": access_token,
+            "token": _issue_token(user),
             "token_type": "bearer",
             "expires_in": get_token_expiry_minutes() * 60,
-            "name": user["name"],
-            "email": user["email"],
-            "role": user["role"],
+            "name": user.name,
+            "email": user.email,
+            "role": user.role.value,
         })
-        redirect_url = f"{frontend_url}/callback?{params}"
-        logger.info(f"Dev Google OAuth redirect: {redirect_url}")
-        return RedirectResponse(url=redirect_url)
+        return RedirectResponse(url=f"{frontend_url}/callback?{params}")
 
     # --- Real Google OAuth flow ---
     state = secrets.token_urlsafe(32)
@@ -345,53 +360,25 @@ async def google_callback(
                 detail="Google account has no email",
             )
 
-        # Find or create user
-        users = _read_json("./data/users.json")
-        existing = next((u for u in users if u.get("email") == google_email), None)
-
-        if existing:
-            user = existing
-        else:
-            from uuid import uuid4
-
-            now = datetime.now(timezone.utc)
-            user = {
-                "id": str(uuid4()),
-                "name": google_name,
-                "email": google_email,
-                "city": "",
-                "role": "client",
-                "hashed_password": "",
-                "is_active": True,
-                "created_at": now.isoformat(),
-                "updated_at": now.isoformat(),
-            }
-            users.append(user)
-            _write_json("./data/users.json", users)
+        user = get_user_by_email(google_email)
+        if not user:
+            user = create_oauth_user(email=google_email, name=google_name)
             logger.info(f"New user registered via Google: {google_email}")
 
-        # Issue JWT
-        access_token = create_access_token(
-            data={
-                "sub": user["id"],
-                "email": user["email"],
-                "role": user["role"],
-                "name": user["name"],
-                "city": user.get("city", ""),
-            }
-        )
+        if not user.is_active:
+            frontend_url = _get_frontend_url()
+            return RedirectResponse(url=f"{frontend_url}/login?error=account_disabled")
 
         frontend_url = _get_frontend_url()
         params = urlencode({
-            "token": access_token,
+            "token": _issue_token(user),
             "token_type": "bearer",
             "expires_in": get_token_expiry_minutes() * 60,
-            "name": user["name"],
-            "email": user["email"],
-            "role": user["role"],
+            "name": user.name,
+            "email": user.email,
+            "role": user.role.value,
         })
-        redirect_url = f"{frontend_url}/callback?{params}"
-        return RedirectResponse(url=redirect_url)
+        return RedirectResponse(url=f"{frontend_url}/callback?{params}")
 
     except httpx.RequestError as e:
         logger.error(f"Google OAuth HTTP error: {e}")
@@ -411,3 +398,112 @@ async def logout(
     blacklist_token(credentials.credentials)
     logger.info(f"User {current_user.email} logged out")
     return {"message": "Logged out successfully"}
+
+
+# === WhatsApp account linking ===
+
+
+def _whatsapp_digits(display_number: str | None) -> str | None:
+    if not display_number:
+        return None
+    digits = "".join(ch for ch in display_number if ch.isdigit())
+    return digits or None
+
+
+def _whatsapp_wa_link(code: str) -> str | None:
+    digits = _whatsapp_digits(settings.WHATSAPP_DISPLAY_NUMBER)
+    if not digits:
+        return None
+    from urllib.parse import quote
+
+    return f"https://wa.me/{digits}?text={quote(code)}"
+
+
+@router.post(
+    "/whatsapp/link-code",
+    response_model=WhatsAppLinkCodeResponse,
+    summary="Issue a one-time code for linking a WhatsApp number",
+)
+async def issue_whatsapp_link_code(current_user=Depends(get_current_user)):
+    """Generate the code the user sends to the bot to prove the number is theirs.
+
+    Issuing a new code invalidates any previous one for this account.
+    """
+    if not settings.whatsapp_configured:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=(
+                "WhatsApp is not configured on the server yet. "
+                "Set WHATSAPP_* credentials and restart the backend."
+            ),
+        )
+
+    record = create_whatsapp_link_code(
+        user_id=current_user.sub,
+        ttl_minutes=settings.WHATSAPP_LINK_CODE_TTL_MINUTES,
+    )
+
+    logger.info(f"WhatsApp link code issued for {current_user.email}")
+
+    display = settings.WHATSAPP_DISPLAY_NUMBER
+    return WhatsAppLinkCodeResponse(
+        code=record["code"],
+        expires_at=record["expires_at"],
+        whatsapp_number=display,
+        wa_link=_whatsapp_wa_link(record["code"]),
+        instructions=(
+            f"Send this code to {display or 'our WhatsApp number'} to connect "
+            f"your account. It expires in "
+            f"{settings.WHATSAPP_LINK_CODE_TTL_MINUTES} minutes."
+        ),
+    )
+
+
+@router.get(
+    "/whatsapp/status",
+    response_model=WhatsAppLinkStatus,
+    summary="Check whether a WhatsApp number is linked",
+)
+async def whatsapp_link_status(current_user=Depends(get_current_user)):
+    user = get_user_by_id(current_user.sub)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+    return WhatsAppLinkStatus(
+        linked=bool(user.whatsapp_phone),
+        phone=user.whatsapp_phone,
+        bot_configured=settings.whatsapp_configured,
+        bot_display_number=settings.WHATSAPP_DISPLAY_NUMBER,
+    )
+
+
+@router.delete(
+    "/whatsapp/link",
+    response_model=WhatsAppLinkStatus,
+    summary="Unlink the connected WhatsApp number",
+)
+async def unlink_whatsapp(current_user=Depends(get_current_user)):
+    from db.json_store import delete_whatsapp_session
+
+    user = get_user_by_id(current_user.sub)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+
+    if user.whatsapp_phone:
+        # Drop the conversation state too, otherwise the bot would keep
+        # answering a number that is no longer authorised.
+        delete_whatsapp_session(user.whatsapp_phone)
+        set_user_whatsapp_phone(current_user.sub, None)
+        logger.info(f"WhatsApp unlinked for {current_user.email}")
+
+    return WhatsAppLinkStatus(
+        linked=False,
+        phone=None,
+        bot_configured=settings.whatsapp_configured,
+        bot_display_number=settings.WHATSAPP_DISPLAY_NUMBER,
+    )

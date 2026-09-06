@@ -10,6 +10,7 @@ from config import settings
 from utils.file_parser import parse_uploaded_file
 from utils.text_cleaner import clean_text, chunk_text
 from services.rag_service import rag_service
+from services import storage_service
 from db.json_store import (
     save_document_metadata,
     get_all_documents,
@@ -21,7 +22,6 @@ from db.json_store import (
     get_document_categories,
     get_user_document_categories,
 )
-from db.chroma import delete_document as chroma_delete
 from models.document import DocumentUploadResponse, DocumentStatus
 
 
@@ -37,10 +37,34 @@ class DocumentService:
         tags: str,
         user_id: str,
     ) -> DocumentUploadResponse:
+        return await self.process_upload_bytes(
+            file_bytes=await file.read(),
+            filename=file.filename or "",
+            title=title,
+            category=category,
+            tags=tags,
+            user_id=user_id,
+        )
+
+    async def process_upload_bytes(
+        self,
+        file_bytes: bytes,
+        filename: str,
+        title: str,
+        category: str,
+        tags: str,
+        user_id: str,
+    ) -> DocumentUploadResponse:
+        """Ingest an already-read file.
+
+        Split out from ``process_upload`` so the WhatsApp bot can index a
+        document it downloaded from the Graph API, where there is no
+        ``UploadFile`` to hand over.
+        """
         doc_id = str(uuid.uuid4())
 
         # Step 1: Validate file
-        ext = os.path.splitext(file.filename or "")[1].lower()
+        ext = os.path.splitext(filename or "")[1].lower()
         if ext not in settings.allowed_extensions_list:
             raise HTTPException(
                 status_code=400,
@@ -48,8 +72,7 @@ class DocumentService:
                 f"Allowed: {', '.join(settings.allowed_extensions_list)}",
             )
 
-        # Step 2: Read file bytes
-        file_bytes = await file.read()
+        # Step 2: Size check
         file_size_mb = len(file_bytes) / (1024 * 1024)
         if file_size_mb > settings.MAX_FILE_SIZE_MB:
             raise HTTPException(
@@ -58,20 +81,23 @@ class DocumentService:
                 f"Maximum: {settings.MAX_FILE_SIZE_MB}MB",
             )
 
-        # Step 3: Save file
+        # Step 3: Save file (Supabase Storage, or local disk if unconfigured)
         safe_filename = f"{doc_id}{ext}"
-        file_path = os.path.join(settings.UPLOAD_DIR, safe_filename)
         try:
-            with open(file_path, "wb") as f:
-                f.write(file_bytes)
-        except IOError as e:
+            stored = storage_service.save_document(
+                file_bytes=file_bytes,
+                doc_id=doc_id,
+                ext=ext,
+                filename=filename or safe_filename,
+            )
+        except (IOError, OSError) as e:
             logger.error(f"Failed to save file: {e}")
             raise HTTPException(
                 status_code=500, detail="Failed to save uploaded file"
             )
 
         # Step 4: Parse text from file
-        parsed_text = parse_uploaded_file(file_bytes, file.filename or "")
+        parsed_text = parse_uploaded_file(file_bytes, filename or "")
         if not parsed_text:
             raise HTTPException(
                 status_code=400,
@@ -94,14 +120,14 @@ class DocumentService:
                 detail="No usable content extracted from the file.",
             )
 
-        # Step 6: Index chunks in ChromaDB
+        # Step 6: Index chunks in the vector store
         tag_list = [t.strip() for t in tags.split(",") if t.strip()]
         metadata = {
             "doc_id": doc_id,
             "title": title,
             "category": category,
             "tags": ",".join(tag_list),
-            "filename": file.filename or safe_filename,
+            "filename": filename or safe_filename,
             "uploaded_by": user_id,
         }
 
@@ -117,14 +143,15 @@ class DocumentService:
                 detail="Failed to index document in knowledge base",
             )
 
-        # Step 7: Save document metadata to JSON
+        # Step 7: Save document metadata
         doc_metadata = {
             "doc_id": doc_id,
             "title": title,
             "category": category,
             "tags": tag_list,
-            "filename": file.filename or safe_filename,
-            "file_path": file_path,
+            "filename": filename or safe_filename,
+            "storage_path": stored["storage_path"],
+            "file_path": stored["file_path"],
             "file_size_bytes": len(file_bytes),
             "word_count": word_count,
             "chunks_created": len(chunks),
@@ -166,17 +193,9 @@ class DocumentService:
                 detail=f"Document {doc_id} not found or not accessible",
             )
 
-        # Delete from ChromaDB
-        chroma_delete(doc_id)
+        rag_service.delete_document_chunks(doc_id)
+        storage_service.delete_document(doc)
 
-        # Delete file
-        if "file_path" in doc and os.path.exists(doc["file_path"]):
-            try:
-                os.remove(doc["file_path"])
-            except OSError as e:
-                logger.warning(f"Failed to delete file: {e}")
-
-        # Delete from JSON store
         delete_document_metadata_by_user(doc_id, user_id)
         return True
 

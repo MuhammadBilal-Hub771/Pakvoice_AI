@@ -277,3 +277,15 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 .toast-error { background: #ef4444; color: white; }
 .toast-info { background: #3b82f6; color: white; }
 .toast-loading { background: var(--pk-green-700); color: white; }
+
+.field-label {
+  @apply mb-1.5 block text-sm font-medium text-gray-800;
+}
+
+.pill-active {
+  @apply border-pk-green-600 bg-pk-green-600 text-white shadow-sm;
+}
+
+.pill-idle {
+  @apply border-gray-200 bg-white text-gray-600 hover:border-pk-green-300 hover:text-pk-green-700;
+}

@@ -12,6 +12,7 @@ export interface User {
   createdAt?: string
   lastActive?: string
   totalGenerations?: number
+  whatsappPhone?: string | null
 }
 
 export interface AuthState {
@@ -85,6 +86,7 @@ export interface KnowledgeSource {
   docId: string
   docName: string
   relevance: number
+  chunkText?: string
 }
 
 export interface Document {
@@ -176,4 +178,82 @@ export interface HistoryFilters {
   dateFrom?: string
   dateTo?: string
   sortBy?: 'newest' | 'oldest' | 'most-copied'
+}
+
+// ============================================================
+// Client Content Agent (SSE) — snake_case matches backend JSON
+// ============================================================
+
+export interface AgentCitation {
+  doc_id: string
+  title: string
+  chunk_text: string
+  score: number
+  source: string
+  url: string
+}
+
+export type AgentPackItemKind =
+  | 'post'
+  | 'email'
+  | 'blog'
+  | 'image'
+  | 'calendar_day'
+  | 'hashtags'
+  | 'variant'
+  | 'note'
+
+export interface AgentPackItem {
+  kind: AgentPackItemKind
+  title: string
+  body: string
+  content_type: string
+  language: string
+  tone: string
+  image_url: string
+  image_id: string
+  sources: AgentCitation[]
+  hashtags: string[]
+  day: string
+  content_id: string
+}
+
+export interface AgentValidationCheck {
+  name: string
+  passed: boolean
+  message: string
+}
+
+export interface AgentValidationResult {
+  passed: boolean
+  checks: AgentValidationCheck[]
+}
+
+export interface CampaignPack {
+  summary: string
+  items: AgentPackItem[]
+  citations: AgentCitation[]
+  validation: AgentValidationResult | null
+}
+
+export interface AgentPlan {
+  goals: string[]
+  tools: string[]
+  constraints: string[]
+  use_knowledge_base: boolean
+  max_refine_iterations: number
+}
+
+export type AgentEvent =
+  | { type: 'plan'; plan: AgentPlan }
+  | { type: 'tool_start'; tool: string }
+  | { type: 'tool_end'; tool: string; result?: Record<string, unknown> }
+  | { type: 'loop'; iteration: number; reason: string; failed_checks?: AgentValidationCheck[] }
+  | { type: 'validation'; result: AgentValidationResult }
+  | { type: 'final_pack'; pack: CampaignPack }
+  | { type: 'error'; message: string }
+
+export interface AgentToolInfo {
+  name: string
+  description: string
 }

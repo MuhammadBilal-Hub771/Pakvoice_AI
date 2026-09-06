@@ -15,9 +15,11 @@ import { Card, CardContent } from '@/components/ui/card'
 import { ContentTypeIcon } from '@/components/illustrations/logos'
 import { ContentTypeBadge, LanguageBadge } from '@/components/illustrations/BadgeStickers'
 import { EmptyState } from '@/components/shared/EmptyState'
+import { PageHeader, PageShell } from '@/components/shared/PageHeader'
 import { useGenerateStore } from '@/stores/generateStore'
 import { useDeleteHistory, useHistory } from '@/hooks/useQueries'
 import { cleanContent, formatDate, copyToClipboard } from '@/lib/utils'
+import { MarkdownText } from '@/components/shared/MarkdownText'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import type { ContentType, Language, GeneratedContent } from '@/types'
 
@@ -36,10 +38,8 @@ export default function HistoryPage() {
   const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (search.length >= 3 || search.length === 0) {
-      const t = setTimeout(() => setDebouncedSearch(search), 300)
-      return () => clearTimeout(t)
-    }
+    const t = setTimeout(() => setDebouncedSearch(search), 300)
+    return () => clearTimeout(t)
   }, [search])
 
   useEffect(() => {
@@ -76,26 +76,17 @@ export default function HistoryPage() {
   }
 
   return (
-    <div className="px-4 md:px-6 lg:px-8 py-6 pb-24 md:pb-6 max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-2xl font-heading font-bold">Content History</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            {filtered.length} {filtered.length === 1 ? 'item' : 'items'}
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="relative flex-1 md:w-64">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search content..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 h-9 text-sm"
-            />
+    <PageShell>
+      <PageHeader
+        title="Content History"
+        description={`${filtered.length} ${filtered.length === 1 ? 'item' : 'items'}`}
+        action={
+          <div className="relative w-full sm:w-64">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Input placeholder="Search content..." value={search} onChange={(e) => setSearch(e.target.value)} className="h-11 pl-9" />
           </div>
-        </div>
-      </div>
+        }
+      />
 
       {/* Content List */}
       {isLoading || (isFetching && history.length === 0) ? (
@@ -205,14 +196,13 @@ export default function HistoryPage() {
             <div className="flex-1 overflow-y-auto p-6">
               <h3 className="text-base font-heading font-semibold mb-3">{previewItem.title}</h3>
               <div
-                className={`p-5 rounded-xl border border-gray-200 text-sm leading-relaxed whitespace-pre-wrap ${
+                className={`p-5 rounded-xl border border-gray-200 ${
                   previewItem.language === 'urdu'
-                    ? 'font-urdu text-lg leading-[2.2] text-right rtl-content'
-                    : ''
+                    ? 'font-urdu text-lg leading-[2.2] rtl-content'
+                    : 'text-sm'
                 }`}
-                style={{ lineHeight: 1.8, fontSize: '15px' }}
               >
-                {cleanContent(previewItem.content)}
+                <MarkdownText text={previewItem.content} />
               </div>
             </div>
 
@@ -250,6 +240,6 @@ export default function HistoryPage() {
         onConfirm={confirmDelete}
         onCancel={() => setDeleteTarget(null)}
       />
-    </div>
+    </PageShell>
   )
 }

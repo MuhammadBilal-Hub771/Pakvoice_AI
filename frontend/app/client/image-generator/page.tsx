@@ -15,6 +15,8 @@ import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/stores/authStore'
 import { useImageStore, type ImageType } from '@/stores/imageStore'
 import { Toast } from '@/components/shared/Toast'
+import { PageHeader, PageShell } from '@/components/shared/PageHeader'
+import { imagesApi } from '@/lib/api'
 
 const MAX_CHARS = 2000
 
@@ -28,11 +30,20 @@ export default function ImageGeneratorPage() {
   const imageType = useImageStore((s) => s.imageType)
   const pastedContent = useImageStore((s) => s.pastedContent)
   const generatedImage = useImageStore((s) => s.generatedImage)
+  const generatedImageId = useImageStore((s) => s.generatedImageId)
+  const generatedImageStoragePath = useImageStore((s) => s.generatedImageStoragePath)
   const isSaved = useImageStore((s) => s.isSaved)
   const setImageType = useImageStore((s) => s.setImageType)
   const setPastedContent = useImageStore((s) => s.setPastedContent)
   const setGeneratedImage = useImageStore((s) => s.setGeneratedImage)
   const setIsSaved = useImageStore((s) => s.setIsSaved)
+
+  // Sync isSaved with generatedImage on mount (prevents stale persisted state)
+  React.useEffect(() => {
+    if (!generatedImage && isSaved) {
+      setIsSaved(false)
+    }
+  }, [generatedImage, isSaved, setIsSaved])
 
   // Local ephemeral state (not persisted)
   const [isGenerating, setIsGenerating] = useState(false)
@@ -48,17 +59,6 @@ export default function ImageGeneratorPage() {
     setTimeout(() => setToast((prev) => ({ ...prev, visible: false })), 3000)
   }
 
-  const getToken = () => {
-    try {
-      const raw = localStorage.getItem('pakvoice-auth')
-      if (!raw) return null
-      const parsed = JSON.parse(raw)
-      return parsed?.state?.token || parsed?.token || null
-    } catch {
-      return null
-    }
-  }
-
   const handleGenerate = async () => {
     if (!pastedContent.trim()) return
 
@@ -68,33 +68,17 @@ export default function ImageGeneratorPage() {
     setErrorMessage(null)
 
     try {
-      const token = getToken()
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/images/generate`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            content: pastedContent,
-            image_type: imageType,
-          }),
-        }
-      )
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.detail || 'Image generation failed')
-      }
+      const data = await imagesApi.generate(pastedContent, imageType)
 
       if (!data.image_url) {
         throw new Error('No image URL returned from server')
       }
 
-      setGeneratedImage(data.image_url)
+      setGeneratedImage({
+        url: data.image_url,
+        id: data.image_id,
+        storagePath: data.storage_path ?? null,
+      })
       setErrorMessage(null)
     } catch (error: any) {
       console.error('Generate image error:', error)
@@ -131,28 +115,13 @@ export default function ImageGeneratorPage() {
 
     setIsSaving(true)
     try {
-      const token = getToken()
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/images/save`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            image_url: generatedImage,
-            image_type: imageType,
-            source_content: pastedContent.slice(0, 2000),
-          }),
-        }
-      )
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.detail || 'Save failed')
-      }
+      await imagesApi.save({
+        imageUrl: generatedImage,
+        imageType,
+        sourceContent: pastedContent.slice(0, 2000),
+        imageId: generatedImageId ?? undefined,
+        storagePath: generatedImageStoragePath,
+      })
 
       setIsSaved(true)
       showToast('Image saved to gallery!', 'success')
@@ -172,30 +141,18 @@ export default function ImageGeneratorPage() {
   const isNearLimit = charCount > MAX_CHARS - 100
 
   return (
-    <div className="px-4 md:px-6 lg:px-8 py-6 pb-24 md:pb-6">
-      <Toast type={toast.type} message={toast.message} visible={toast.visible} />
+    <PageShell>
+      <Toast type={toast.type} message={toast.message} visible={toast.visible} onClose={() => setToast((prev) => ({ ...prev, visible: false }))} />
+      <PageHeader title="Image Generator" description="Turn a brief into an on-brand visual for your post." />
 
       {/* Two-column grid — equal height */}
       <div
         className="grid grid-cols-1 md:grid-cols-[45%_55%] gap-6 items-stretch"
       >
         {/* ===================== LEFT COLUMN ===================== */}
-        <div
-          className="bg-card border border-border rounded-xl p-6"
-        >
-          {/* Header */}
-          <div className="mb-6">
-            <h1 className="text-2xl font-heading font-bold text-foreground">
-              Image Generator
-            </h1>
-            <p className="text-muted-foreground mt-1 text-sm">Turn your content into visuals</p>
-          </div>
-
-          {/* Image Type Selector */}
+        <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
           <div className="mb-5">
-            <label className="text-sm font-medium mb-3 block text-foreground">
-              Image Type
-            </label>
+            <label className="field-label">Image Type</label>
             <div className="flex gap-2">
               {imageTypeOptions.map((opt) => {
                 const isActive = imageType === opt.value
@@ -302,9 +259,7 @@ export default function ImageGeneratorPage() {
         </div>
 
         {/* ===================== RIGHT COLUMN (Output) ===================== */}
-        <div
-          className="bg-card border border-border rounded-xl p-6 flex flex-col items-center justify-center"
-        >
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
           {/* Loading skeleton */}
           {isGenerating && (
             <div style={{ width: '100%', maxWidth: '400px' }}>
@@ -384,6 +339,6 @@ export default function ImageGeneratorPage() {
           )}
         </div>
       </div>
-    </div>
+    </PageShell>
   )
 }

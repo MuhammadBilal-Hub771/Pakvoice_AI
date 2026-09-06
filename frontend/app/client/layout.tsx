@@ -12,10 +12,14 @@ import {
   BookOpen,
   User,
   LogOut,
+  MessageCircle,
+  X,
 } from 'lucide-react'
 import { CrescentStarLogo } from '@/components/illustrations/logos'
-import { ThemeToggle } from '@/components/shared/ThemeToggle'
 import { Toast } from '@/components/shared/Toast'
+import { Notifications } from '@/components/shared/Notifications'
+import { AgentWidget } from '@/components/shared/AgentWidget'
+import { WhatsAppConnect } from '@/components/shared/WhatsAppConnect'
 import { useAuthStore } from '@/stores/authStore'
 
 const navLinks = [
@@ -36,8 +40,10 @@ export default function ClientLayout({
   const router = useRouter()
   const user = useAuthStore((s) => s.user)
   const logout = useAuthStore((s) => s.logout)
+  const updateUser = useAuthStore((s) => s.updateUser)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [whatsappOpen, setWhatsappOpen] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('success')
@@ -53,6 +59,11 @@ export default function ClientLayout({
     router.prefetch('/client/knowledge-base')
     router.prefetch('/client/profile')
   }, [router])
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -76,18 +87,22 @@ export default function ClientLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Toast type={toastType} message={toastMessage} visible={showToast} />
+    <div data-theme="green" className="min-h-screen bg-gray-50/70">
+      <Toast type={toastType} message={toastMessage} visible={showToast} onClose={() => setShowToast(false)} />
+      <Notifications />
+      <AgentWidget />
 
       {/* Top Navigation */}
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-40 w-full border-b border-gray-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/70">
         <div className="flex h-16 items-center justify-between px-4 md:px-6">
           {/* Left: Logo + Nav */}
           <div className="flex items-center gap-8">
-            <Link href="/client/home" className="flex items-center gap-2">
-              <CrescentStarLogo size={32} />
-              <span className="font-heading font-bold text-lg hidden sm:inline">
-                Pakvoice <span className="text-pk-green-500">AI</span>
+            <Link href="/client/home" className="flex items-center gap-2.5 group">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-pk-green-50 ring-1 ring-pk-green-100 transition-colors group-hover:bg-pk-green-100">
+                <CrescentStarLogo size={24} />
+              </span>
+              <span className="font-heading font-bold text-lg tracking-tight text-gray-900 hidden sm:inline">
+                Pakvoice <span className="text-pk-green-600">AI</span>
               </span>
             </Link>
 
@@ -99,10 +114,10 @@ export default function ClientLayout({
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-colors ${
                       isActive
-                        ? 'bg-pk-green-100 text-pk-green-700'
-                        : 'text-gray-900 hover:bg-muted'
+                        ? 'bg-pk-green-50 text-pk-green-700 font-semibold'
+                        : 'text-gray-600 font-medium hover:text-pk-green-700 hover:bg-gray-50'
                     }`}
                   >
                     <Icon size={16} />
@@ -115,7 +130,13 @@ export default function ClientLayout({
 
           {/* Right: Actions */}
           <div className="flex items-center gap-3">
-            <ThemeToggle />
+            <button
+              onClick={() => setWhatsappOpen(true)}
+              className="hidden sm:inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition-colors bg-pk-green-500 text-white hover:bg-pk-green-600"
+            >
+              <MessageCircle size={16} />
+              WhatsApp
+            </button>
 
             <div className="relative hidden sm:block" ref={dropdownRef}>
               <button
@@ -141,6 +162,13 @@ export default function ClientLayout({
                       <p className="text-xs text-gray-400 truncate">{user?.email || ''}</p>
                     </div>
                   </div>
+                  <button
+                    onClick={() => { setWhatsappOpen(true); setDropdownOpen(false) }}
+                    className="flex items-center gap-2 w-full px-3.5 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-pk-green-50 transition-colors text-left"
+                  >
+                    <MessageCircle size={16} className="text-pk-green-600" />
+                    WhatsApp
+                  </button>
                   <button
                     onClick={() => { router.push('/client/profile'); setDropdownOpen(false) }}
                     className="flex items-center gap-2 w-full px-3.5 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-pk-green-50 transition-colors text-left"
@@ -211,26 +239,54 @@ export default function ClientLayout({
       </main>
 
       {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="flex items-center justify-around h-16 px-2">
-          {navLinks.slice(0, 6).map((link) => {
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-gray-100 bg-white/95 backdrop-blur">
+        <div className="flex items-center justify-around h-16 px-1">
+          {navLinks.slice(0, 5).map((link) => {
             const Icon = link.icon
             const isActive = pathname === link.href
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-md transition-colors ${
-                  isActive ? 'text-pk-green-500' : 'text-gray-900'
+                className={`flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-xl transition-colors ${
+                  isActive ? 'text-pk-green-700' : 'text-gray-400'
                 }`}
               >
                 <Icon size={20} />
-                <span className="text-[10px] font-medium">{link.label}</span>
+                <span className="text-[10px] font-medium leading-tight">{link.label.split(' ')[0]}</span>
               </Link>
             )
           })}
         </div>
       </nav>
+
+      {/* WhatsApp popup */}
+      {whatsappOpen && (
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-gray-900/50 backdrop-blur-sm p-4 animate-fade-in"
+          onClick={() => setWhatsappOpen(false)}
+        >
+          <div
+            className="w-full max-w-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative rounded-2xl bg-white shadow-2xl overflow-hidden">
+              <button
+                onClick={() => setWhatsappOpen(false)}
+                className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700"
+                aria-label="Close"
+              >
+                <X size={16} />
+              </button>
+              <WhatsAppConnect
+                onStatusChange={(linked, phone) =>
+                  updateUser({ whatsappPhone: linked ? phone : null })
+                }
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

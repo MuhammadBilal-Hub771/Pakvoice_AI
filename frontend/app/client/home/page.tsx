@@ -3,14 +3,14 @@
 import React, { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, TrendingUp, CalendarDays, Bookmark, FileText, Sparkles } from 'lucide-react'
+import { ArrowRight, CalendarDays, Bookmark, FileText, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { HeroIllustration } from '@/components/illustrations/illustrations'
 import { ContentTypeIcon } from '@/components/illustrations/logos'
+import { PageShell } from '@/components/shared/PageHeader'
 import { useAuthStore } from '@/stores/authStore'
 import { useGenerateStore } from '@/stores/generateStore'
-import { formatDate } from '@/lib/utils'
+import { formatDate, copyToClipboard } from '@/lib/utils'
 import { StatsCard, StatsCardSkeleton } from '@/components/shared/StatsCard'
 import { useClientStats } from '@/hooks/useClientStats'
 
@@ -29,7 +29,7 @@ const ContentTypesGrid = React.memo(function ContentTypesGrid() {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
       {contentTypes.map((ct) => (
         <Link key={ct.id} href={`/client/generate?type=${ct.type}`}>
-          <div className="flex flex-col items-center gap-2 p-4 rounded-xl border bg-card hover:border-pk-green-500 hover:shadow-md hover:shadow-pk-green-500/10 transition-all cursor-pointer group hover:-translate-y-1">
+          <div className="flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-pk-green-200 hover:shadow-md">
             <ContentTypeIcon type={ct.type} size={28} />
             <span className="text-xs font-medium text-center leading-tight">{ct.name}</span>
             <span className="text-[10px] text-muted-foreground font-urdu">{ct.urdu}</span>
@@ -46,6 +46,13 @@ function ClientHomePage() {
   const history = useGenerateStore((s) => s.history)
   const { data: stats, isLoading } = useClientStats()
   const [activeCard, setActiveCard] = useState<string | null>(null)
+  const [copiedId, setCopiedId] = useState<string | null>(null)
+
+  const handleCopy = async (id: string, content: string) => {
+    await copyToClipboard(content)
+    setCopiedId(id)
+    setTimeout(() => setCopiedId(null), 2000)
+  }
 
   // Show max 5 most recent, sorted newest first
   const recentGenerations = useMemo(() => {
@@ -59,41 +66,26 @@ function ClientHomePage() {
   }, [history])
 
   return (
-    <div className="px-4 md:px-6 lg:px-8 py-6 pb-20 md:pb-6 max-w-7xl mx-auto">
-      {/* Hero Section */}
-      <div className="animate-fade-up relative overflow-hidden rounded-2xl bg-gradient-to-br from-pk-green-900 to-pk-green-700 p-8 md:p-12 mb-8">
-        <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-          <div className="flex-1">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-3">
-              Assalam o Alaikum, {userName || 'User'}! 👋
-            </h1>
-            <p className="text-lg text-pk-green-100 mb-6">
-              What content do you want to create today?
-            </p>
-            <Link href="/client/generate">
-              <Button className="bg-pk-gold hover:bg-pk-gold/90 text-white h-12 px-8 text-base gap-2 group">
-                Generate Content
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </div>
-          <div className="flex-shrink-0 w-64 md:w-80">
-            <HeroIllustration />
-          </div>
+    <PageShell>
+      <div className="relative mb-8 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-pk-green-800 to-pk-green-900 px-7 py-10 md:px-12 md:py-14">
+        <div aria-hidden className="pointer-events-none absolute -left-16 -top-16 h-64 w-64 rounded-full bg-pk-green-600/20 blur-3xl" />
+        <div className="relative">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-pk-green-300">Dashboard</p>
+          <h1 className="mt-3 max-w-xl text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
+            Assalam o Alaikum, {userName || 'there'}
+          </h1>
+          <p className="mt-3 max-w-lg text-[15px] text-white/70">
+            Generate a post, image or voice-first brief in seconds — in Urdu, English or Roman Urdu.
+          </p>
+          <Link href="/client/generate" className="mt-7 inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-pk-green-800 shadow-sm transition-transform hover:-translate-y-0.5">
+            Generate Content
+            <ArrowRight size={17} />
+          </Link>
         </div>
       </div>
 
-      {/* Quick Stats — 4 equal height cards with inline styles */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '16px',
-          width: '100%',
-          marginBottom: '32px',
-        }}
-        className="max-sm:grid-cols-1 max-md:grid-cols-2"
-      >
+      {/* Quick Stats — 4 equal height cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full mb-8">
         {isLoading ? (
           <>
             <StatsCardSkeleton />
@@ -153,14 +145,14 @@ function ClientHomePage() {
 
       {/* Content Type Quick Launch */}
       <div className="mb-8">
-        <h2 className="text-xl font-heading font-semibold mb-4">Quick Launch</h2>
+      <h2 className="mb-4 text-lg font-semibold text-gray-900">Quick Launch</h2>
         <ContentTypesGrid />
       </div>
 
       {/* Recent Generations */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-heading font-semibold">Recent Generations</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Recent Generations</h2>
           <Link href="/client/history" className="text-sm text-pk-green-600 hover:underline flex items-center gap-1">
             View all <ArrowRight size={14} />
           </Link>
@@ -168,10 +160,10 @@ function ClientHomePage() {
 
         {history.length === 0 ? (
           <Card>
-            <CardContent className="p-8 text-center">
-              <Sparkles className="mx-auto h-12 w-12 text-muted-foreground opacity-30 mb-3" />
-              <p className="text-muted-foreground">No content generated yet.</p>
-              <p className="text-xs text-muted-foreground mt-1">Click &quot;Generate Content&quot; to get started!</p>
+            <CardContent className="p-10 text-center">
+              <Sparkles className="mx-auto mb-3 h-10 w-10 text-pk-green-300" />
+              <p className="font-medium text-gray-800">No content generated yet.</p>
+              <p className="mt-1 text-sm text-gray-500">Click Generate Content to get started.</p>
             </CardContent>
           </Card>
         ) : (
@@ -197,14 +189,24 @@ function ClientHomePage() {
                       )}
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" className="text-xs">Copy</Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-xs"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleCopy(item.id, item.content)
+                    }}
+                  >
+                    {copiedId === item.id ? 'Copied!' : 'Copy'}
+                  </Button>
                 </CardContent>
               </Card>
             ))}
           </div>
         )}
       </div>
-    </div>
+    </PageShell>
   )
 }
 

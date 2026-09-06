@@ -16,8 +16,10 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Toast } from '@/components/shared/Toast'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
+import { PageHeader, PageShell } from '@/components/shared/PageHeader'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { formatDate } from '@/lib/utils'
+import { imagesApi } from '@/lib/api'
 
 const imageTypes = ['All', 'Social Media Post', 'Thumbnail']
 
@@ -27,66 +29,36 @@ function typeToBackend(type: string): string | undefined {
   return undefined
 }
 
-const getToken = () => {
-  try {
-    const raw = localStorage.getItem('pakvoice-auth')
-    if (!raw) return null
-    const parsed = JSON.parse(raw)
-    return parsed?.state?.token || parsed?.token || null
-  } catch {
-    return null
-  }
-}
-
 async function fetchGallery({ type, search }: { type: string; search: string }) {
-  const token = getToken()
-  if (!token) return { items: [], total: 0 }
-
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
-  const res = await fetch(`${baseUrl}/api/images/gallery`, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-  if (!res.ok) return { items: [], total: 0 }
-
-  const data = await res.json()
-  let items = data.items || []
-
-  // Filter by type
-  const backendType = typeToBackend(type)
-  if (backendType) {
-    items = items.filter((item: any) => item.image_type === backendType)
+  // Filtering happens server-side. The listing also re-signs storage URLs on
+  // every request, so filtering here would mean holding on to links that expire.
+  try {
+    const data = await imagesApi.gallery({
+      type: typeToBackend(type),
+      search: search.trim() || undefined,
+    })
+    return { items: data.items || [], total: data.total || 0 }
+  } catch {
+    return { items: [], total: 0 }
   }
-
-  // Filter by search
-  if (search.trim()) {
-    const q = search.toLowerCase()
-    items = items.filter(
-      (item: any) =>
-        (item.source_content || '').toLowerCase().includes(q) ||
-        (item.image_type || '').toLowerCase().includes(q)
-    )
-  }
-
-  return { items, total: items.length }
 }
 
 async function deleteImage(imageId: string): Promise<boolean> {
-  const token = getToken()
-  if (!token) return false
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
-  const res = await fetch(`${baseUrl}/api/images/${imageId}`, {
-    method: 'DELETE',
-    headers: { Authorization: `Bearer ${token}` },
-  })
-  return res.ok
+  try {
+    await imagesApi.delete(imageId)
+    return true
+  } catch {
+    return false
+  }
 }
 
-async function downloadImage(imageUrl: string, imageType: string) {
+async function downloadImage(imageUrl: string, imageType: string): Promise<boolean> {
   try {
     const fullUrl = imageUrl.startsWith('http')
       ? imageUrl
       : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${imageUrl}`
     const response = await fetch(fullUrl)
+    if (!response.ok) throw new Error('Network error')
     const blob = await response.blob()
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -96,8 +68,9 @@ async function downloadImage(imageUrl: string, imageType: string) {
     a.click()
     document.body.removeChild(a)
     window.URL.revokeObjectURL(url)
+    return true
   } catch {
-    // silent fail
+    return false
   }
 }
 
@@ -114,7 +87,7 @@ function ImageCard({
 }) {
   const imageUrl = item.image_url?.startsWith('http')
     ? item.image_url
-    : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001'}${item.image_url}`
+    : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${item.image_url}`
   const typeLabel = item.image_type === 'social_media' ? 'Social Media Post' : 'Thumbnail'
 
   return (
@@ -190,13 +163,13 @@ function ImageCard({
               border: 'none',
               background: 'transparent',
               cursor: isDeleting ? 'not-allowed' : 'pointer',
-              color: '#6b7280',
+              color: '#ef4444',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               opacity: isDeleting ? 0.5 : 1,
             }}
-            className="hover:bg-red-50 hover:text-red-500"
+            className="hover:bg-red-50"
             title="Delete"
           >
             {isDeleting ? <RefreshCw size={15} className="animate-spin" /> : <Trash2 size={15} />}
@@ -315,30 +288,23 @@ export default function ImageGalleryPage() {
     }
   }
 
-  const handleDownload = (imageUrl: string, imageType: string) => {
-    downloadImage(imageUrl, imageType)
+  const handleDownload = async (imageUrl: string, imageType: string) => {
+    const ok = await downloadImage(imageUrl, imageType)
+    if (!ok) showToast('Download failed. Please try again.', 'error')
   }
 
   return (
-    <div className="px-4 md:px-6 lg:px-8 py-6 pb-24 md:pb-6 max-w-7xl mx-auto">
-      <Toast type={toast.type} message={toast.message} visible={toast.visible} />
-
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-2xl font-heading font-bold">
-            Image Gallery{' '}
-            {!isLoading && (
-              <span className="text-muted-foreground font-normal text-lg">
-                ({data?.total ?? 0} items)
-              </span>
-            )}
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            All your generated images in one place
-          </p>
-        </div>
-      </div>
+    <PageShell>
+      <Toast type={toast.type} message={toast.message} visible={toast.visible} onClose={() => setToast((prev) => ({ ...prev, visible: false }))} />
+      <PageHeader
+        title={
+          <>
+            Image Gallery
+            {!isLoading && <span className="ml-2 text-lg font-normal text-gray-400">({data?.total ?? 0})</span>}
+          </>
+        }
+        description="All your generated images in one place."
+      />
 
       {/* Search + Filter */}
       <div className="flex flex-col md:flex-row gap-3 mb-6">
@@ -375,14 +341,7 @@ export default function ImageGalleryPage() {
 
       {/* Image Grid */}
       {isLoading ? (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '16px',
-          }}
-          className="max-lg:grid-cols-2 max-sm:grid-cols-1"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
             <SkeletonCard key={i} />
           ))}
@@ -404,14 +363,7 @@ export default function ImageGalleryPage() {
           </Link>
         </div>
       ) : (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '16px',
-          }}
-          className="max-lg:grid-cols-2 max-sm:grid-cols-1"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {images.map((item: any) => (
             <ImageCard
               key={item.id}
@@ -434,6 +386,6 @@ export default function ImageGalleryPage() {
         onConfirm={confirmDelete}
         onCancel={() => setDeleteTarget(null)}
       />
-    </div>
+    </PageShell>
   )
 }

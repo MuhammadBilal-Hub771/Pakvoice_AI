@@ -20,22 +20,47 @@ async def health_check():
 
 @router.get("/ready", summary="Readiness check")
 async def readiness_check():
+    """Report on each dependency the app needs to serve traffic."""
+    checks: dict = {}
+    ready = True
+
+    if settings.use_postgres:
+        from db.session import check_connection
+
+        connected = check_connection()
+        checks["database"] = {
+            "backend": "supabase_postgres",
+            "connected": connected,
+        }
+        ready = ready and connected
+    else:
+        checks["database"] = {"backend": "json_files", "connected": True}
+
     try:
-        from db.chroma import get_or_create_collection
+        from services.rag_service import rag_service
 
-        collection = get_or_create_collection()
-        doc_count = collection.count()
-
-        return {
-            "status": "ready",
-            "chroma_db": "connected",
-            "documents_in_kb": doc_count,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+        checks["vector_store"] = {
+            "backend": "pgvector" if settings.use_postgres else "chromadb",
+            "connected": True,
+            "chunks": rag_service.get_document_count(),
         }
     except Exception as e:
-        logger.error(f"Readiness check failed: {e}")
-        return {
-            "status": "not_ready",
-            "error": str(e),
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-        }
+        logger.error(f"Vector store readiness check failed: {e}")
+        checks["vector_store"] = {"connected": False, "error": str(e)}
+        ready = False
+
+    checks["storage"] = {
+        "backend": "supabase" if settings.use_supabase_storage else "local_disk"
+    }
+    checks["whatsapp"] = {
+        "enabled": settings.WHATSAPP_ENABLED,
+        "configured": settings.whatsapp_configured,
+        "display_number": settings.WHATSAPP_DISPLAY_NUMBER,
+        "webhook_path": "/api/whatsapp/webhook",
+    }
+
+    return {
+        "status": "ready" if ready else "not_ready",
+        "checks": checks,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }

@@ -34,7 +34,7 @@ export default function AdminApiKeysPage() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-heading font-bold">API Keys</h1>
+          <h1 className="text-[1.65rem] font-bold tracking-tight text-gray-900">API Keys</h1>
           <p className="text-sm text-muted-foreground mt-1">Manage third-party AI provider API keys</p>
         </div>
         <Button variant="outline" className="gap-2">

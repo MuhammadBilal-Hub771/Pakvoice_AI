@@ -1,8 +1,12 @@
 import asyncio
+import json
 import time
 import uuid
 from datetime import datetime, timezone
 from typing import List, Optional, AsyncIterator
+
+# Trailer the frontend strips after streaming — keeps sources off the visible text.
+SOURCES_STREAM_MARKER = "\n<<<PAKVOICE_SOURCES>>>\n"
 
 from fastapi import HTTPException
 from langchain_openai import ChatOpenAI
@@ -77,9 +81,9 @@ class AIService:
         return TOKEN_LIMITS.get(content_type, settings.AI_MAX_TOKENS)
 
     async def _retrieve_context(
-        self, request: GenerateRequest
+        self, request: GenerateRequest, user_id: str
     ) -> tuple[List[str], List[DocumentSource]]:
-        """Retrieve RAG context only if knowledge base is enabled and has documents."""
+        """Retrieve RAG context from this user's own knowledge base."""
         context_docs: List[str] = []
         sources_used: List[DocumentSource] = []
 
@@ -87,7 +91,7 @@ class AIService:
             return context_docs, sources_used
 
         rag = self._get_rag_service()
-        doc_count = rag.get_document_count()
+        doc_count = rag.get_document_count(user_id)
 
         if doc_count == 0:
             logger.info("Knowledge base is empty — skipping RAG search")
@@ -98,14 +102,18 @@ class AIService:
             f"{request.city} {request.content_type.value}"
         )
 
-        # Check cache first
-        cache_key = f"{search_query}_{settings.RAG_TOP_K}"
+        # user_id and the selected documents are part of the key: without them
+        # one user's cached chunks would be served to another user whose
+        # business details happen to match.
+        doc_scope = ",".join(sorted(request.selected_doc_ids or []))
+        cache_key = f"{user_id}|{search_query}|{settings.RAG_TOP_K}|{doc_scope}"
         if cache_key in _rag_cache:
             logger.info("RAG cache hit")
             return _rag_cache[cache_key]
 
         rag_results = rag.search(
             query=search_query,
+            user_id=user_id,
             top_k=settings.RAG_TOP_K,
             doc_ids=request.selected_doc_ids or None,
         )
@@ -132,13 +140,14 @@ class AIService:
         self,
         request: GenerateRequest,
         user_id: str,
+        source_channel: str = "web",
     ) -> GenerateResponse:
         start_time = time.time()
         content_id = str(uuid.uuid4())
 
         try:
             # Step 1: Retrieve RAG context (skipped if KB empty or disabled)
-            context_docs, sources_used = await self._retrieve_context(request)
+            context_docs, sources_used = await self._retrieve_context(request, user_id)
 
             # Step 2: Build prompt with Pakistani context
             messages = build_generation_prompt(
@@ -214,6 +223,7 @@ class AIService:
                     cost_usd=token_data["total_cost_usd"],
                     generation_time_ms=generation_time,
                     sources_used=[s.model_dump() for s in sources_used],
+                    source_channel=source_channel,
                     created_at=datetime.now(timezone.utc),
                 )
                 save_generation_history(history_item)
@@ -242,7 +252,7 @@ class AIService:
             content_id = str(uuid.uuid4())
 
         try:
-            context_docs, sources_used = await self._retrieve_context(request)
+            context_docs, sources_used = await self._retrieve_context(request, user_id)
 
             messages = build_generation_prompt(
                 business_name=request.business_name,
@@ -276,6 +286,7 @@ class AIService:
                     raise HTTPException(status_code=500, detail=f"Stream failed: {str(e)}")
 
             # Save to history after stream completes
+            sources_payload = [s.model_dump() for s in sources_used]
             try:
                 history_item = GenerationHistoryItem(
                     content_id=content_id,
@@ -290,12 +301,15 @@ class AIService:
                     tokens_used=0,
                     cost_usd=0.0,
                     generation_time_ms=0,
-                    sources_used=[s.model_dump() for s in sources_used],
+                    sources_used=sources_payload,
                     created_at=datetime.now(timezone.utc),
                 )
                 save_generation_history(history_item)
             except Exception as e:
                 logger.warning(f"Failed to save stream history: {e}")
+
+            # Always send sources trailer so the UI can show RAG chunks used
+            yield SOURCES_STREAM_MARKER + json.dumps({"sources_used": sources_payload})
 
         except HTTPException:
             raise
@@ -345,8 +359,8 @@ class AIService:
 
         if "authentication" in error_msg or "api key" in error_msg:
             raise HTTPException(
-                status_code=401,
-                detail="Invalid OpenAI API key. Please check your configuration.",
+                status_code=502,
+                detail="AI provider rejected the API key. Check OPENAI_API_KEY in backend/.env.",
             )
         elif "rate limit" in error_msg or "rate_limit" in error_msg:
             raise HTTPException(

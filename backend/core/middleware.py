@@ -1,8 +1,7 @@
 import time
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.util import get_remote_address
+from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from loguru import logger
 import os
@@ -46,10 +45,8 @@ def setup_cors(app: FastAPI):
 
 
 def setup_rate_limiting(app: FastAPI):
-    limiter = Limiter(
-        key_func=get_remote_address,
-        default_limits=[settings.RATE_LIMIT],
-    )
+    from core.rate_limit import limiter
+
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
     return limiter

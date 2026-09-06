@@ -16,6 +16,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { useKBStore } from '@/stores/kbStore'
 import { useDocuments, useUploadDocument, useDeleteDocument } from '@/hooks/useQueries'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
+import { PageHeader, PageShell } from '@/components/shared/PageHeader'
 import { formatDate } from '@/lib/utils'
 
 const categories = ['All', 'Products', 'Services', 'Company Info', 'Market Research']
@@ -112,7 +113,7 @@ export default function ClientKnowledgeBasePage() {
   }
 
   return (
-    <div className="px-4 md:px-6 lg:px-8 py-6 pb-24 md:pb-6 max-w-7xl mx-auto">
+    <PageShell>
       {/* Hidden file input */}
       <input
         ref={fileInputRef}
@@ -122,22 +123,16 @@ export default function ClientKnowledgeBasePage() {
         className="hidden"
       />
 
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-heading font-bold">Knowledge Base</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Upload and manage your business documents
-          </p>
-        </div>
-        <Button
-          onClick={handleUploadClick}
-          className="bg-pk-green-500 hover:bg-pk-green-700 gap-2"
-        >
-          <Upload size={16} />
-          Upload Document
-        </Button>
-      </div>
+      <PageHeader
+        title="Knowledge Base"
+        description="Upload brochures and price lists so the AI writes from your real business."
+        action={
+          <Button onClick={handleUploadClick} className="h-11 gap-2">
+            <Upload size={16} />
+            Upload Document
+          </Button>
+        }
+      />
 
       {/* Search & Filter */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
@@ -233,7 +228,7 @@ export default function ClientKnowledgeBasePage() {
             {isUploading ? (
               <>
                 <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                Uploading... {uploadProgress}%
+                Uploading...
               </>
             ) : (
               <>
@@ -327,6 +322,6 @@ export default function ClientKnowledgeBasePage() {
         onConfirm={confirmDelete}
         onCancel={() => setDeleteTarget(null)}
       />
-    </div>
+    </PageShell>
   )
 }

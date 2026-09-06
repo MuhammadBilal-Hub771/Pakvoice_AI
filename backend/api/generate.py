@@ -1,5 +1,5 @@
 import uuid
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from fastapi.responses import StreamingResponse
 from loguru import logger
 
@@ -9,7 +9,9 @@ from models.content import (
     RefineRequest,
     RefineResponse,
 )
+from config import settings
 from core.dependencies import get_current_user
+from core.rate_limit import limiter
 from models.user import TokenPayload
 from services.ai_service import ai_service
 from utils.formatters import get_labels, CONTENT_TYPE_LABELS, ContentType
@@ -17,46 +19,50 @@ from utils.formatters import get_labels, CONTENT_TYPE_LABELS, ContentType
 router = APIRouter(prefix="/api/generate", tags=["Content Generation"])
 
 
+# slowapi resolves the client from a parameter literally named `request`, so the
+# request body is bound to `body` on the rate-limited routes below.
 @router.post(
     "/content",
     response_model=GenerateResponse,
     summary="Generate business content using AI",
 )
+@limiter.limit(settings.RATE_LIMIT_GENERATE)
 async def generate_content(
-    request: GenerateRequest,
+    request: Request,
+    body: GenerateRequest,
     current_user: TokenPayload = Depends(get_current_user),
 ):
     logger.info(
         f"Content generation request from {current_user.email}: "
-        f"{request.business_name} - {request.content_type.value}"
+        f"{body.business_name} - {body.content_type.value}"
     )
 
-    response = await ai_service.generate_content(
-        request=request,
+    return await ai_service.generate_content(
+        request=body,
         user_id=current_user.sub,
     )
-
-    return response
 
 
 @router.post(
     "/content/stream",
     summary="Generate business content using AI (streaming — text appears as generated)",
 )
+@limiter.limit(settings.RATE_LIMIT_GENERATE)
 async def generate_content_stream(
-    request: GenerateRequest,
+    request: Request,
+    body: GenerateRequest,
     current_user: TokenPayload = Depends(get_current_user),
 ):
     logger.info(
         f"Streaming content request from {current_user.email}: "
-        f"{request.business_name} - {request.content_type.value}"
+        f"{body.business_name} - {body.content_type.value}"
     )
 
     content_id = str(uuid.uuid4())
 
     return StreamingResponse(
         ai_service.generate_content_stream(
-            request=request,
+            request=body,
             user_id=current_user.sub,
             content_id=content_id,
         ),
@@ -70,21 +76,20 @@ async def generate_content_stream(
     response_model=RefineResponse,
     summary="Refine existing content",
 )
+@limiter.limit(settings.RATE_LIMIT_GENERATE)
 async def refine_content(
-    request: RefineRequest,
+    request: Request,
+    body: RefineRequest,
     current_user: TokenPayload = Depends(get_current_user),
 ):
     logger.info(
-        f"Content refinement request from {current_user.email}: "
-        f"{request.content_id}"
+        f"Content refinement request from {current_user.email}: {body.content_id}"
     )
 
-    response = await ai_service.refine_content(
-        request=request,
+    return await ai_service.refine_content(
+        request=body,
         user_id=current_user.sub,
     )
-
-    return response
 
 
 @router.get(

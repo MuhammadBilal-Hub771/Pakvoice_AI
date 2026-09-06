@@ -19,6 +19,8 @@ class GenerationHistoryItem(BaseModel):
     sources_used: List[dict]
     is_saved: bool = False
     is_flagged: bool = False
+    # Which surface produced this: "web" or "whatsapp"
+    source_channel: str = "web"
     created_at: datetime
     updated_at: Optional[datetime] = None
 

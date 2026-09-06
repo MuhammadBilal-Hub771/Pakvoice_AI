@@ -18,8 +18,8 @@ import {
   ChevronLeft,
 } from 'lucide-react'
 import { CrescentStarLogo } from '@/components/illustrations/logos'
-import { ThemeToggle } from '@/components/shared/ThemeToggle'
 import { Toast } from '@/components/shared/Toast'
+import { Notifications } from '@/components/shared/Notifications'
 import { useAuthStore } from '@/stores/authStore'
 import { cn } from '@/lib/utils'
 
@@ -83,8 +83,9 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Toast type={toastType} message={toastMessage} visible={showToast} />
+    <div data-theme="green" className="min-h-screen bg-gray-50/70">
+      <Toast type={toastType} message={toastMessage} visible={showToast} onClose={() => setShowToast(false)} />
+      <Notifications />
 
       {/* Mobile sidebar backdrop — CSS transition */}
       {mobileSidebar && (
@@ -97,32 +98,34 @@ export default function AdminLayout({
       {/* Desktop Sidebar */}
       <aside
         className={cn(
-          'fixed left-0 top-0 z-50 h-full bg-card border-r transition-all duration-200 flex flex-col',
+          'fixed left-0 top-0 z-50 h-full bg-pk-green-900 text-white transition-all duration-200 flex flex-col',
           sidebarOpen ? 'w-60' : 'w-16',
           'hidden lg:flex'
         )}
       >
         {/* Logo */}
         <div className={cn(
-          'flex items-center h-16 border-b px-4',
+          'flex items-center h-16 border-b border-white/10 px-4',
           sidebarOpen ? 'justify-between' : 'justify-center'
         )}>
           {sidebarOpen ? (
             <>
-              <Link href="/admin/dashboard" className="flex items-center gap-2">
-                <CrescentStarLogo size={28} />
+              <Link href="/admin/dashboard" className="flex items-center gap-2.5">
+                <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-white shadow-sm shrink-0">
+                  <CrescentStarLogo size={22} />
+                </span>
                 <div>
-                  <p className="text-sm font-heading font-bold leading-tight">Pakvoice</p>
-                  <p className="text-[10px] text-pk-green-500 font-medium -mt-0.5">Admin Panel</p>
+                  <p className="text-sm font-heading font-bold leading-tight text-white">Pakvoice</p>
+                  <p className="text-[10px] text-pk-green-300 font-medium -mt-0.5">Admin Panel</p>
                 </div>
               </Link>
-              <button onClick={() => setSidebarOpen(false)} className="text-muted-foreground hover:text-foreground">
+              <button onClick={() => setSidebarOpen(false)} className="text-white/60 hover:text-white transition-colors">
                 <ChevronLeft size={16} />
               </button>
             </>
           ) : (
-            <button onClick={() => setSidebarOpen(true)} className="font-heading font-bold text-lg text-pk-green-500">
-              <CrescentStarLogo size={28} />
+            <button onClick={() => setSidebarOpen(true)} className="flex items-center justify-center w-9 h-9 rounded-xl bg-white shadow-sm">
+              <CrescentStarLogo size={22} />
             </button>
           )}
         </div>
@@ -137,14 +140,17 @@ export default function AdminLayout({
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                  'relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors',
                   isActive
-                    ? 'bg-pk-green-100 text-pk-green-700'
-                    : 'text-gray-900 hover:bg-muted',
+                    ? 'bg-white/10 text-white font-semibold'
+                    : 'text-white/60 font-medium hover:text-white hover:bg-white/5',
                   !sidebarOpen && 'justify-center px-2'
                 )}
                 title={sidebarOpen ? undefined : link.label}
               >
+                {isActive && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 rounded-r-full bg-pk-green-300" />
+                )}
                 <Icon size={18} />
                 {sidebarOpen && <span>{link.label}</span>}
               </Link>
@@ -153,22 +159,22 @@ export default function AdminLayout({
         </nav>
 
         {/* Bottom Avatar */}
-        <div className={cn('border-t relative', sidebarOpen ? 'p-4' : 'p-2')} ref={dropdownRef}>
+        <div className={cn('border-t border-white/10 relative', sidebarOpen ? 'p-4' : 'p-2')} ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className={cn(
-              'flex items-center w-full transition-all',
-              dropdownOpen ? 'ring-2 ring-pk-green-500 rounded-lg' : 'hover:ring-2 hover:ring-pk-green-300 rounded-lg',
+              'flex items-center w-full transition-all rounded-xl',
+              dropdownOpen ? 'bg-white/10' : 'hover:bg-white/5',
               sidebarOpen ? 'gap-3 p-1' : 'justify-center p-1'
             )}
           >
-            <div className="w-8 h-8 rounded-full bg-pk-green-500 flex items-center justify-center text-white text-xs font-medium shrink-0 cursor-pointer">
+            <div className="w-8 h-8 rounded-full bg-white/15 border border-white/20 flex items-center justify-center text-white text-xs font-semibold shrink-0 cursor-pointer">
               {user?.name?.charAt(0) || 'A'}
             </div>
             {sidebarOpen && (
               <div className="flex-1 min-w-0 text-left">
-                <p className="text-xs font-medium truncate">{user?.name || 'Admin'}</p>
-                <p className="text-[10px] text-muted-foreground truncate">{user?.email || ''}</p>
+                <p className="text-xs font-semibold text-white truncate">{user?.name || 'Admin'}</p>
+                <p className="text-[10px] text-white/50 truncate">{user?.email || ''}</p>
               </div>
             )}
           </button>
@@ -250,7 +256,7 @@ export default function AdminLayout({
         sidebarOpen ? 'lg:ml-60' : 'lg:ml-16'
       )}>
         {/* Top bar */}
-        <header className="sticky top-0 z-30 h-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex items-center justify-between px-4 md:px-6">
+        <header className="sticky top-0 z-30 h-16 border-b border-gray-100 bg-white/90 backdrop-blur flex items-center justify-between px-4 md:px-6">
           <div className="flex items-center gap-3">
             <button
               className="lg:hidden p-2 rounded-md text-muted-foreground hover:bg-muted"
@@ -261,9 +267,6 @@ export default function AdminLayout({
             <h2 className="text-sm font-medium text-muted-foreground hidden sm:block">
               {sidebarLinks.find((l) => l.href === pathname)?.label || 'Dashboard'}
             </h2>
-          </div>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
           </div>
         </header>
 

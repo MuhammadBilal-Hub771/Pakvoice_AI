@@ -56,7 +56,7 @@ function OAuthCallbackContent() {
           <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => router.replace('/login')}
-            className="px-6 py-2.5 bg-pk-green-500 text-white rounded-lg hover:bg-pk-green-600 transition-colors font-medium"
+            className="rounded-xl bg-pk-green-600 px-6 py-2.5 font-semibold text-white hover:bg-pk-green-700"
           >
             Back to Login
           </button>

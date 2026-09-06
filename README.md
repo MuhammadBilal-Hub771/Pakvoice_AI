@@ -1,23 +1,23 @@
 # PakVoice AI — AI-Powered Pakistani Business Content Generator
 
-A full-stack application for generating culturally-relevant business content for the Pakistani market. Features AI-powered content generation with RAG (Retrieval-Augmented Generation), multi-language support (English, Urdu, Roman Urdu), AI image/poster generation, and Pakistani city/industry context awareness.
+A full-stack application for generating culturally-relevant business content for the Pakistani market. Features AI-powered content generation with RAG (Retrieval-Augmented Generation), multi-language support (English, Urdu, Roman Urdu), AI image/poster generation, a WhatsApp bot, a client content agent, speech-to-text voice input, and Pakistani city/industry context awareness.
 
 ## Architecture
 
 ```
-pakistani-business-generator/
+Pakvoice_AI/
 ├── backend/          # FastAPI Python backend
-└── pakvoice-ai/      # Next.js 14 frontend
+└── frontend/         # Next.js 14 frontend
 ```
 
 ## Tech Stack
 
-### Frontend (`pakvoice-ai/`)
+### Frontend (`frontend/`)
 - **Next.js 14** (App Router) with TypeScript
 - **Tailwind CSS v3** with theme system (green, navy blue, red themes)
 - **Zustand** with `persist` middleware for state management
 - **TanStack Query v5** for server state & caching
-- **Playwright** (via Python backend) for HTML-to-image poster rendering
+- **React Hook Form + Zod** for form validation
 - **Lucide React** for icons
 - **Recharts** for analytics charts
 
@@ -25,10 +25,12 @@ pakistani-business-generator/
 - **FastAPI** (Python 3.12+) with Uvicorn
 - **OpenAI** GPT models for content generation & brand detail extraction
 - **GPT Image-2** for AI background generation (posters)
-- **ChromaDB** for vector storage (RAG)
+- **Whisper** for speech-to-text transcription
+- **ChromaDB** (or pgvector) for vector storage (RAG)
 - **Jinja2** + **Playwright** for social media poster rendering
+- **WhatsApp Cloud API** integration for the bot
 - **JWT** authentication with Google OAuth support
-- **JSON file store** for data persistence
+- **JSON file store** or **Supabase Postgres** for data persistence (Alembic migrations)
 
 ## Features
 
@@ -39,6 +41,9 @@ pakistani-business-generator/
 - RAG-powered knowledge base for context-aware content
 - **AI Image Generator** — social media poster & thumbnail creation
 - **Image Gallery** — save, view, and download generated images
+- **Client Content Agent** — goal-based campaign pack generation with live web search
+- **WhatsApp Bot** — generate content & images straight from WhatsApp
+- **Speech-to-Text** — transcribe voice notes via Whisper
 - Content history with search, filters & "Saved" badges
 - Knowledge base document management (upload PDF, DOCX, TXT, MD)
 - User-specific data isolation (each user sees only their own data)
@@ -85,7 +90,7 @@ python main.py
 ### 3. Run Frontend
 
 ```bash
-cd pakvoice-ai
+cd frontend
 npm install
 npm run dev
 # → http://localhost:3000
@@ -99,6 +104,10 @@ npm run dev
 | **Client** | `client@contentpk.ai` | `Client@123` |
 
 Or use **"Continue with Google"** on the login page (dev mode auto-login).
+
+## Customization
+
+What you can tune (`.env`, generation options, prompts, WhatsApp, themes) and what is still mock-only (admin Settings / API Keys) is documented in **[docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md)**. Deployment and Supabase/WhatsApp setup: **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
 
 ## Environment Variables
 
@@ -115,7 +124,7 @@ Or use **"Continue with Google"** on the login page (dev mode auto-login).
 | `DEBUG` | Debug mode | `True` |
 | `ALLOWED_ORIGINS` | CORS origins | `http://localhost:3000` |
 
-### Frontend (`pakvoice-ai/.env.local`)
+### Frontend (`frontend/.env.local`)
 
 | Variable | Description | Default |
 |---|---|---|
@@ -147,6 +156,24 @@ Or use **"Continue with Google"** on the login page (dev mode auto-login).
 | `/api/images/gallery` | GET | List user's saved images |
 | `/api/images/gallery/{id}` | DELETE | Delete saved image |
 
+### Speech-to-Text
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/stt/transcribe` | POST | Transcribe audio with Whisper |
+
+### WhatsApp Bot
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/whatsapp/webhook` | GET/POST | Meta webhook (verification + messages) |
+| `/api/auth/whatsapp/link-code` | POST | Issue a one-time linking code |
+| `/api/auth/whatsapp/status` | GET | Check WhatsApp link status |
+| `/api/auth/whatsapp/link` | DELETE | Unlink the number |
+
+### Client Content Agent
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/agent/chat` | POST | Streaming agent tool-calling loop |
+
 ### History & Documents
 | Endpoint | Method | Description |
 |---|---|---|
@@ -168,13 +195,14 @@ Or use **"Continue with Google"** on the login page (dev mode auto-login).
 
 ```
 backend/
-├── api/               Route handlers (auth, generate, documents, images, admin)
-├── core/              Middleware, security, dependencies
-├── db/                ChromaDB client, JSON file store
+├── api/               Route handlers (auth, generate, documents, history, images, stt, whatsapp, agent, admin, health)
+├── core/              Middleware, security, dependencies, rate limiting
+├── db/                SQLAlchemy (Postgres), JSON store facade, vector store, schema
 ├── models/            Pydantic models
 ├── prompts/           AI system prompts (English + Urdu)
-├── services/          Business logic (AI, RAG, history, documents, image)
+├── services/          Business logic (AI, RAG, image, stt, storage, whatsapp, agent)
 ├── templates/         Jinja2 HTML templates (poster, thumbnail)
+├── alembic/           Database migrations
 ├── data/              JSON data files (users, history, documents)
 ├── generated_images/  AI-generated images (auto-generated)
 ├── logs/              Application logs (auto-generated)
@@ -183,20 +211,21 @@ backend/
 ├── main.py            FastAPI entry point
 └── config.py          Settings (pydantic)
 
-pakvoice-ai/
+frontend/
 ├── app/               Next.js pages and layouts
 │   ├── (auth)/        Login, Register, OAuth Callback
 │   ├── admin/         Admin portal (dashboard, users, analytics, etc.)
-│   └── client/        Client portal (home, generate, history, image-generator, etc.)
+│   └── client/        Client portal (home, generate, image-generator, history, etc.)
 ├── components/        React components
 │   ├── ui/            UI primitives (button, input, card, etc.)
 │   ├── admin/         Admin-specific components
 │   ├── client/        Client-specific components
-│   ├── shared/        Shared components (Toast, ConfirmDialog, StatsCard, etc.)
+│   ├── marketing/     Landing page components
+│   ├── shared/        Shared components (Toast, AgentWidget, WhatsAppConnect, etc.)
 │   └── illustrations/ SVG illustrations & logos
-├── hooks/             Custom React hooks (useQueries, useClientStats)
+├── hooks/             Custom React hooks
 ├── lib/               API client, query provider, utilities
-├── stores/            Zustand state stores (auth, generate, kb, image)
+├── stores/            Zustand state stores (auth, generate, image, kb, admin)
 └── types/             TypeScript type definitions
 ```
 

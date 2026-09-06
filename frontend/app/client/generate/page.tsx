@@ -18,11 +18,14 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent } from '@/components/ui/card'
+import { PageHeader, PageShell } from '@/components/shared/PageHeader'
 import { ContentTypeIcon } from '@/components/illustrations/logos'
+import { AudioRecorder } from '@/components/shared/AudioRecorder'
+import { MarkdownText } from '@/components/shared/MarkdownText'
 import { useGenerateStore } from '@/stores/generateStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useGenerateContent } from '@/hooks/useQueries'
-import { historyApi, generateApi } from '@/lib/api'
+import { historyApi, generateApi, type SttLanguage } from '@/lib/api'
 import { useQueryClient } from '@tanstack/react-query'
 import { cleanContent, copyToClipboard, formatDate } from '@/lib/utils'
 import type { ContentType, Industry, Tone, Language, ContentLength, GeneratedContent } from '@/types'
@@ -92,6 +95,15 @@ const LANGUAGES: { id: Language; label: string; flag: string }[] = [
   { id: 'roman-urdu', label: 'Roman Urdu', flag: '🇵🇰' },
 ]
 
+// The recorder defaults to whichever language the content will be written in.
+const STT_LANGUAGE: Record<string, SttLanguage> = {
+  english: 'en',
+  urdu: 'ur',
+  'roman-urdu': 'roman-urdu',
+}
+
+const DESCRIPTION_MAX_LENGTH = 500
+
 const PAKISTANI_CITIES = [
   'Karachi', 'Lahore', 'Islamabad', 'Peshawar', 'Quetta',
   'Faisalabad', 'Multan', 'Rawalpindi', 'Hyderabad', 'Gujranwala',
@@ -124,7 +136,7 @@ function GeneratePageContent() {
   const generateMutation = useGenerateContent()
   const queryClient = useQueryClient()
 
-  const [kbExpanded, setKbExpanded] = useState(false)
+  const [kbExpanded, setKbExpanded] = useState(true)
   const [copied, setCopied] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [editedContent, setEditedContent] = useState('')
@@ -134,6 +146,7 @@ function GeneratePageContent() {
   const [isStreaming, setIsStreaming] = useState(false)
   const [streamedText, setStreamedText] = useState('')
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [generateError, setGenerateError] = useState('')
 
   // Set initial content type from URL
   React.useEffect(() => {
@@ -161,6 +174,19 @@ function GeneratePageContent() {
     formData.city,
   ])
 
+  // Voice input adds to whatever is already typed rather than replacing it,
+  // so several short recordings can build up one description.
+  const appendToDescription = useCallback(
+    (transcript: string) => {
+      const existing = formData.businessDescription.trim()
+      const combined = existing ? `${existing} ${transcript}` : transcript
+      setFormData({
+        businessDescription: combined.slice(0, DESCRIPTION_MAX_LENGTH),
+      })
+    },
+    [formData.businessDescription, setFormData]
+  )
+
   // Helper: red border when user has interacted and field is empty
   const err = (value: string) =>
     hasInteracted && !value.trim()
@@ -174,6 +200,7 @@ function GeneratePageContent() {
   const handleGenerate = async () => {
     setHasInteracted(true)
     if (!isFormValid) return
+    setGenerateError('')
     console.log('[Generate] START', { contentType: formData.contentType })
 
     setIsStreaming(true)
@@ -183,23 +210,27 @@ function GeneratePageContent() {
     // Phase 1: Try streaming endpoint (shows text word-by-word)
     try {
       console.log('[Generate] Trying streaming endpoint...')
-      const { stream, contentId } = await generateApi.generateStream(formData)
+      const { stream, contentId, parseComplete } = await generateApi.generateStream(formData)
       const reader = stream.getReader()
       const decoder = new TextDecoder()
       let fullText = ''
+      const sourcesMarker = '<<<PAKVOICE_SOURCES>>>'
 
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
         fullText += decoder.decode(value, { stream: true })
-        setStreamedText(fullText)
+        // Hide the sources trailer while tokens are still arriving
+        const markerAt = fullText.indexOf(sourcesMarker)
+        setStreamedText(markerAt === -1 ? fullText : fullText.slice(0, markerAt).replace(/\n$/, ''))
       }
 
       console.log('[Generate] Stream complete:', fullText.slice(0, 80))
+      const { content, sources } = parseComplete(fullText)
       const genContent: GeneratedContent = {
         id: contentId,
         title: formData.businessName || 'Generated Content',
-        content: fullText,
+        content,
         contentType: formData.contentType as ContentType,
         industry: (formData.industry || '') as Industry,
         city: formData.city || '',
@@ -210,7 +241,7 @@ function GeneratePageContent() {
         createdAt: new Date().toISOString(),
         saved: false,
         copied: false,
-        sources: [],
+        sources,
       }
       setGeneratedContent(genContent)
       addToHistory(genContent)
@@ -249,7 +280,7 @@ function GeneratePageContent() {
       console.log('[Generate] Fallback SUCCESS')
     } catch (err: any) {
       console.error('[Generate] Fallback FAILED:', err?.message)
-      // mutation onError already shows a notification toast
+      setGenerateError(err?.message || 'Generation failed. Check that the backend is running and OPENAI_API_KEY is set.')
     }
     setIsStreaming(false)
   }
@@ -315,14 +346,14 @@ function GeneratePageContent() {
   ]
 
   return (
-    <div className="px-4 md:px-6 lg:px-8 py-6 pb-24 md:pb-6 max-w-7xl mx-auto">
+    <PageShell>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         {/* LEFT COLUMN - Form */}
         <div className="space-y-6 lg:sticky lg:top-20 lg:self-start">
-          <div className="animate-fade-up">
-            <h1 className="text-2xl font-heading font-bold mb-1">Generate Content</h1>
-            <p className="text-sm text-muted-foreground">Fill in the details to create Pakistani market content</p>
-          </div>
+          <PageHeader
+            title="Generate Content"
+            description="Speak or type a brief — get a post ready for the Pakistani market."
+          />
 
           {/* Section 1: What to Create */}
           <Card>
@@ -366,12 +397,17 @@ function GeneratePageContent() {
               <div>
                 <label className="text-sm font-medium mb-1 block">Business Description</label>
                 <Textarea
-                  placeholder="Describe your business, products, and services..."
+                  placeholder="Describe your business, products, and services... or use the mic below"
                   rows={3}
                   value={formData.businessDescription}
                   onChange={(e) => setFormData({ businessDescription: e.target.value })}
                   maxLength={500}
                   className={err(formData.businessDescription)}
+                />
+                <AudioRecorder
+                  className="mt-2"
+                  language={STT_LANGUAGE[formData.language] || 'en'}
+                  onTranscript={appendToDescription}
                 />
                 {hasInteracted && !formData.businessDescription.trim() && (
                   <p className="mt-1 text-xs text-red-400">Business description is required</p>
@@ -619,25 +655,9 @@ function GeneratePageContent() {
             <button
               onClick={handleGenerate}
               disabled={!isFormValid || isStreaming}
-              style={{
-                width: '100%',
-                padding: '14px',
-                borderRadius: '12px',
-                border: 'none',
-                fontSize: '15px',
-                fontWeight: 600,
-                color: 'white',
-                cursor: isFormValid && !isStreaming ? 'pointer' : 'not-allowed',
-                background: isFormValid
-                  ? 'var(--primary-color, #16a34a)'
-                  : 'var(--primary-faded, #a7d6b8)',
-                opacity: isFormValid ? 1 : 0.7,
-                transition: 'all 0.2s ease',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-              }}
+              className={`flex h-12 w-full items-center justify-center gap-2 rounded-xl text-[15px] font-semibold text-white transition-colors ${
+                isFormValid && !isStreaming ? 'bg-pk-green-600 hover:bg-pk-green-700' : 'cursor-not-allowed bg-pk-green-300'
+              }`}
             >
               {isStreaming ? (
                 <>
@@ -653,14 +673,12 @@ function GeneratePageContent() {
             </button>
 
             {hasInteracted && !isFormValid && (
-              <p style={{
-                fontSize: '12px',
-                color: '#ef4444',
-                textAlign: 'center',
-                marginTop: '8px',
-              }}>
+              <p className="mt-2 text-center text-xs text-red-500">
                 Please fill all required fields to continue
               </p>
+            )}
+            {generateError && (
+              <p className="mt-2 text-center text-sm text-red-600">{generateError}</p>
             )}
           </div>
         </div>
@@ -687,7 +705,7 @@ function GeneratePageContent() {
                   <LoadingCrescent size={16} />
                   <span className="text-sm text-muted-foreground animate-pulse">Generating...</span>
                 </div>
-                <div className="whitespace-pre-wrap text-sm leading-relaxed">{streamedText}</div>
+                <MarkdownText text={streamedText} className="text-sm" />
               </div>
             )}
 
@@ -754,12 +772,12 @@ function GeneratePageContent() {
                           }`}
                         />
                       ) : (
-                        <div className={`whitespace-pre-wrap text-sm leading-relaxed ${
+                        <div className={
                           generatedContent.language === 'urdu'
-                            ? 'font-urdu text-lg leading-[2.2] text-right'
-                            : ''
-                        }`}>
-                          {cleanContent(generatedContent.content)}
+                            ? 'font-urdu text-lg leading-[2.2]'
+                            : 'text-sm'
+                        }>
+                          <MarkdownText text={generatedContent.content} />
                         </div>
                       )}
                     </div>
@@ -807,17 +825,30 @@ function GeneratePageContent() {
                       </Button>
                     </div>
 
-                    {/* Sources */}
+                    {/* Sources / RAG chunks */}
                     {generatedContent.sources && generatedContent.sources.length > 0 && (
-                      <details className="text-sm">
+                      <details className="text-sm" open>
                         <summary className="cursor-pointer text-muted-foreground hover:text-foreground font-medium">
-                          📚 Sources Used ({generatedContent.sources.length})
+                          Sources Used ({generatedContent.sources.length})
                         </summary>
-                        <div className="mt-2 space-y-2">
-                          {generatedContent.sources.map((source) => (
-                            <div key={source.docId} className="flex items-center justify-between text-xs">
-                              <span>{source.docName}</span>
-                              <span className="text-pk-green-600 font-medium">{source.relevance}% relevant</span>
+                        <div className="mt-2 space-y-3">
+                          {generatedContent.sources.map((source, idx) => (
+                            <div
+                              key={`${source.docId}-${idx}`}
+                              className="rounded-lg border border-border/60 bg-muted/30 p-3 text-xs space-y-1.5"
+                            >
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="font-medium text-foreground">{source.docName || 'Document'}</span>
+                                <span className="shrink-0 text-pk-green-600 font-medium">
+                                  {source.relevance}% relevant
+                                </span>
+                              </div>
+                              {source.chunkText && (
+                                <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                                  {source.chunkText}
+                                  {source.chunkText.length >= 200 ? '…' : ''}
+                                </p>
+                              )}
                             </div>
                           ))}
                         </div>
@@ -829,6 +860,6 @@ function GeneratePageContent() {
             )}
         </div>
       </div>
-    </div>
+    </PageShell>
   )
 }

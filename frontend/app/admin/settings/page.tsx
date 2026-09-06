@@ -58,7 +58,7 @@ export default function AdminSettingsPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-heading font-bold">Settings</h1>
+          <h1 className="text-[1.65rem] font-bold tracking-tight text-gray-900">Settings</h1>
           <p className="text-sm text-muted-foreground mt-1">Manage application preferences</p>
         </div>
         <Button className="gap-2">

@@ -1,0 +1,48 @@
+# PakVoice AI - local and single-host deployment.
+#
+# There is no Postgres service here on purpose: the database is Supabase, and
+# pointing at a throwaway local Postgres would mean the dev and production
+# schemas drift. Set SUPABASE_DB_URL in backend/.env instead. With it empty the
+# backend falls back to the JSON file store, which the volumes below persist.
+#
+#   docker compose up --build
+#
+# Backend:  http://localhost:8000/docs
+# Frontend: http://localhost:3000
+
+services:
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      # Only meaningful without Supabase configured. Named volumes keep local
+      # data across rebuilds; with Supabase these directories stay empty.
+      - backend-data:/app/data
+      - backend-uploads:/app/uploads
+      - backend-images:/app/generated_images
+      - backend-chroma:/app/chroma_db
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Baked into the client bundle at build time. For a real deployment set
+        # this to the public backend URL before building.
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  backend-data:
+  backend-uploads:
+  backend-images:
+  backend-chroma:

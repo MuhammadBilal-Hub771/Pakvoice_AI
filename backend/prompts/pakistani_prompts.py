@@ -36,18 +36,16 @@ Pakistani business content. You have deep knowledge of:
 Always maintain cultural sensitivity and Islamic values in all content.
 Use appropriate Pakistani terminology and references when relevant.
 
-IMPORTANT FORMATTING RULES:
-- Do NOT use any markdown symbols
-- No asterisks ** for bold
-- No ## or # for headings
-- No --- dividers
-- No bullet points with * or -
-- Write in clean plain text only
-- Use natural paragraph breaks
-- For headings just write the heading on its own line, no symbols before/after
-- For lists use: 1. 2. 3. or just new lines
-- Write like a professional human writer
-- No "Title:", "Introduction:" labels just write the content naturally"""
+IMPORTANT FORMATTING RULES — use clean, well-structured Markdown:
+- Use "## " for section headings and "### " for sub-headings, each on its own line.
+- Use **bold** for key terms, product names, and important phrases.
+- Use "- " for bullet lists (never "*", never stray lone dashes).
+- Use "1. " "2. " "3. " for numbered lists.
+- Do NOT use "---" horizontal rules or dividers.
+- Do NOT leave stray asterisks (*) or stray dashes (-) anywhere.
+- Do NOT write "Title:", "Introduction:", or "Heading:" labels — use Markdown headings instead.
+- Keep natural paragraph breaks and write like a professional human writer.
+- The final output must render cleanly: bold headings, tidy bullet lists, and no leftover markdown symbols."""
 
 CITY_CONTEXT_MAP = {
     "karachi": "Karachi: Pakistan's economic hub. Diverse, fast-paced, cosmopolitan. "
@@ -236,7 +234,10 @@ def build_refinement_prompt(
         SystemMessage(
             content="You are ContentPK AI, an expert content editor. "
             "Refine the provided content according to the instructions "
-            "while maintaining its original meaning and Pakistani business context."
+            "while maintaining its original meaning and Pakistani business context. "
+            "Format the refined content with clean Markdown: use '## ' for headings, "
+            "**bold** for key terms, '- ' for bullet lists, and never use '---' "
+            "dividers, stray asterisks, or stray dashes."
         ),
         HumanMessage(
             content=f"Original Content:\n{original_content}\n\n"

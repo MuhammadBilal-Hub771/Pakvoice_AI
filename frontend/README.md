@@ -7,11 +7,9 @@ A production-ready Next.js 14 (App Router) frontend for generating culturally-re
 - **Next.js 14** with App Router
 - **TypeScript** (strict mode)
 - **Tailwind CSS v3** with custom design system
-- **Framer Motion** for animations
 - **Zustand** for state management
 - **TanStack Query v5** for API calls
 - **React Hook Form + Zod** for form validation
-- **next-themes** for dark/light mode
 - **Lucide React** for icons
 - **Recharts** for charts
 - **Custom SVG illustrations** (zero raster images)
@@ -44,7 +42,6 @@ A production-ready Next.js 14 (App Router) frontend for generating culturally-re
 ### Design System
 - Pakistani flag-inspired color palette
 - Urdu language support (Noto Nastaliq Urdu font)
-- Dark/Light mode
 - Responsive design (mobile bottom nav)
 - RTL support for Urdu content
 - Animated SVG illustrations
@@ -60,7 +57,7 @@ A production-ready Next.js 14 (App Router) frontend for generating culturally-re
 
 ```bash
 # Navigate to the project directory
-cd pakvoice-ai
+cd frontend
 
 # Install dependencies
 npm install
@@ -78,10 +75,10 @@ Copy `.env.example` to `.env.local`:
 cp .env.example .env.local
 ```
 
-Then edit `.env.local` with your Flask backend URL:
+Then edit `.env.local` with your FastAPI backend URL:
 
 ```env
-NEXT_PUBLIC_FLASK_API_URL=http://localhost:5000
+NEXT_PUBLIC_API_URL=http://localhost:8000
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
@@ -104,9 +101,9 @@ npm run build
 npm start
 ```
 
-## Flask Backend Connection
+## FastAPI Backend Connection
 
-This frontend connects to a Flask backend API. Expected endpoints:
+This frontend connects to a FastAPI backend API. Expected endpoints:
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -123,19 +120,20 @@ This frontend connects to a Flask backend API. Expected endpoints:
 ## Project Structure
 
 ```
-pakvoice-ai/
+frontend/
 ├── app/
 │   ├── (auth)/           # Login & Register pages
-│   ├── (admin)/          # Admin portal pages
-│   ├── (client)/         # Client portal pages
-│   ├── api/              # API route handlers (proxy to Flask)
+│   ├── admin/            # Admin portal pages
+│   ├── client/           # Client portal pages
+│   ├── api/              # API route handlers (proxy to FastAPI)
 │   ├── globals.css       # Global styles & CSS variables
 │   ├── layout.tsx        # Root layout
 │   └── page.tsx          # Root page (redirect)
 ├── components/
-│   ├── ui/               # shadcn/ui primitives
+│   ├── ui/               # UI primitives
 │   ├── admin/            # Admin-specific components
 │   ├── client/           # Client-specific components
+│   ├── marketing/        # Landing page components
 │   ├── shared/           # Shared UI components
 │   └── illustrations/    # Inline SVG components
 ├── hooks/                # TanStack Query hooks

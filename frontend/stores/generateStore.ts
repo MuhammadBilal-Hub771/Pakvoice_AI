@@ -33,7 +33,7 @@ const defaultFormData: ContentFormData = {
   language: 'english',
   tone: 'Professional',
   contentLength: 'medium',
-  useKnowledgeBase: false,
+  useKnowledgeBase: true,
   selectedDocs: [],
 }
 

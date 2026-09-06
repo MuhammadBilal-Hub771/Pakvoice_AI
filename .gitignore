@@ -18,12 +18,27 @@ backend/chroma_db/
 backend/uploads/
 backend/logs/
 backend/generated_images/
+backend/generated_audio/
+backend/generated_videos/
+backend/data/
+backend/docs/
 backend/.env
 
 # Environment files
 .env
 .env.*
 !.env.example
+
+# Ignore local JSON data stores
+backend/data/*.json
+backend/data/
+
+# Ignore environment and secrets
+*.env
+.env
+backend/.env
+frontend/.env.local
+
 
 # ============================
 # Node / Next.js (Frontend)

@@ -5,6 +5,8 @@ import type {
   AdminStats,
   User,
   HistoryFilters,
+  AgentEvent,
+  AgentToolInfo,
 } from '@/types'
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
@@ -18,7 +20,7 @@ class ApiError extends Error {
   }
 }
 
-function getAuthToken(): string | null {
+export function getAuthToken(): string | null {
   if (typeof window === 'undefined') return null
   try {
     const raw = localStorage.getItem('pakvoice-auth')
@@ -58,19 +60,25 @@ export async function fetchApi<T>(
     headers,
   })
 
-  // Auto-clear auth on 401 or 403 (expired/invalid/missing token)
   if (response.status === 401 || response.status === 403) {
-    if (typeof window !== 'undefined') {
+    const error = await response.json().catch(() => ({ detail: 'Not authenticated' }))
+    const raw = error.detail ?? error.message ?? ''
+    const msg = Array.isArray(raw)
+      ? raw.map((d: any) => d.msg || d.message || String(d)).join('; ')
+      : String(raw || (response.status === 403
+        ? 'Session expired. Please login again.'
+        : 'Invalid or expired token. Please login again.'))
+
+    // Only kick the session for actual JWT failures — OpenAI/provider 401s
+    // used to log the user out in the middle of Generate.
+    const isJwtFailure = /token|expired|not authenticated|please login|invalid credentials|could not validate/i.test(msg)
+      && !/openai|api key|provider/i.test(msg)
+
+    if (isJwtFailure && typeof window !== 'undefined') {
       localStorage.removeItem('pakvoice-auth')
-      // Also clear the auth cookie used by middleware
       document.cookie = 'auth-token=; path=/; max-age=0; SameSite=Lax'
-      // Redirect to login page
       window.location.href = '/login'
     }
-    const error = await response.json().catch(() => ({ detail: 'Not authenticated' }))
-    const msg = response.status === 403
-      ? (error.detail || 'Session expired. Please login again.')
-      : (error.detail || 'Invalid or expired token. Please login again.')
     throw new ApiError(msg, response.status)
   }
 
@@ -119,6 +127,7 @@ function mapUserFromBackend(u: any): User {
     createdAt: u.created_at || u.createdAt,
     lastActive: u.updated_at || u.lastActive,
     totalGenerations: u.total_generations || 0,
+    whatsappPhone: u.whatsapp_phone ?? null,
   }
 }
 
@@ -140,8 +149,49 @@ function mapContentFromBackend(c: any): GeneratedContent {
     sources: (c.sources_used || c.sources || []).map((s: any) => ({
       docId: s.doc_id || s.docId || '',
       docName: s.title || s.docName || '',
-      relevance: s.score || s.relevance || 0,
+      relevance: Math.round(((s.score ?? s.relevance) || 0) * (s.score != null && s.score <= 1 ? 100 : 1)),
+      chunkText: s.chunk_text || s.chunkText || '',
     })),
+  }
+}
+
+/** Marker the backend appends after streamed content with RAG source JSON. */
+const SOURCES_STREAM_MARKER = '\n<<<PAKVOICE_SOURCES>>>\n'
+
+function parseStreamedGeneration(raw: string): {
+  content: string
+  sources: Array<{ docId: string; docName: string; relevance: number; chunkText?: string }>
+} {
+  const markerIndex = raw.indexOf(SOURCES_STREAM_MARKER)
+  if (markerIndex === -1) {
+    // Marker may arrive without leading newline if stream framing differs
+    const alt = raw.indexOf('<<<PAKVOICE_SOURCES>>>')
+    if (alt === -1) {
+      return { content: raw, sources: [] }
+    }
+    const before = raw.slice(0, alt).replace(/\n$/, '')
+    const after = raw.slice(alt + '<<<PAKVOICE_SOURCES>>>'.length).replace(/^\n/, '')
+    try {
+      const payload = JSON.parse(after)
+      return {
+        content: before,
+        sources: mapContentFromBackend({ sources_used: payload.sources_used || [] }).sources || [],
+      }
+    } catch {
+      return { content: before, sources: [] }
+    }
+  }
+
+  const content = raw.slice(0, markerIndex)
+  const after = raw.slice(markerIndex + SOURCES_STREAM_MARKER.length)
+  try {
+    const payload = JSON.parse(after)
+    return {
+      content,
+      sources: mapContentFromBackend({ sources_used: payload.sources_used || [] }).sources || [],
+    }
+  } catch {
+    return { content, sources: [] }
   }
 }
 
@@ -255,8 +305,7 @@ export const authApi = {
         email: data.email,
         password: data.password,
         city: data.city || 'Karachi',
-        industry: data.industry || '',
-        role: 'client',
+        industry: data.industry || null,
       }),
     }).then((res) => ({
       token: res.access_token,
@@ -279,8 +328,17 @@ export const generateApi = {
       body: JSON.stringify(mapContentFormToBackend(data)),
     }).then((res) => mapContentFromBackend(res)),
 
-  /** Stream content as it's generated — returns a ReadableStream for real-time display */
-  generateStream: async (data: ContentFormData): Promise<{ stream: ReadableStream<Uint8Array>; contentId: string }> => {
+  /** Stream content as it's generated — returns text plus RAG sources used */
+  generateStream: async (
+    data: ContentFormData
+  ): Promise<{
+    stream: ReadableStream<Uint8Array>
+    contentId: string
+    parseComplete: (raw: string) => {
+      content: string
+      sources: Array<{ docId: string; docName: string; relevance: number; chunkText?: string }>
+    }
+  }> => {
     const token = getAuthToken()
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -297,7 +355,15 @@ export const generateApi = {
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({ detail: 'Stream failed' }))
-      throw new ApiError(error.detail || 'Stream generation failed', response.status)
+      let errorMsg = 'Stream generation failed'
+      if (typeof error.detail === 'string') {
+        errorMsg = error.detail
+      } else if (Array.isArray(error.detail)) {
+        errorMsg = error.detail.map((d: any) => d.msg || d.message || String(d)).join('; ')
+      } else if (error.message) {
+        errorMsg = error.message
+      }
+      throw new ApiError(errorMsg, response.status)
     }
 
     // Read backend content_id from response header
@@ -307,19 +373,17 @@ export const generateApi = {
       throw new ApiError('No response body from stream', 500)
     }
 
-    return { stream: response.body, contentId }
+    return { stream: response.body, contentId, parseComplete: parseStreamedGeneration }
   },
 
   refine: (contentId: string, prompt: string) => {
-    // Get the current generated content from localStorage store
+    // Get the current generated content from Zustand store
     let originalContent = ''
     if (typeof window !== 'undefined') {
       try {
-        const raw = localStorage.getItem('pakvoice-generate')
-        if (raw) {
-          const parsed = JSON.parse(raw)
-          originalContent = parsed?.state?.generatedContent?.content || ''
-        }
+        // Use the generateStore directly (imported lazily to avoid circular deps)
+        const stores = require('@/stores/generateStore')
+        originalContent = stores.useGenerateStore.getState().generatedContent?.content || ''
       } catch {}
     }
     return fetchApi<any>('/api/generate/refine', {
@@ -396,6 +460,208 @@ export const documentsApi = {
 
   delete: (id: string) =>
     fetchApi<void>(`/api/documents/${id}`, { method: 'DELETE' }),
+}
+
+// Speech to text
+export type SttLanguage = 'en' | 'ur' | 'roman-urdu'
+
+export interface TranscribeResult {
+  text: string
+  language: string
+  duration: number
+  model: string
+}
+
+export const sttApi = {
+  /**
+   * Send recorded audio to Whisper. The filename extension matters: the
+   * backend derives the MIME type from it before handing the file to OpenAI.
+   */
+  transcribe: (audio: Blob, language: SttLanguage = 'en') => {
+    const extension = audio.type.includes('mp4')
+      ? 'mp4'
+      : audio.type.includes('ogg')
+        ? 'ogg'
+        : audio.type.includes('mpeg')
+          ? 'mp3'
+          : 'webm'
+
+    const formData = new FormData()
+    formData.append('file', audio, `recording.${extension}`)
+    formData.append('language', language)
+
+    return fetchApi<TranscribeResult>('/api/stt/transcribe', {
+      method: 'POST',
+      body: formData,
+    })
+  },
+}
+
+// Images
+export type ImageType = 'social_media' | 'thumbnail'
+
+export interface GeneratedImage {
+  image_id: string
+  image_url: string
+  image_type: string
+  prompt_used: string
+  brand_details_extracted?: Record<string, unknown> | null
+  storage_path?: string | null
+  generated_at: string
+}
+
+export interface SavedImageItem {
+  id: string
+  user_id: string
+  image_url: string
+  image_type: string
+  source_content: string
+  storage_path?: string | null
+  created_at: string
+}
+
+export const imagesApi = {
+  generate: (content: string, imageType: ImageType) =>
+    fetchApi<GeneratedImage>('/api/images/generate', {
+      method: 'POST',
+      body: JSON.stringify({ content, image_type: imageType }),
+    }),
+
+  /**
+   * Pass image_id and storage_path straight back from the generate response.
+   * Generation already persisted the file, so the gallery record points at the
+   * existing object instead of the server fetching it again.
+   */
+  save: (image: {
+    imageUrl: string
+    imageType: ImageType
+    sourceContent: string
+    imageId?: string
+    storagePath?: string | null
+  }) =>
+    fetchApi<{ status: string; image_id: string; image_url: string }>(
+      '/api/images/save',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          image_url: image.imageUrl,
+          image_type: image.imageType,
+          source_content: image.sourceContent,
+          image_id: image.imageId,
+          storage_path: image.storagePath,
+        }),
+      }
+    ),
+
+  gallery: (filters?: { type?: string; search?: string }) => {
+    const params = new URLSearchParams()
+    if (filters?.type && filters.type !== 'all') params.append('type', filters.type)
+    if (filters?.search) params.append('search', filters.search)
+    const query = params.toString()
+    return fetchApi<{ items: SavedImageItem[]; total: number }>(
+      `/api/images/gallery${query ? `?${query}` : ''}`
+    )
+  },
+
+  delete: (imageId: string) =>
+    fetchApi<{ status: string; message: string }>(`/api/images/${imageId}`, {
+      method: 'DELETE',
+    }),
+}
+
+// WhatsApp account linking
+export interface WhatsAppLinkCode {
+  code: string
+  expires_at: string
+  whatsapp_number?: string | null
+  wa_link?: string | null
+  instructions: string
+}
+
+export interface WhatsAppLinkStatus {
+  linked: boolean
+  phone?: string | null
+  bot_configured?: boolean
+  bot_display_number?: string | null
+}
+
+export const whatsappApi = {
+  status: () => fetchApi<WhatsAppLinkStatus>('/api/auth/whatsapp/status'),
+
+  requestCode: () =>
+    fetchApi<WhatsAppLinkCode>('/api/auth/whatsapp/link-code', {
+      method: 'POST',
+    }),
+
+  unlink: () =>
+    fetchApi<WhatsAppLinkStatus>('/api/auth/whatsapp/link', {
+      method: 'DELETE',
+    }),
+}
+
+// Client Content Agent
+export const agentApi = {
+  tools: () =>
+    fetchApi<{ tools: AgentToolInfo[] }>('/api/agent/tools').then((res) => res.tools || []),
+
+  /**
+   * Stream agent events over SSE. Each `data: {...}` line is parsed and passed
+   * to `onEvent`. The caller owns the UI state; this resolves when the stream ends.
+   */
+  chat: async (
+    goal: string,
+    useKnowledgeBase: boolean,
+    useWebSearch: boolean,
+    onEvent: (event: AgentEvent) => void,
+  ): Promise<void> => {
+    const token = getAuthToken()
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+    if (token) headers['Authorization'] = `Bearer ${token}`
+
+    const response = await fetch(`${BASE_URL}/api/agent/chat`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ goal, use_knowledge_base: useKnowledgeBase, use_web_search: useWebSearch }),
+    })
+
+    if (!response.ok || !response.body) {
+      let message = 'Agent request failed'
+      try {
+        const error = await response.json()
+        if (typeof error.detail === 'string') message = error.detail
+        else if (Array.isArray(error.detail)) {
+          message = error.detail.map((d: any) => d.msg || d.message || String(d)).join('; ')
+        } else if (error.message) message = error.message
+      } catch {
+        // fall through to generic message
+      }
+      throw new ApiError(message, response.status)
+    }
+
+    const reader = response.body.getReader()
+    const decoder = new TextDecoder()
+    let buffer = ''
+
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      buffer += decoder.decode(value, { stream: true })
+
+      let newlineIndex: number
+      while ((newlineIndex = buffer.indexOf('\n')) !== -1) {
+        const line = buffer.slice(0, newlineIndex).trim()
+        buffer = buffer.slice(newlineIndex + 1)
+        if (!line.startsWith('data:')) continue
+        const payload = line.slice(5).trim()
+        if (!payload) continue
+        try {
+          onEvent(JSON.parse(payload) as AgentEvent)
+        } catch {
+          // ignore malformed chunks
+        }
+      }
+    }
+  },
 }
 
 // Admin
