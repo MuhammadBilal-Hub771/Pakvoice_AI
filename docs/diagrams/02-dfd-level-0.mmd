@@ -1,0 +1,20 @@
+%% PakVoice AI — DFD Level 0 (Context Diagram)
+flowchart LR
+  Client([Client])
+  Admin([Admin])
+  OpenAI([OpenAI API])
+  Google([Google OAuth])
+
+  System[["PakVoice AI<br/>Content Generation System"]]
+
+  Client -->|"Auth, generate, upload,<br/>history, images"| System
+  System -->|"Generated content,<br/>images, history, KB status"| Client
+
+  Admin -->|"User mgmt, review,<br/>analytics"| System
+  System -->|"Stats, users,<br/>content lists"| Admin
+
+  System -->|"Prompts, embeddings,<br/>image requests"| OpenAI
+  OpenAI -->|"Text, embeddings,<br/>image data"| System
+
+  Client -.->|"Optional OAuth"| Google
+  Google -.->|"Identity token"| System

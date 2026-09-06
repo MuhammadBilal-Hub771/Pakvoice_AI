@@ -1,0 +1,21 @@
+%% PakVoice AI — Activity: Content Generation
+flowchart TD
+  Start([Start]) --> Auth{JWT valid?}
+  Auth -->|No| Reject([401 Reject])
+  Auth -->|Yes| Form[Receive GenerateRequest]
+  Form --> Validate[Validate business fields<br/>content type industry city language]
+  Validate --> KB{use_knowledge_base?}
+
+  KB -->|No| Prompt
+  KB -->|Yes| Count{Chroma has docs?}
+  Count -->|No| Prompt
+  Count -->|Yes| Embed[Embed search query]
+  Embed --> Search[Retrieve top-k chunks<br/>optional selected_doc_ids]
+  Search --> Prompt[Build Pakistani prompt<br/>+ optional RAG context]
+
+  Prompt --> CallLLM[Call OpenAI LLM<br/>stream or sync]
+  CallLLM --> Ok{Success?}
+  Ok -->|No| Err([Return error])
+  Ok -->|Yes| Save[Save GenerationHistoryItem<br/>to history.json]
+  Save --> Resp[Return content + sources<br/>tokens cost timing]
+  Resp --> End([End])

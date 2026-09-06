@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PakVoice AI — Informational Standee (2ft × 5ft)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --iac-navy: #1d3c78;
+      --navy-deep: #0f2448;
+      --navy-mid: #1a3568;
+      --navy-panel: rgba(22, 48, 92, 0.72);
+      --teal: #5ec4b0;
+      --gold: #d4a84b;
+      --gold-soft: #e8c97a;
+      --cream: #f4f7fb;
+      --muted: rgba(244, 247, 251, 0.72);
+      --line: rgba(232, 201, 122, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: #0a1628;
+      color: var(--cream);
+      font-family: "Source Sans 3", "Segoe UI", sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.1rem;
+      padding: 1.5rem 1rem 2.5rem;
+    }
+
+    .toolbar {
+      width: min(100%, 440px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: center;
+    }
+
+    .toolbar button,
+    .toolbar a {
+      appearance: none;
+      border: 1px solid rgba(232, 201, 122, 0.45);
+      background: rgba(29, 60, 120, 0.85);
+      color: var(--cream);
+      font: 500 0.82rem/1 "Source Sans 3", sans-serif;
+      letter-spacing: 0.04em;
+      padding: 0.55rem 0.9rem;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .toolbar button:hover,
+    .toolbar a:hover,
+    .toolbar button.is-active {
+      background: var(--iac-navy);
+      border-color: var(--gold-soft);
+    }
+
+    .hint {
+      width: min(100%, 440px);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .hint strong { color: var(--gold-soft); font-weight: 600; }
+    .hint code {
+      font-size: 0.78em;
+      color: var(--teal);
+    }
+
+    /* 2ft × 5ft → aspect-ratio 2 / 5 */
+    .frame {
+      --w: min(92vw, 432px);
+      width: var(--w);
+      aspect-ratio: 2 / 5;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .view { display: none; width: 100%; height: 100%; }
+    body[data-view="artwork"] .view--artwork,
+    body[data-view="layout"] .view--layout {
+      display: block;
+    }
+
+    .view--artwork img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .standee {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      isolation: isolate;
+      container-type: inline-size;
+    }
+
+    .standee__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 90% 45% at 75% 12%, rgba(94, 196, 176, 0.16), transparent 55%),
+        radial-gradient(ellipse 70% 40% at 15% 70%, rgba(212, 168, 75, 0.12), transparent 50%),
+        linear-gradient(165deg, var(--navy-deep) 0%, var(--navy-mid) 42%, #16325f 68%, #0c1c36 100%);
+    }
+
+    .standee__bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.14;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 22px,
+          rgba(255, 255, 255, 0.04) 22px,
+          rgba(255, 255, 255, 0.04) 23px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 22px,
+          rgba(255, 255, 255, 0.04) 22px,
+          rgba(255, 255, 255, 0.04) 23px
+        );
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 75%);
+    }
+
+    .standee__inner {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 4.2% 7% 3.8%;
+      gap: 0;
+    }
+
+    /* ——— Header ——— */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6em;
+      margin-bottom: 3.2%;
+    }
+
+    .header__text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .brand {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(1.65rem, 9.2cqi, 2.85rem);
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      color: #fff;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand-rule {
+      width: 2.4em;
+      height: 2px;
+      margin: 0.35em 0 0.4em;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border: 0;
+    }
+
+    .subtitle {
+      font-size: clamp(0.48rem, 2.35cqi, 0.72rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gold-soft);
+      line-height: 1.25;
+    }
+
+    .header img {
+      width: 18%;
+      min-width: 52px;
+      max-width: 78px;
+      height: auto;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    /* ——— Sections ——— */
+    .section {
+      margin-bottom: 2.6%;
+    }
+
+    .section-label {
+      font-size: clamp(0.42rem, 2cqi, 0.62rem);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.45em;
+    }
+
+    .about-text {
+      font-size: clamp(0.52rem, 2.45cqi, 0.78rem);
+      line-height: 1.4;
+      color: rgba(244, 247, 251, 0.92);
+      font-weight: 500;
+    }
+
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.38em;
+    }
+
+    .features li {
+      position: relative;
+      padding-left: 0.95em;
+      font-size: clamp(0.48rem, 2.3cqi, 0.72rem);
+      font-weight: 500;
+      line-height: 1.3;
+      color: rgba(244, 247, 251, 0.92);
+    }
+
+    .features li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.42em;
+      width: 0.35em;
+      height: 0.35em;
+      background: var(--teal);
+      transform: rotate(45deg);
+    }
+
+    /* ——— Flow ——— */
+    .flow-section {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      margin-bottom: 2%;
+    }
+
+    .flow {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+      justify-content: space-evenly;
+    }
+
+    .flow__step {
+      position: relative;
+      background: var(--navy-panel);
+      border: 1px solid rgba(94, 196, 176, 0.28);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 0.42em 0.65em;
+      font-size: clamp(0.46rem, 2.2cqi, 0.7rem);
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--cream);
+    }
+
+    .flow__step span {
+      display: inline-block;
+      margin-right: 0.35em;
+      color: var(--gold-soft);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .flow__connector {
+      display: flex;
+      justify-content: center;
+      height: 0.55em;
+      position: relative;
+    }
+
+    .flow__connector::before {
+      content: "";
+      width: 1.5px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--teal), var(--gold));
+      opacity: 0.75;
+    }
+
+    .arch {
+      margin-top: 2.2%;
+      padding: 0.55em 0.5em;
+      border-radius: 4px;
+      background: rgba(15, 36, 72, 0.55);
+      border: 1px solid rgba(94, 196, 176, 0.22);
+      text-align: center;
+    }
+
+    .arch__label {
+      font-size: clamp(0.38rem, 1.7cqi, 0.52rem);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4em;
+    }
+
+    .arch__path {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2em 0.15em;
+      font-size: clamp(0.4rem, 1.9cqi, 0.58rem);
+      font-weight: 600;
+      color: rgba(244, 247, 251, 0.9);
+      line-height: 1.35;
+    }
+
+    .arch__path .node {
+      background: rgba(29, 60, 120, 0.9);
+      border: 1px solid rgba(232, 201, 122, 0.35);
+      border-radius: 3px;
+      padding: 0.22em 0.4em;
+      white-space: nowrap;
+    }
+
+    .arch__path .arrow {
+      color: var(--teal);
+      font-weight: 700;
+      padding: 0 0.05em;
+    }
+
+    /* ——— Tech + footer ——— */
+    .tech {
+      text-align: center;
+      font-size: clamp(0.42rem, 2.05cqi, 0.62rem);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(244, 247, 251, 0.78);
+      padding: 1.4% 0 1.8%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tech .sep {
+      color: var(--teal);
+      margin: 0 0.15em;
+      font-weight: 400;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: clamp(0.4rem, 1.9cqi, 0.58rem);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(244, 247, 251, 0.58);
+      padding-top: 0.4%;
+    }
+
+    @media print {
+      @page {
+        size: 24in 60in;
+        margin: 0;
+      }
+
+      html, body {
+        background: #fff;
+        padding: 0;
+        margin: 0;
+        width: 24in;
+        height: 60in;
+      }
+
+      .toolbar,
+      .hint {
+        display: none !important;
+      }
+
+      .frame {
+        width: 24in;
+        height: 60in;
+        aspect-ratio: auto;
+        box-shadow: none;
+        margin: 0;
+      }
+
+      body[data-view="artwork"] .view--artwork,
+      body[data-view="layout"] .view--layout {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body data-view="layout">
+  <div class="toolbar">
+    <button type="button" data-set-view="artwork">Artwork PNG</button>
+    <button type="button" class="is-active" data-set-view="layout">HTML layout</button>
+    <button type="button" onclick="window.print()">Print / Save PDF</button>
+    <a href="assets/pakvoice-ai-standee-info-flow-5x2.png" download="pakvoice-ai-standee-info-flow-5x2.png">Download PNG</a>
+  </div>
+  <p class="hint">
+    Informational standee · Print size: <strong>2 ft × 5 ft</strong> (W × H).
+    Prefer <code>assets/pakvoice-ai-standee-info-flow-5x2.png</code> for vinyl;
+    use <strong>HTML layout</strong> for sharp flow text when printing PDF.
+  </p>
+
+  <div class="frame" aria-label="PakVoice AI informational standee 2 by 5 feet">
+    <div class="view view--artwork">
+      <img
+        src="assets/pakvoice-ai-standee-info-flow-5x2.png"
+        alt="PakVoice AI informational standee — About, Features, and System Flow"
+        width="1080"
+        height="1920"
+      />
+    </div>
+
+    <div class="view view--layout">
+      <article class="standee">
+        <div class="standee__bg" aria-hidden="true"></div>
+        <div class="standee__inner">
+          <header class="header">
+            <div class="header__text">
+              <h1 class="brand">PakVoice AI</h1>
+              <hr class="brand-rule" />
+              <p class="subtitle">Pakistani Business Content Generator</p>
+            </div>
+            <img
+              src="assets/iac-logo.png"
+              alt="Institute for Art &amp; Culture logo"
+              width="120"
+              height="120"
+            />
+          </header>
+
+          <section class="section" aria-labelledby="about-label">
+            <h2 id="about-label" class="section-label">About the Project</h2>
+            <p class="about-text">
+              An AI tool for Pakistani SMEs to generate marketing content in
+              <strong>English</strong>, <strong>Urdu</strong> &amp;
+              <strong>Roman Urdu</strong> — with local city and industry context.
+            </p>
+          </section>
+
+          <section class="section" aria-labelledby="features-label">
+            <h2 id="features-label" class="section-label">Key Capabilities</h2>
+            <ul class="features">
+              <li>Content generate / stream / refine</li>
+              <li>RAG knowledge base (PDF / DOCX upload)</li>
+              <li>AI image generation</li>
+              <li>Client + Admin portals</li>
+              <li>JWT auth · Pakistani city &amp; industry context</li>
+            </ul>
+          </section>
+
+          <section class="flow-section" aria-labelledby="flow-label">
+            <h2 id="flow-label" class="section-label">System / User Flow</h2>
+            <ol class="flow">
+              <li class="flow__step"><span>01</span> Login</li>
+              <li class="flow__connector" aria-hidden="true"></li>
+              <li class="flow__step"><span>02</span> Enter business details</li>
+              <li class="flow__connector" aria-hidden="true"></li>
+              <li class="flow__step"><span>03</span> Upload KB docs (optional)</li>
+              <li class="flow__connector" aria-hidden="true"></li>
+              <li class="flow__step"><span>04</span> Generate content (OpenAI + RAG)</li>
+              <li class="flow__connector" aria-hidden="true"></li>
+              <li class="flow__step"><span>05</span> Refine / History</li>
+              <li class="flow__connector" aria-hidden="true"></li>
+              <li class="flow__step"><span>06</span> Generate image</li>
+              <li class="flow__connector" aria-hidden="true"></li>
+              <li class="flow__step"><span>07</span> Admin monitors usage</li>
+            </ol>
+
+            <div class="arch">
+              <p class="arch__label">Architecture</p>
+              <div class="arch__path">
+                <span class="node">User</span>
+                <span class="arrow" aria-hidden="true">→</span>
+                <span class="node">Next.js UI</span>
+                <span class="arrow" aria-hidden="true">→</span>
+                <span class="node">FastAPI</span>
+                <span class="arrow" aria-hidden="true">→</span>
+                <span class="node">OpenAI / ChromaDB</span>
+                <span class="arrow" aria-hidden="true">→</span>
+                <span class="node">Response</span>
+              </div>
+            </div>
+          </section>
+
+          <p class="tech">
+            Next.js<span class="sep">·</span>FastAPI<span class="sep">·</span>OpenAI<span class="sep">·</span>ChromaDB
+          </p>
+          <footer class="footer">
+            Final Year Project · Institute for Art &amp; Culture · 2018
+          </footer>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll("[data-set-view]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var view = btn.getAttribute("data-set-view");
+        document.body.setAttribute("data-view", view);
+        document.querySelectorAll("[data-set-view]").forEach(function (b) {
+          b.classList.toggle("is-active", b === btn);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PakVoice AI — FYP Diagrams</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "default",
+      securityLevel: "loose",
+      flowchart: { htmlLabels: true, curve: "basis" },
+      sequence: { mirrorActors: false },
+      er: { layoutDirection: "TB" },
+    });
+  </script>
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --ink: #1a1a1a;
+      --muted: #5a5a5a;
+      --accent: #0b6e4f;
+      --card: #ffffff;
+      --border: #d8d2c4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Georgia, serif;
+      background:
+        radial-gradient(circle at 10% 0%, #e8f2ec 0%, transparent 40%),
+        radial-gradient(circle at 90% 10%, #efe8d8 0%, transparent 35%),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    header {
+      padding: 2rem 1.5rem 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    header h1 {
+      margin: 0 0 0.35rem;
+      font-size: 1.85rem;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    header p { margin: 0; color: var(--muted); max-width: 60ch; }
+    nav {
+      max-width: 1100px;
+      margin: 0 auto 1.5rem;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    nav a {
+      font-size: 0.8rem;
+      text-decoration: none;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+    }
+    nav a:hover { background: #e8f2ec; }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    figure.diagram {
+      margin: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.25rem 1rem;
+      page-break-inside: avoid;
+    }
+    figure.diagram h2 {
+      margin: 0 0 0.25rem;
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+    figure.diagram .meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.85rem;
+    }
+    .mermaid {
+      overflow-x: auto;
+      background: #fafaf8;
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+    }
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      padding-bottom: 2rem;
+    }
+    @media print {
+      body { background: white; }
+      nav { display: none; }
+      figure.diagram {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PakVoice AI — FYP Diagrams</h1>
+    <p>
+      Open this file in a browser, then screenshot each figure (or print to PDF)
+      for your Word report. Mermaid v10 loaded from CDN. Sources live beside this page as <code>.mmd</code> files.
+    </p>
+  </header>
+
+  <nav>
+    <a href="#fig-01">01 Use Case</a>
+    <a href="#fig-02">02 DFD L0</a>
+    <a href="#fig-03">03 DFD L1</a>
+    <a href="#fig-04">04 DFD L2</a>
+    <a href="#fig-05">05 Architecture</a>
+    <a href="#fig-06">06 Class</a>
+    <a href="#fig-07">07 Seq Login</a>
+    <a href="#fig-08">08 Seq Generate</a>
+    <a href="#fig-09">09 Seq Upload</a>
+    <a href="#fig-10">10 Collaboration</a>
+    <a href="#fig-11">11 Activity</a>
+    <a href="#fig-12">12 State Auth</a>
+    <a href="#fig-13">13 ERD</a>
+    <a href="#fig-14">14 Deployment</a>
+    <a href="#fig-15">15 Algorithm</a>
+  </nav>
+
+  <main>
+    <figure class="diagram" id="fig-01">
+      <h2>Figure 01 — System Use Case Diagram</h2>
+      <div class="meta">Source: 01-use-case.mmd</div>
+      <pre class="mermaid">
+flowchart TB
+  subgraph Actors
+    Client([Client])
+    Admin([Admin])
+    Google([Google OAuth])
+    OpenAI([OpenAI API])
+  end
+
+  subgraph System["PakVoice AI System"]
+    UC1[Register / Login]
+    UC2[Generate Content]
+    UC3[Use RAG Knowledge Base]
+    UC4[Upload Document]
+    UC5[View / Save History]
+    UC6[Generate Image / Poster]
+    UC7[Manage Image Gallery]
+    UC8[Manage Users]
+    UC9[Review Content]
+    UC10[View Analytics]
+    UC11[Manage API Keys]
+  end
+
+  Client --> UC1
+  Client --> UC2
+  Client --> UC3
+  Client --> UC4
+  Client --> UC5
+  Client --> UC6
+  Client --> UC7
+
+  Admin --> UC1
+  Admin --> UC8
+  Admin --> UC9
+  Admin --> UC10
+  Admin --> UC11
+
+  UC1 -.->|optional| Google
+  UC2 --> OpenAI
+  UC3 --> OpenAI
+  UC6 --> OpenAI
+
+  UC2 -.->|includes| UC3
+  UC4 -.->|feeds| UC3
+      </pre>
+      <figcaption>Actors: Client, Admin; external: OpenAI, optional Google OAuth. Features match the live Next.js + FastAPI app.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-02">
+      <h2>Figure 02 — DFD Level 0</h2>
+      <div class="meta">Source: 02-dfd-level-0.mmd</div>
+      <pre class="mermaid">
+flowchart LR
+  Client([Client])
+  Admin([Admin])
+  OpenAI([OpenAI API])
+  Google([Google OAuth])
+
+  System[["PakVoice AI<br/>Content Generation System"]]
+
+  Client -->|"Auth, generate, upload,<br/>history, images"| System
+  System -->|"Generated content,<br/>images, history, KB status"| Client
+
+  Admin -->|"User mgmt, review,<br/>analytics"| System
+  System -->|"Stats, users,<br/>content lists"| Admin
+
+  System -->|"Prompts, embeddings,<br/>image requests"| OpenAI
+  OpenAI -->|"Text, embeddings,<br/>image data"| System
+
+  Client -.->|"Optional OAuth"| Google
+  Google -.->|"Identity token"| System
+      </pre>
+      <figcaption>Context diagram: system as a single process with external entities.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-03">
+      <h2>Figure 03 — DFD Level 1</h2>
+      <div class="meta">Source: 03-dfd-level-1.mmd</div>
+      <pre class="mermaid">
+flowchart TB
+  Client([Client])
+  Admin([Admin])
+  OpenAI([OpenAI])
+
+  P1[["1.0 Authenticate"]]
+  P2[["2.0 Generate Content"]]
+  P3[["3.0 Manage Documents"]]
+  P4[["4.0 Manage History"]]
+  P5[["5.0 Generate Images"]]
+  P6[["6.0 Admin Operations"]]
+
+  D1[("D1 Users<br/>JSON")]
+  D2[("D2 History<br/>JSON")]
+  D3[("D3 Documents<br/>JSON")]
+  D4[("D4 Images<br/>JSON")]
+  D5[("D5 Chroma<br/>Chunks")]
+
+  Client --> P1
+  Client --> P2
+  Client --> P3
+  Client --> P4
+  Client --> P5
+  Admin --> P1
+  Admin --> P6
+
+  P1 <--> D1
+  P2 --> OpenAI
+  P2 <--> D5
+  P2 --> D2
+  P3 --> D3
+  P3 --> D5
+  P4 <--> D2
+  P5 --> OpenAI
+  P5 --> D4
+  P6 <--> D1
+  P6 --> D2
+      </pre>
+      <figcaption>Major processes map to FastAPI routers and JSON/Chroma data stores.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-04">
+      <h2>Figure 04 — DFD Level 2 Generate + RAG</h2>
+      <div class="meta">Source: 04-dfd-level-2-generate-rag.mmd</div>
+      <pre class="mermaid">
+flowchart TB
+  Client([Client])
+  OpenAI([OpenAI API])
+
+  P21[["2.1 Validate Request<br/>+ JWT"]]
+  P22[["2.2 Build Search Query"]]
+  P23[["2.3 Embed Query"]]
+  P24[["2.4 Retrieve Chunks"]]
+  P25[["2.5 Build Prompt"]]
+  P26[["2.6 Call LLM"]]
+  P27[["2.7 Save History"]]
+
+  D2[("D2 History JSON")]
+  D5[("D5 Chroma Chunks")]
+
+  Client -->|"GenerateRequest<br/>+ Bearer token"| P21
+  P21 --> P22
+  P22 -->|"business + industry<br/>+ city + content_type"| P23
+  P23 -->|"query embedding"| P24
+  P24 <-->|"similarity search<br/>optional doc_ids filter"| D5
+  P24 -->|"top-k chunks"| P25
+  P25 -->|"system + user prompt<br/>+ RAG context"| P26
+  P26 <-->|"chat completion"| OpenAI
+  P26 -->|"generated content"| P27
+  P27 --> D2
+  P27 -->|"GenerateResponse / stream"| Client
+      </pre>
+      <figcaption>Decomposition of content generation with optional RAG retrieval.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-05">
+      <h2>Figure 05 — System Architecture</h2>
+      <div class="meta">Source: 05-system-architecture.mmd</div>
+      <pre class="mermaid">
+flowchart TB
+  subgraph ClientLayer["Client Layer"]
+    Browser[Web Browser]
+  end
+
+  subgraph Frontend["Frontend — Next.js 14 + TypeScript"]
+    Pages[App Router Pages<br/>Auth / Client / Admin]
+    Zustand[Zustand Stores]
+    TQ[TanStack Query]
+    APIClient[API Client lib/api.ts]
+  end
+
+  subgraph Backend["Backend — FastAPI + Uvicorn"]
+    Routers[API Routers<br/>auth generate documents<br/>history images admin health]
+    Services[Services<br/>AI RAG Document<br/>History Image Embedding]
+    Security[JWT Security<br/>+ Middleware]
+  end
+
+  subgraph Data["Data Layer"]
+    JSON[("JSON Store<br/>users history<br/>documents images")]
+    Chroma[("ChromaDB<br/>vector chunks")]
+    Files[("File Storage<br/>uploads + generated_images")]
+  end
+
+  subgraph External["External Services"]
+    OpenAI[OpenAI<br/>GPT + Embeddings<br/>+ Image models]
+    Google[Google OAuth<br/>optional]
+    Vercel[Vercel Hosting]
+    VPS[VPS / Server<br/>Backend]
+  end
+
+  Browser --> Pages
+  Pages --> Zustand
+  Pages --> TQ
+  TQ --> APIClient
+  APIClient -->|"REST / SSE"| Routers
+  Routers --> Security
+  Routers --> Services
+  Services --> JSON
+  Services --> Chroma
+  Services --> Files
+  Services --> OpenAI
+  Routers -.-> Google
+  Vercel -.-> Pages
+  VPS -.-> Routers
+      </pre>
+      <figcaption>Stack: Next.js frontend, FastAPI backend, OpenAI, ChromaDB, JSON persistence.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-06">
+      <h2>Figure 06 — Class Diagram</h2>
+      <div class="meta">Source: 06-class-diagram.mmd</div>
+      <pre class="mermaid">
+classDiagram
+  class User {
+    +str id
+    +str name
+    +str email
+    +str city
+    +str industry
+    +UserRole role
+    +str hashed_password
+    +bool is_active
+    +datetime created_at
+  }
+
+  class UserRole {
+    <<enumeration>>
+    admin
+    client
+  }
+
+  class GenerateRequest {
+    +str business_name
+    +str business_description
+    +ContentType content_type
+    +Industry industry
+    +City city
+    +Language language
+    +Tone tone
+    +bool use_knowledge_base
+    +List selected_doc_ids
+  }
+
+  class GenerationHistoryItem {
+    +str content_id
+    +str user_id
+    +str generated_content
+    +int tokens_used
+    +List sources_used
+    +bool is_saved
+    +bool is_flagged
+  }
+
+  class Document {
+    +str doc_id
+    +str title
+    +str category
+    +List tags
+    +str filename
+    +int chunks_created
+    +DocumentStatus status
+    +str uploaded_by
+  }
+
+  class DocumentStatus {
+    <<enumeration>>
+    processing
+    processed
+    failed
+  }
+
+  class SavedImage {
+    +str id
+    +str user_id
+    +str image_url
+    +str image_type
+    +str source_content
+    +datetime created_at
+  }
+
+  class ChromaChunk {
+    +str chunk_id
+    +str doc_id
+    +str text
+    +List embedding
+    +dict metadata
+  }
+
+  class AIService {
+    +generate_content()
+    +generate_content_stream()
+    +refine_content()
+    -_retrieve_context()
+  }
+
+  class RAGService {
+    +search()
+    +index_document_chunks()
+    +get_document_count()
+  }
+
+  class DocumentService {
+    +process_upload()
+    +list_documents()
+    +delete_document()
+  }
+
+  class ImageService {
+    +generate_image()
+    +save_image()
+    +list_gallery()
+  }
+
+  class HistoryService {
+    +save()
+    +list()
+    +export()
+  }
+
+  User --> UserRole
+  User "1" --> "*" GenerationHistoryItem : owns
+  User "1" --> "*" Document : uploads
+  User "1" --> "*" SavedImage : owns
+  Document "1" --> "*" ChromaChunk : indexed_as
+  GenerateRequest ..> AIService : input
+  AIService --> RAGService : uses
+  AIService --> HistoryService : saves
+  DocumentService --> RAGService : indexes
+  AIService ..> GenerationHistoryItem : creates
+  ImageService ..> SavedImage : creates
+      </pre>
+      <figcaption>Logical classes from Pydantic models and backend services.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-07">
+      <h2>Figure 07 — Sequence: Login</h2>
+      <div class="meta">Source: 07-sequence-login.mmd</div>
+      <pre class="mermaid">
+sequenceDiagram
+  actor Client
+  participant UI as Next.js Login Page
+  participant API as FastAPI /api/auth
+  participant Store as JSON Store users.json
+  participant JWT as Security JWT
+
+  Client->>UI: Enter email, password, role
+  UI->>API: POST /api/auth/login
+  API->>Store: authenticate_user(email, password, role)
+  alt Invalid credentials
+    Store-->>API: null
+    API-->>UI: 401 Unauthorized
+    UI-->>Client: Show error
+  else Valid user
+    Store-->>API: User record
+    API->>JWT: create_access_token(sub, email, role)
+    JWT-->>API: access_token
+    API-->>UI: TokenResponse + user
+    UI->>UI: Persist token in authStore
+    UI-->>Client: Redirect to Client or Admin portal
+  end
+
+  Note over Client,JWT: Optional path: GET /api/auth/google → Google OAuth → callback → JWT
+      </pre>
+      <figcaption>Email/password login with JWT; Google OAuth is an optional alternate path.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-08">
+      <h2>Figure 08 — Sequence: Generate + RAG</h2>
+      <div class="meta">Source: 08-sequence-generate-rag.mmd</div>
+      <pre class="mermaid">
+sequenceDiagram
+  actor Client
+  participant UI as Next.js Generate Page
+  participant API as FastAPI /api/generate
+  participant AI as AIService
+  participant RAG as RAGService
+  participant Emb as EmbeddingService
+  participant Chroma as ChromaDB
+  participant OpenAI as OpenAI API
+  participant Hist as JSON History
+
+  Client->>UI: Fill form + optional KB docs
+  UI->>API: POST /api/generate/content/stream + JWT
+  API->>AI: generate_content_stream(request, user_id)
+
+  alt use_knowledge_base = true and KB not empty
+    AI->>RAG: search(query, doc_ids)
+    RAG->>Emb: embed_query(query)
+    Emb->>OpenAI: Embedding request
+    OpenAI-->>Emb: query vector
+    Emb-->>RAG: embedding
+    RAG->>Chroma: similarity search top-k
+    Chroma-->>RAG: chunks + metadata
+    RAG-->>AI: context chunks
+  else KB disabled or empty
+    AI->>AI: Skip RAG
+  end
+
+  AI->>AI: build_generation_prompt(+ context)
+  AI->>OpenAI: Chat completion stream
+  OpenAI-->>AI: token chunks
+  AI-->>API: stream text
+  API-->>UI: SSE / text stream
+  UI-->>Client: Show content live
+
+  AI->>Hist: save_generation_history(...)
+  Hist-->>AI: saved
+      </pre>
+      <figcaption>Streaming generation with optional Chroma retrieval before the LLM call.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-09">
+      <h2>Figure 09 — Sequence: Upload Document</h2>
+      <div class="meta">Source: 09-sequence-upload.mmd</div>
+      <pre class="mermaid">
+sequenceDiagram
+  actor Client
+  participant UI as Knowledge Base Page
+  participant API as FastAPI /api/documents
+  participant DocSvc as DocumentService
+  participant Parser as File Parser
+  participant Clean as Text Cleaner
+  participant RAG as RAGService
+  participant Emb as EmbeddingService
+  participant OpenAI as OpenAI API
+  participant Chroma as ChromaDB
+  participant Meta as JSON Documents
+
+  Client->>UI: Select PDF/DOCX/TXT/MD + title/category
+  UI->>API: POST /api/documents/upload + JWT
+  API->>DocSvc: process_upload(file, title, category, tags, user_id)
+
+  DocSvc->>DocSvc: Validate type + size
+  DocSvc->>DocSvc: Save file to uploads/
+  DocSvc->>Parser: parse_uploaded_file(bytes)
+  Parser-->>DocSvc: raw text
+  DocSvc->>Clean: clean_text + chunk_text
+  Clean-->>DocSvc: text chunks
+
+  DocSvc->>RAG: index_document_chunks(doc_id, chunks, metadata)
+  RAG->>Emb: embed_texts(chunks)
+  Emb->>OpenAI: Embedding batch
+  OpenAI-->>Emb: vectors
+  Emb-->>RAG: embeddings
+  RAG->>Chroma: add_documents(ids, embeddings, chunks)
+  Chroma-->>RAG: ok
+  RAG-->>DocSvc: indexed
+
+  DocSvc->>Meta: save_document_metadata(...)
+  Meta-->>DocSvc: saved
+  DocSvc-->>API: DocumentUploadResponse
+  API-->>UI: doc_id, chunks_created, status
+  UI-->>Client: Document listed in KB
+      </pre>
+      <figcaption>Upload pipeline: parse → chunk → embed → Chroma index → JSON metadata.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-10">
+      <h2>Figure 10 — Collaboration: Generate + RAG</h2>
+      <div class="meta">Source: 10-collaboration-generate-rag.mmd</div>
+      <pre class="mermaid">
+flowchart LR
+  Client([Client])
+  UI[GeneratePage]
+  API[GenerateRouter]
+  AI[AIService]
+  RAG[RAGService]
+  Emb[EmbeddingService]
+  Chroma[(ChromaDB)]
+  OpenAI[OpenAI]
+  Hist[(History JSON)]
+
+  Client -->|"1: submit form"| UI
+  UI -->|"2: POST stream"| API
+  API -->|"3: generate_content_stream"| AI
+  AI -->|"4: search"| RAG
+  RAG -->|"5: embed_query"| Emb
+  Emb -->|"6: embeddings API"| OpenAI
+  RAG -->|"7: similarity search"| Chroma
+  Chroma -->|"8: chunks"| RAG
+  RAG -->|"9: context"| AI
+  AI -->|"10: chat stream"| OpenAI
+  OpenAI -->|"11: tokens"| AI
+  AI -->|"12: stream text"| API
+  API -->|"13: stream"| UI
+  AI -->|"14: save history"| Hist
+  UI -->|"15: display"| Client
+      </pre>
+      <figcaption>Numbered object collaborations for the generate + RAG scenario.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-11">
+      <h2>Figure 11 — Activity: Content Generation</h2>
+      <div class="meta">Source: 11-activity-generation.mmd</div>
+      <pre class="mermaid">
+flowchart TD
+  Start([Start]) --> Auth{JWT valid?}
+  Auth -->|No| Reject([401 Reject])
+  Auth -->|Yes| Form[Receive GenerateRequest]
+  Form --> Validate[Validate business fields<br/>content type industry city language]
+  Validate --> KB{use_knowledge_base?}
+
+  KB -->|No| Prompt
+  KB -->|Yes| Count{Chroma has docs?}
+  Count -->|No| Prompt
+  Count -->|Yes| Embed[Embed search query]
+  Embed --> Search[Retrieve top-k chunks<br/>optional selected_doc_ids]
+  Search --> Prompt[Build Pakistani prompt<br/>+ optional RAG context]
+
+  Prompt --> CallLLM[Call OpenAI LLM<br/>stream or sync]
+  CallLLM --> Ok{Success?}
+  Ok -->|No| Err([Return error])
+  Ok -->|Yes| Save[Save GenerationHistoryItem<br/>to history.json]
+  Save --> Resp[Return content + sources<br/>tokens cost timing]
+  Resp --> End([End])
+      </pre>
+      <figcaption>Control-flow activity for authenticated content generation.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-12">
+      <h2>Figure 12 — State: Auth Session</h2>
+      <div class="meta">Source: 12-state-auth.mmd</div>
+      <pre class="mermaid">
+stateDiagram-v2
+  [*] --> Anonymous
+
+  Anonymous --> Authenticating: Submit login / Google OAuth
+  Authenticating --> Authenticated: Valid credentials + JWT issued
+  Authenticating --> Anonymous: Invalid credentials / OAuth fail
+
+  Authenticated --> Active: Token stored in authStore
+  Active --> Refreshing: Token near expiry / refresh call
+  Refreshing --> Active: Refresh success
+  Refreshing --> Anonymous: Refresh fail
+
+  Active --> LoggingOut: User logout
+  LoggingOut --> Anonymous: Token blacklisted + store cleared
+
+  Active --> Expired: Token expired / blacklisted
+  Expired --> Anonymous: Clear session
+      </pre>
+      <figcaption>JWT session lifecycle from anonymous through logout / expiry.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-13">
+      <h2>Figure 13 — Logical ERD</h2>
+      <div class="meta">Source: 13-erd.mmd</div>
+      <pre class="mermaid">
+erDiagram
+  USER ||--o{ HISTORY : owns
+  USER ||--o{ DOCUMENT : uploads
+  USER ||--o{ IMAGE : owns
+  DOCUMENT ||--o{ CHROMA_CHUNK : indexed_as
+  HISTORY }o--o{ DOCUMENT : may_cite
+
+  USER {
+    string id PK
+    string name
+    string email UK
+    string hashed_password
+    string city
+    string industry
+    string role
+    boolean is_active
+    datetime created_at
+  }
+
+  HISTORY {
+    string content_id PK
+    string user_id FK
+    string business_name
+    string content_type
+    string industry
+    string city
+    string language
+    string tone
+    text generated_content
+    int tokens_used
+    float cost_usd
+    boolean is_saved
+    boolean is_flagged
+    datetime created_at
+  }
+
+  DOCUMENT {
+    string doc_id PK
+    string title
+    string category
+    string filename
+    string file_path
+    int word_count
+    int chunks_created
+    string status
+    string uploaded_by FK
+    datetime created_at
+  }
+
+  CHROMA_CHUNK {
+    string chunk_id PK
+    string doc_id FK
+    text document
+    vector embedding
+    int chunk_index
+    string title
+    string category
+  }
+
+  IMAGE {
+    string id PK
+    string user_id FK
+    string image_url
+    string image_type
+    text source_content
+    datetime created_at
+  }
+      </pre>
+      <figcaption>Logical data model over JSON stores + Chroma chunk collection.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-14">
+      <h2>Figure 14 — Deployment (Vercel + VPS + OpenAI)</h2>
+      <div class="meta">Source: 14-deployment.mmd</div>
+      <pre class="mermaid">
+flowchart TB
+  Users([Users / Admins])
+
+  subgraph Cloud["Internet"]
+    Users --> Vercel
+  end
+
+  subgraph VercelHost["Vercel"]
+    FE[Next.js 14 Frontend<br/>Static + Server Components]
+  end
+
+  subgraph VPSHost["VPS / Cloud VM"]
+    API[Uvicorn + FastAPI Backend]
+    JSON[(JSON data files)]
+    Chroma[(ChromaDB persist dir)]
+    Uploads[(uploads/)]
+    Images[(generated_images/)]
+    API --- JSON
+    API --- Chroma
+    API --- Uploads
+    API --- Images
+  end
+
+  subgraph Ext["External APIs"]
+    OpenAI[OpenAI API<br/>GPT / Embeddings / Images]
+    Google[Google OAuth]
+  end
+
+  Vercel -->|"HTTPS REST<br/>NEXT_PUBLIC_API_URL"| API
+  API -->|"HTTPS"| OpenAI
+  FE -.->|"optional OAuth redirect"| Google
+  Google -.-> API
+      </pre>
+      <figcaption>Frontend on Vercel; backend + JSON/Chroma/files on VPS; OpenAI as external API.</figcaption>
+    </figure>
+
+    <figure class="diagram" id="fig-15">
+      <h2>Figure 15 — High-level Algorithm Flow</h2>
+      <div class="meta">Source: 15-algorithm-flow.mmd</div>
+      <pre class="mermaid">
+flowchart TD
+  Start([User Action]) --> Choice{Feature}
+
+  Choice -->|Generate Content| G1[Collect form inputs]
+  G1 --> G2{RAG enabled?}
+  G2 -->|Yes| G3[Embed query]
+  G3 --> G4[Chroma top-k retrieve]
+  G4 --> G5[Augment prompt with chunks]
+  G2 -->|No| G5b[Build prompt without KB]
+  G5 --> G6[Call OpenAI chat model]
+  G5b --> G6
+  G6 --> G7[Stream / return text]
+  G7 --> G8[Persist history.json]
+  G8 --> Done([Done])
+
+  Choice -->|Upload Document| U1[Validate file type/size]
+  U1 --> U2[Parse PDF/DOCX/TXT/MD]
+  U2 --> U3[Clean + chunk text]
+  U3 --> U4[Embed chunks]
+  U4 --> U5[Store vectors in Chroma]
+  U5 --> U6[Save metadata documents.json]
+  U6 --> Done
+
+  Choice -->|Generate Image| I1[Receive content + image_type]
+  I1 --> I2[Extract brand details via LLM]
+  I2 --> I3[Build image / poster prompt]
+  I3 --> I4[Call OpenAI image model<br/>and/or Jinja+Playwright render]
+  I4 --> I5[Store file under generated_images/]
+  I5 --> I6[Optional save to images.json gallery]
+  I6 --> Done
+      </pre>
+      <figcaption>Unified high-level flows for generation, document indexing, and image creation.</figcaption>
+    </figure>
+  </main>
+
+  <footer>PakVoice AI FYP — diagrams for report screenshots · Mermaid v10</footer>
+</body>
+</html>

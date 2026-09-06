@@ -1,0 +1,33 @@
+%% PakVoice AI — Deployment: Vercel + VPS + OpenAI
+flowchart TB
+  Users([Users / Admins])
+
+  subgraph Cloud["Internet"]
+    Users --> Vercel
+  end
+
+  subgraph VercelHost["Vercel"]
+    FE[Next.js 14 Frontend<br/>Static + Server Components]
+  end
+
+  subgraph VPSHost["VPS / Cloud VM"]
+    API[Uvicorn + FastAPI Backend]
+    JSON[(JSON data files)]
+    Chroma[(ChromaDB persist dir)]
+    Uploads[(uploads/)]
+    Images[(generated_images/)]
+    API --- JSON
+    API --- Chroma
+    API --- Uploads
+    API --- Images
+  end
+
+  subgraph Ext["External APIs"]
+    OpenAI[OpenAI API<br/>GPT / Embeddings / Images]
+    Google[Google OAuth]
+  end
+
+  Vercel -->|"HTTPS REST<br/>NEXT_PUBLIC_API_URL"| API
+  API -->|"HTTPS"| OpenAI
+  FE -.->|"optional OAuth redirect"| Google
+  Google -.-> API

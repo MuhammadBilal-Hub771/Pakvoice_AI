@@ -1,0 +1,44 @@
+%% PakVoice AI — System Use Case Diagram
+flowchart TB
+  subgraph Actors
+    Client([Client])
+    Admin([Admin])
+    Google([Google OAuth])
+    OpenAI([OpenAI API])
+  end
+
+  subgraph System["PakVoice AI System"]
+    UC1[Register / Login]
+    UC2[Generate Content]
+    UC3[Use RAG Knowledge Base]
+    UC4[Upload Document]
+    UC5[View / Save History]
+    UC6[Generate Image / Poster]
+    UC7[Manage Image Gallery]
+    UC8[Manage Users]
+    UC9[Review Content]
+    UC10[View Analytics]
+    UC11[Manage API Keys]
+  end
+
+  Client --> UC1
+  Client --> UC2
+  Client --> UC3
+  Client --> UC4
+  Client --> UC5
+  Client --> UC6
+  Client --> UC7
+
+  Admin --> UC1
+  Admin --> UC8
+  Admin --> UC9
+  Admin --> UC10
+  Admin --> UC11
+
+  UC1 -.->|optional| Google
+  UC2 --> OpenAI
+  UC3 --> OpenAI
+  UC6 --> OpenAI
+
+  UC2 -.->|includes| UC3
+  UC4 -.->|feeds| UC3

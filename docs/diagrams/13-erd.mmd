@@ -1,0 +1,68 @@
+%% PakVoice AI — Logical ERD (JSON + Chroma logical entities)
+erDiagram
+  USER ||--o{ HISTORY : owns
+  USER ||--o{ DOCUMENT : uploads
+  USER ||--o{ IMAGE : owns
+  DOCUMENT ||--o{ CHROMA_CHUNK : indexed_as
+  HISTORY }o--o{ DOCUMENT : may_cite
+
+  USER {
+    string id PK
+    string name
+    string email UK
+    string hashed_password
+    string city
+    string industry
+    string role
+    boolean is_active
+    datetime created_at
+  }
+
+  HISTORY {
+    string content_id PK
+    string user_id FK
+    string business_name
+    string content_type
+    string industry
+    string city
+    string language
+    string tone
+    text generated_content
+    int tokens_used
+    float cost_usd
+    boolean is_saved
+    boolean is_flagged
+    datetime created_at
+  }
+
+  DOCUMENT {
+    string doc_id PK
+    string title
+    string category
+    string filename
+    string file_path
+    int word_count
+    int chunks_created
+    string status
+    string uploaded_by FK
+    datetime created_at
+  }
+
+  CHROMA_CHUNK {
+    string chunk_id PK
+    string doc_id FK
+    text document
+    vector embedding
+    int chunk_index
+    string title
+    string category
+  }
+
+  IMAGE {
+    string id PK
+    string user_id FK
+    string image_url
+    string image_type
+    text source_content
+    datetime created_at
+  }

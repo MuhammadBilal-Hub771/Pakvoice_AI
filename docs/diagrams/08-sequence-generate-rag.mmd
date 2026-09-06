@@ -1,0 +1,38 @@
+%% PakVoice AI — Sequence: Generate Content + RAG
+sequenceDiagram
+  actor Client
+  participant UI as Next.js Generate Page
+  participant API as FastAPI /api/generate
+  participant AI as AIService
+  participant RAG as RAGService
+  participant Emb as EmbeddingService
+  participant Chroma as ChromaDB
+  participant OpenAI as OpenAI API
+  participant Hist as JSON History
+
+  Client->>UI: Fill form + optional KB docs
+  UI->>API: POST /api/generate/content/stream + JWT
+  API->>AI: generate_content_stream(request, user_id)
+
+  alt use_knowledge_base = true and KB not empty
+    AI->>RAG: search(query, doc_ids)
+    RAG->>Emb: embed_query(query)
+    Emb->>OpenAI: Embedding request
+    OpenAI-->>Emb: query vector
+    Emb-->>RAG: embedding
+    RAG->>Chroma: similarity search top-k
+    Chroma-->>RAG: chunks + metadata
+    RAG-->>AI: context chunks
+  else KB disabled or empty
+    AI->>AI: Skip RAG
+  end
+
+  AI->>AI: build_generation_prompt(+ context)
+  AI->>OpenAI: Chat completion stream
+  OpenAI-->>AI: token chunks
+  AI-->>API: stream text
+  API-->>UI: SSE / text stream
+  UI-->>Client: Show content live
+
+  AI->>Hist: save_generation_history(...)
+  Hist-->>AI: saved

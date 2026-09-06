@@ -1,0 +1,46 @@
+%% PakVoice AI — System Architecture
+flowchart TB
+  subgraph ClientLayer["Client Layer"]
+    Browser[Web Browser]
+  end
+
+  subgraph Frontend["Frontend — Next.js 14 + TypeScript"]
+    Pages[App Router Pages<br/>Auth / Client / Admin]
+    Zustand[Zustand Stores]
+    TQ[TanStack Query]
+    APIClient[API Client lib/api.ts]
+  end
+
+  subgraph Backend["Backend — FastAPI + Uvicorn"]
+    Routers[API Routers<br/>auth generate documents<br/>history images admin health]
+    Services[Services<br/>AI RAG Document<br/>History Image Embedding]
+    Security[JWT Security<br/>+ Middleware]
+  end
+
+  subgraph Data["Data Layer"]
+    JSON[("JSON Store<br/>users history<br/>documents images")]
+    Chroma[("ChromaDB<br/>vector chunks")]
+    Files[("File Storage<br/>uploads + generated_images")]
+  end
+
+  subgraph External["External Services"]
+    OpenAI[OpenAI<br/>GPT + Embeddings<br/>+ Image models]
+    Google[Google OAuth<br/>optional]
+    Vercel[Vercel Hosting]
+    VPS[VPS / Server<br/>Backend]
+  end
+
+  Browser --> Pages
+  Pages --> Zustand
+  Pages --> TQ
+  TQ --> APIClient
+  APIClient -->|"REST / SSE"| Routers
+  Routers --> Security
+  Routers --> Services
+  Services --> JSON
+  Services --> Chroma
+  Services --> Files
+  Services --> OpenAI
+  Routers -.-> Google
+  Vercel -.-> Pages
+  VPS -.-> Routers

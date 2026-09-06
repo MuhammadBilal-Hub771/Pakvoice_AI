@@ -1,0 +1,23 @@
+%% PakVoice AI — State: Auth Session
+stateDiagram-v2
+  [*] --> Anonymous
+
+  Anonymous --> Authenticating: Submit login / Google OAuth
+  Authenticating --> Authenticated: Valid credentials + JWT issued
+  Authenticating --> Anonymous: Invalid credentials / OAuth fail
+
+  Authenticated --> Active: Token stored in authStore
+  Active --> Refreshing: Token near expiry / refresh call
+  Refreshing --> Active: Refresh success
+  Refreshing --> Anonymous: Refresh fail
+
+  Active --> LoggingOut: User logout
+  LoggingOut --> Anonymous: Token blacklisted + store cleared
+
+  Active --> Expired: Token expired / blacklisted
+  Expired --> Anonymous: Clear session
+
+  note right of Authenticated
+    Roles: client | admin
+    Redirect to matching portal
+  end note

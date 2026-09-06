@@ -1,0 +1,39 @@
+%% PakVoice AI — Sequence: Upload Document
+sequenceDiagram
+  actor Client
+  participant UI as Knowledge Base Page
+  participant API as FastAPI /api/documents
+  participant DocSvc as DocumentService
+  participant Parser as File Parser
+  participant Clean as Text Cleaner
+  participant RAG as RAGService
+  participant Emb as EmbeddingService
+  participant OpenAI as OpenAI API
+  participant Chroma as ChromaDB
+  participant Meta as JSON Documents
+
+  Client->>UI: Select PDF/DOCX/TXT/MD + title/category
+  UI->>API: POST /api/documents/upload + JWT
+  API->>DocSvc: process_upload(file, title, category, tags, user_id)
+
+  DocSvc->>DocSvc: Validate type + size
+  DocSvc->>DocSvc: Save file to uploads/
+  DocSvc->>Parser: parse_uploaded_file(bytes)
+  Parser-->>DocSvc: raw text
+  DocSvc->>Clean: clean_text + chunk_text
+  Clean-->>DocSvc: text chunks
+
+  DocSvc->>RAG: index_document_chunks(doc_id, chunks, metadata)
+  RAG->>Emb: embed_texts(chunks)
+  Emb->>OpenAI: Embedding batch
+  OpenAI-->>Emb: vectors
+  Emb-->>RAG: embeddings
+  RAG->>Chroma: add_documents(ids, embeddings, chunks)
+  Chroma-->>RAG: ok
+  RAG-->>DocSvc: indexed
+
+  DocSvc->>Meta: save_document_metadata(...)
+  Meta-->>DocSvc: saved
+  DocSvc-->>API: DocumentUploadResponse
+  API-->>UI: doc_id, chunks_created, status
+  UI-->>Client: Document listed in KB
